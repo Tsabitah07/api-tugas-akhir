@@ -4,6 +4,7 @@ namespace Database\Seeders;
 
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use App\Models\Grade;
+use App\Models\User;
 use Illuminate\Database\Seeder;
 use App\Models\Role;
 
@@ -38,7 +39,7 @@ class DatabaseSeeder extends Seeder
             'role_name' => 'guest'
         ]);
 
-         //GRADE
+        //GRADE
         Grade::create([
             'grade_name' => 'PPLG'
         ]);
@@ -57,6 +58,48 @@ class DatabaseSeeder extends Seeder
 
         Grade::create([
             'grade_name' => 'Teknik Grafika'
+        ]);
+
+        User::create([
+            'name' => 'Admin',
+            'email' => 'admin@ruscarestudent.com',
+            'password' => bcrypt('admin123'),
+            'role_id' => 1
+        ]);
+
+        User::create([
+            'name' => 'bk_anim3D',
+            'email' => 'bk_anim3d@ruscarestudent.com',
+            'password' => bcrypt('anim3d'),
+            'role_id' => 2
+        ]);
+
+        User::create([
+            'name' => 'bk_anim2D',
+            'email' => 'bk_anim2d@ruscarestudent.com',
+            'password' => bcrypt('anim2d'),
+            'role_id' => 2
+        ]);
+
+        User::create([
+            'name' => 'bk_pplg',
+            'email' => 'bk_pplg@ruscarestudent.com',
+            'password' => bcrypt('pplg'),
+            'role_id' => 2
+        ]);
+
+        User::create([
+            'name' => 'bk_designGrafis',
+            'email' => 'bk_dg@ruscarestudent.com',
+            'password' => bcrypt('dg'),
+            'role_id' => 2
+        ]);
+
+        User::create([
+            'name' => 'bk_teknikGrafika',
+            'email' => 'bk_tg@ruscarestudent.com',
+            'password' => bcrypt('tg'),
+            'role_id' => 2
         ]);
     }
 }

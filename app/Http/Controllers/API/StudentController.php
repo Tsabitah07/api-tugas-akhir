@@ -53,4 +53,20 @@ class StudentController extends Controller
             'data' => $student
         ]);
     }
+
+    public function detail($id)
+    {
+        $student = Student::find($id);
+
+        if (!$student) {
+            return response()->json([
+                'message' => 'Data Student tidak ditemukan'
+            ]);
+        }
+
+        return response()->json([
+            'message' => 'Data Student berhasil diambil',
+            'data' => $student
+        ]);
+    }
 }
