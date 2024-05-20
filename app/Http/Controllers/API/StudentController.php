@@ -69,4 +69,14 @@ class StudentController extends Controller
             'data' => $student
         ]);
     }
+
+    public function delete($id)
+    {
+        $student = Student::find($id);
+        $student->delete();
+
+        return response()->json([
+            'message' => 'Data Student berhasil dihapus'
+        ]);
+    }
 }

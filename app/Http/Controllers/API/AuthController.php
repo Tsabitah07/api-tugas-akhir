@@ -74,7 +74,7 @@ class AuthController extends Controller
         ]);
     }
 
-    public function delete(RegisterRequest $request, $id)
+    public function delete($id)
     {
         $user = User::find($id);
         $user->delete();
@@ -92,7 +92,7 @@ class AuthController extends Controller
         $user->name = $request->name;
         $user->email = $request->email;
         $user->password = Hash::make($request->password);
-        $user->role_id = $request->role_id;
+        $user->role_id = $request->role_id = 4;
         $user->save();
 
         return response([
