@@ -31,7 +31,7 @@
 
             <ul class="nav flex-column mb-auto">
                 <li class="nav-item">
-                    <form action="/auth/logout" method="POST">
+                    <form action="/admin/logout" method="POST">
                         @csrf
                         <button class="nav-link d-flex align-items-center gap-2" onclick="return confirm('Are you sure you want to logout?')">
                             Sign out

@@ -16,3 +16,13 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('welcome');
 });
+
+Route::group(['prefix' => 'admin'], function(){
+    Route::get('/login', [App\Http\Controllers\Admin\AuthController::class, 'loginView'])->name('login');
+    Route::post('/login', [App\Http\Controllers\Admin\AuthController::class, 'login'])->name('login');
+    Route::get('/register', [App\Http\Controllers\Admin\AuthController::class, 'registerView'])->name('register');
+    Route::post('/register', [App\Http\Controllers\Admin\AuthController::class, 'register'])->name('register');
+    Route::post('/logout', [App\Http\Controllers\Admin\AuthController::class, 'logout'])->name('logout');
+
+    Route::get('/dashboard/{id}', [App\Http\Controllers\Admin\DashboardController::class, 'index'])->name('dashboard');
+});
