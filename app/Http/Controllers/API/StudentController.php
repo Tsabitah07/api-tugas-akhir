@@ -20,13 +20,18 @@ class StudentController extends Controller
 
     public function store(StudentRequest $request)
     {
+        $request->validated();
+
+        $idImage = $request->file('thumbnail')->store('public/thumbnail');
+        $idImagePath = str_replace('public/', '', $idImage);
+
         $student = [
             'nis' => $request->nis,
             'name' => $request->name,
             'grade_id' => $request->grade_id,
             'phone_number' => $request->phone_number,
             'birth_date' => $request->birth_date,
-            'id_card_image' => $request->id_card_image,
+            'id_card_image' => $request->$idImagePath,
         ];
 
         $students = Student::create($student);

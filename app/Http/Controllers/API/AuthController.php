@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\EditRequest;
 use Illuminate\Http\Request;
 use App\Http\Requests\LoginRequest;
 use App\Http\Requests\RegisterRequest;
@@ -84,7 +85,7 @@ class AuthController extends Controller
         ]);
     }
 
-    public function edit(RegisterRequest $request, $id)
+    public function edit(EditRequest $request, $id)
     {
         $request->validated();
 
@@ -101,7 +102,7 @@ class AuthController extends Controller
         ]);
     }
 
-    public function editUsername(RegisterRequest $request, $id)
+    public function editUsername(EditRequest $request, $id)
     {
         $request->validated();
 
@@ -115,7 +116,7 @@ class AuthController extends Controller
         ]);
     }
 
-    public function editEmail(RegisterRequest $request, $id)
+    public function editEmail(EditRequest $request, $id)
     {
         $request->validated();
 
@@ -129,7 +130,7 @@ class AuthController extends Controller
         ]);
     }
 
-    public function editPassword(RegisterRequest $request, $id)
+    public function editPassword(EditRequest $request, $id)
     {
         $request->validated();
 

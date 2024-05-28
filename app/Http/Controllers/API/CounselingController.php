@@ -90,7 +90,7 @@ class CounselingController extends Controller
 
     public function showByUser($id)
     {
-        $counseling = Counseling::whereUserId($id)->latest()->get();
+        $counseling = Counseling::whereStudentId($id)->latest()->get();
 
         return response()->json([
             'message' => 'Data Counseling berhasil diambil',
