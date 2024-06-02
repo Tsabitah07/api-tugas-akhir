@@ -66,8 +66,10 @@ Route::group(['prefix' => 'data'], function() {
     Route::post('/store-service', [DisplayDataController::class, 'addService']);
     Route::put('/edit-service/{id}', [DisplayDataController::class, 'editService']);
     Route::get('/service', [DisplayDataController::class, 'service']);
+    Route::get('/detail-service/{id}', [DisplayDataController::class, 'detailService']);
 
     Route::post('/store-category', [DisplayDataController::class, 'addCategory']);
     Route::put('/edit-category/{id}', [DisplayDataController::class, 'editCategory']);
     Route::get('/category', [DisplayDataController::class, 'category']);
+    Route::get('/detail-category/{id}', [DisplayDataController::class, 'detailCategory']);
 });

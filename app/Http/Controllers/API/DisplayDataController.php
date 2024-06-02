@@ -55,6 +55,22 @@ class DisplayDataController extends Controller
         ]);
     }
 
+    public function detailService($id)
+    {
+        $data = DataService::find($id);
+
+        if (!$data) {
+            return response()->json([
+                'message' => 'Data tidak ditemukan'
+            ]);
+        }
+
+        return response()->json([
+            'message' => 'Data berhasil diambil',
+            'data' => $data
+        ]);
+    }
+
     public function addCategory(DataRequest $request)
     {
         $request->validated();
@@ -93,6 +109,22 @@ class DisplayDataController extends Controller
     public function category()
     {
         $data = DataCategory::all();
+
+        return response()->json([
+            'message' => 'Data berhasil diambil',
+            'data' => $data
+        ]);
+    }
+
+    public function detailCategory($id)
+    {
+        $data = DataCategory::find($id);
+
+        if (!$data) {
+            return response()->json([
+                'message' => 'Data tidak ditemukan'
+            ]);
+        }
 
         return response()->json([
             'message' => 'Data berhasil diambil',
