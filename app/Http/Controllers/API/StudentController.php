@@ -6,6 +6,8 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\StudentRequest;
 use App\Models\Student;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Str;
 
 class StudentController extends Controller
 {
@@ -22,8 +24,10 @@ class StudentController extends Controller
     {
         $request->validated();
 
-        $idImage = $request->file('thumbnail')->store('public/thumbnail');
-        $idImagePath = str_replace('public/', '', $idImage);
+        if ($request->hasFile('id_card_image')) {
+            $idImage = $request->file('id_card_image')->storeAs('public/images');
+            Storage::url($idImage);
+        }
 
         $student = [
             'nis' => $request->nis,
@@ -31,7 +35,7 @@ class StudentController extends Controller
             'grade_id' => $request->grade_id,
             'phone_number' => $request->phone_number,
             'birth_date' => $request->birth_date,
-            'id_card_image' => $request->$idImagePath,
+            'id_card_image' => $request->$idImage,
         ];
 
         $students = Student::create($student);
@@ -45,13 +49,19 @@ class StudentController extends Controller
     {
         $student = Student::find($id);
 
+        if ($request->hasFile('profile_image')) {
+            Storage::delete('public/images/' . $student->profile_image);
+            $idImage = $request->file('id_card_image')->storeAs('public/images');
+            Storage::url($idImage);
+        }
+
         if (!$student) {
             return response()->json([
                 'message' => 'Data Student tidak ditemukan'
             ]);
         }
 
-        $student->update($request->all());
+        $student->save($request->all());
 
         return response()->json([
             'message' => 'Data Student berhasil diubah',

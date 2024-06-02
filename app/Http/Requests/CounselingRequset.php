@@ -26,7 +26,8 @@ class CounselingRequset extends FormRequest
             'student_id' => 'required|integer',
             'counseling_date' => 'required|date',
             'service' => 'required|string',
-            'subject' => 'required|string'
+            'subject' => 'required|string',
+            'counseling_status_id' => 'required|integer'
         ];
     }
 }

@@ -34,6 +34,7 @@ Route::group(['prefix' => 'auth'], function(){
     Route::post('edit-user/{id}', [AuthController::class, 'editUsername']);
     Route::post('edit-email/{id}', [AuthController::class, 'editEmail']);
     Route::post('edit-password/{id}', [AuthController::class, 'editPassword']);
+    Route::post('edit-image/{id}', [AuthController::class, 'editImage']);
 });
 
 Route::group(['prefix' => 'student'], function() {
@@ -41,12 +42,15 @@ Route::group(['prefix' => 'student'], function() {
     Route::get('/detail/{id}', [StudentController::class, 'detail']);
     Route::post('/add', [StudentController::class, 'store']);
     Route::put('/edit/{id}', [StudentController::class, 'edit']);
+    Route::post('/delete/{id}', [StudentController::class, 'delete']);
 });
 
 Route::group(['prefix' => 'mentor'], function() {
     Route::get('/list', [MentorController::class, 'index']);
     Route::post('/store', [MentorController::class, 'store']);
     Route::put('/edit/{id}', [MentorController::class, 'edit']);
+    Route::get('/detail/{id}', [MentorController::class, 'detail']);
+    Route::post('/delete/{id}', [MentorController::class, 'delete']);
 });
 
 Route::group(['prefix' => 'counseling'], function() {

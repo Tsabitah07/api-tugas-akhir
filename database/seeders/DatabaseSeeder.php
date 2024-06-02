@@ -3,6 +3,7 @@
 namespace Database\Seeders;
 
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+use App\Models\CounselingStatus;
 use App\Models\Grade;
 use App\Models\User;
 use Illuminate\Database\Seeder;
@@ -58,6 +59,18 @@ class DatabaseSeeder extends Seeder
 
         Grade::create([
             'grade_name' => 'Teknik Grafika'
+        ]);
+
+        CounselingStatus::create([
+            'status_name' => 'Pending'
+        ]);
+
+        CounselingStatus::create([
+            'status_name' => 'Success'
+        ]);
+
+        CounselingStatus::create([
+            'status_name' => 'Failed'
         ]);
 
         User::create([

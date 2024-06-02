@@ -11,14 +11,9 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('counselings', function (Blueprint $table) {
+        Schema::create('counseling_statuses', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('grade_id');
-            $table->foreignId('student_id');
-            $table->dateTime('counseling_date');
-            $table->string('service');
-            $table->string('subject');
-            $table->foreignId('counseling_status_id');
+            $table->string('status');
             $table->timestamps();
         });
     }
@@ -28,6 +23,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('counselings');
+        Schema::dropIfExists('counseling_statuses');
     }
 };

@@ -3,12 +3,12 @@
 namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\EditRequest;
-use Illuminate\Http\Request;
-use App\Http\Requests\LoginRequest;
-use App\Http\Requests\RegisterRequest;
+use App\Http\Requests\Auth\EditRequest;
+use App\Http\Requests\Auth\LoginRequest;
+use App\Http\Requests\Auth\RegisterRequest;
 use App\Models\User;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Storage;
 
 class AuthController extends Controller
 {
@@ -16,11 +16,17 @@ class AuthController extends Controller
     {
         $request->validated();
 
+        if ($request->hasFile('image')) {
+            $image = $request->file('image')->storeAs('public/images');
+            Storage::url($image);
+        }
+
         $userData = [
             'name' => $request->name,
             'email' => $request->email,
             'password' => Hash::make($request->password),
-            'role_id' => $request->role_id=4
+            'role_id' => $request->role_id=4,
+            'image' => $image
         ];
 
         $user = User::create($userData);
@@ -88,12 +94,19 @@ class AuthController extends Controller
     public function edit(EditRequest $request, $id)
     {
         $request->validated();
-
         $user = User::find($id);
+
+        if ($request->hasFile('image')) {
+            Storage::delete('public/images/' . $user->image);
+            $image = $request->file('image')->storeAs('public/images');
+            Storage::url($image);
+        }
+
         $user->name = $request->name;
         $user->email = $request->email;
         $user->password = Hash::make($request->password);
         $user->role_id = $request->role_id = 4;
+        $user->image = $image;
         $user->save();
 
         return response([
@@ -140,6 +153,25 @@ class AuthController extends Controller
 
         return response([
             'message' => 'Password has been updated',
+            'user' => $user
+        ]);
+    }
+
+    public function editImage(EditRequest $request, $id)
+    {
+        $request->validated();
+
+        $user = User::find($id);
+        if ($request->hasFile('image')) {
+            Storage::delete('public/images/' . $user->image);
+            $image = $request->file('image')->storeAs('public/images');
+            Storage::url($image);
+        }
+        $user->image = $image;
+        $user->save();
+
+        return response([
+            'message' => 'Image has been updated',
             'user' => $user
         ]);
     }

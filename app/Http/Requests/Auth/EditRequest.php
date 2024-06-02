@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Requests;
+namespace App\Http\Requests\Auth;
 
 use Illuminate\Foundation\Http\FormRequest;
 
@@ -25,6 +25,8 @@ class EditRequest extends FormRequest
             "name" => "string|max:255",
             "email" => "email",
             "password" => "string|min:8",
+            "role_id" => "exists:roles,id",
+            "image" => "image|mimes:jpeg,png,jpg,gif,svg|max:2048",
         ];
     }
 }

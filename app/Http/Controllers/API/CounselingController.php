@@ -26,7 +26,8 @@ class CounselingController extends Controller
             'student_id' => $request->student_id,
             'counseling_date' => $request->counseling_date,
             'service' => $request->service,
-            'subject' => $request->subject
+            'subject' => $request->subject,
+            'counseling_status_id' => $request->counseling_status_id=1
         ];
 
         $counselings = Counseling::create($counseling);
