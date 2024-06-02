@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\API\CounselingController;
+use App\Http\Controllers\API\DisplayDataController;
 use App\Http\Controllers\API\StudentController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -59,4 +60,14 @@ Route::group(['prefix' => 'counseling'], function() {
     Route::put('/edit/{id}', [CounselingController::class, 'edit']);
     Route::get('/detail/{id}', [CounselingController::class, 'detail']);
     Route::post('/delete/{id}', [CounselingController::class, 'delete']);
+});
+
+Route::group(['prefix' => 'data'], function() {
+    Route::post('/store-service', [DisplayDataController::class, 'addService']);
+    Route::put('/edit-service/{id}', [DisplayDataController::class, 'editService']);
+    Route::get('/service', [DisplayDataController::class, 'service']);
+
+    Route::post('/store-category', [DisplayDataController::class, 'addCategory']);
+    Route::put('/edit-category/{id}', [DisplayDataController::class, 'editCategory']);
+    Route::get('/category', [DisplayDataController::class, 'category']);
 });

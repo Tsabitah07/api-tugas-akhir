@@ -15,10 +15,13 @@ class Mentor extends Model
         'grade_id',
         'birth_date',
         'age',
+        'gender',
         'experience',
         'last_education',
+        'last_university',
         'phone_number',
-        'profile_image'
+        'profile_image',
+        'about_me'
     ];
 
     public function user(): BelongsTo

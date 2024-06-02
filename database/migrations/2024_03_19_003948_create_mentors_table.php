@@ -15,13 +15,15 @@ return new class extends Migration
             $table->id();
             $table->unsignedBigInteger('user_id');
             $table->string('name');
-            $table->string('grade_id');
+            $table->foreignId('grade_id');
             $table->string('birth_date');
             $table->integer('age');
+            $table->string('gender');
             $table->string('experience');
             $table->string('last_education');
+            $table->string('last_university');
             $table->string('phone_number');
-            $table->string('profile_image');
+            $table->string('about_me');
             $table->timestamps();
         });
     }

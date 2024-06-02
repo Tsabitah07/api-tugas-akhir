@@ -26,13 +26,16 @@ class MentorController extends Controller
 
         $mentor = [
             'name' => $request->name,
-            'major' => $request->major,
+            'grade_id' => $request->grade_id,
             'birth_date' => $request->birth_date,
             'age' => $request->age,
+            'gender' => $request->gender,
             'experience' => $request->experience,
             'last_education' => $request->last_education,
+            'last_university' => $request->last_university,
             'phone_number' => $request->phone_number,
-            'user_id' => $request->user_id
+            'user_id' => $request->user_id,
+            'about_me' => $request->about_me,
         ];
 
         $mentors = Mentor::create($mentor);
