@@ -62,15 +62,15 @@ class DatabaseSeeder extends Seeder
         ]);
 
         CounselingStatus::create([
-            'status_name' => 'Pending'
+            'status' => 'Pending'
         ]);
 
         CounselingStatus::create([
-            'status_name' => 'Success'
+            'status' => 'Success'
         ]);
 
         CounselingStatus::create([
-            'status_name' => 'Failed'
+            'status' => 'Failed'
         ]);
 
         User::create([
