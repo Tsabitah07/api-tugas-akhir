@@ -64,7 +64,12 @@ class StudentController extends Controller
         }
 
         $data = $request->all();
-        $data['image'] = $imageUrl;
+        $student->nis = $data['nis'];
+        $student->name = $data['name'];
+        $student->grade_id = $data['grade_id'];
+        $student->phone_number = $data['phone_number'];
+        $student->birth_date = $data['birth_date'];
+        $student->id_card_image = $data['image'] = $imageUrl;
 
         $student->save($data);
 

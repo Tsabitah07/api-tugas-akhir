@@ -97,15 +97,24 @@ class AuthController extends Controller
         $request->validated();
         $user = User::find($id);
 
-        if ($request->hasFile('image')) {
-            Storage::delete('public/images/' . $user->image);
-            $imageName = time() . $request->file('image')->getClientOriginalName();
-            $imagePath = $request->file('image')->storeAs('public/images', $imageName);
-            $imageUrl = Storage::url($imagePath);
+        if ($request->hasFile('image') && $request->image != $user->image) {
+            $deleteImage = Storage::delete('public/images/' . $user->image);
+            if ($deleteImage){
+                $imageName = time() . $request->file('image')->getClientOriginalName();
+                $imagePath = $request->file('image')->storeAs('public/images', $imageName);
+                $imageUrl = Storage::url($imagePath);
+            }
+//            $imageName = time() . $request->file('image')->getClientOriginalName();
+//            $imagePath = $request->file('image')->storeAs('public/images', $imageName);
+//            $imageUrl = Storage::url($imagePath);
         }
 
         $data = $request->all();
-        $data['image'] = $imageUrl;
+        $user->name = $data['name'];
+        $user->email = $data['email'];
+        $user->password = Hash::make($data['password']);
+        $user->role_id = $data['role_id'];
+        $user->image = $data['image'] = $imageUrl;
 
         $user->save($data);
 
