@@ -17,8 +17,9 @@ class AuthController extends Controller
         $request->validated();
 
         if ($request->hasFile('image')) {
-            $image = $request->file('image')->storeAs('public/images');
-            Storage::url($image);
+            $imageName = time() . $request->file('image')->getClientOriginalName();
+            $imagePath = $request->file('image')->storeAs('public/images', $imageName);
+            $imageUrl = Storage::url($imagePath);
         }
 
         $userData = [
@@ -26,7 +27,7 @@ class AuthController extends Controller
             'email' => $request->email,
             'password' => Hash::make($request->password),
             'role_id' => $request->role_id=4,
-            'image' => $image
+            'image' => $imageUrl
         ];
 
         $user = User::create($userData);
@@ -98,16 +99,15 @@ class AuthController extends Controller
 
         if ($request->hasFile('image')) {
             Storage::delete('public/images/' . $user->image);
-            $image = $request->file('image')->storeAs('public/images');
-            Storage::url($image);
+            $imageName = time() . $request->file('image')->getClientOriginalName();
+            $imagePath = $request->file('image')->storeAs('public/images', $imageName);
+            $imageUrl = Storage::url($imagePath);
         }
 
-        $user->name = $request->name;
-        $user->email = $request->email;
-        $user->password = Hash::make($request->password);
-        $user->role_id = $request->role_id = 4;
-        $user->image = $image;
-        $user->save();
+        $data = $request->all();
+        $data['image'] = $imageUrl;
+
+        $user->save($data);
 
         return response([
             'message' => 'User has been updated',

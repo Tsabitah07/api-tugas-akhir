@@ -25,8 +25,9 @@ class StudentController extends Controller
         $request->validated();
 
         if ($request->hasFile('id_card_image')) {
-            $idImage = $request->file('id_card_image')->storeAs('public/images');
-            Storage::url($idImage);
+            $imageName = time() . $request->file('image')->getClientOriginalName();
+            $imagePath = $request->file('image')->storeAs('public/images', $imageName);
+            $imageUrl = Storage::url($imagePath);
         }
 
         $student = [
@@ -35,7 +36,7 @@ class StudentController extends Controller
             'grade_id' => $request->grade_id,
             'phone_number' => $request->phone_number,
             'birth_date' => $request->birth_date,
-            'id_card_image' => $request->$idImage,
+            'id_card_image' => $request->$imageUrl,
         ];
 
         $students = Student::create($student);
@@ -49,19 +50,23 @@ class StudentController extends Controller
     {
         $student = Student::find($id);
 
-        if ($request->hasFile('profile_image')) {
-            Storage::delete('public/images/' . $student->profile_image);
-            $idImage = $request->file('id_card_image')->storeAs('public/images');
-            Storage::url($idImage);
-        }
-
         if (!$student) {
             return response()->json([
                 'message' => 'Data Student tidak ditemukan'
             ]);
         }
 
-        $student->save($request->all());
+        if ($request->hasFile('id_card_image')) {
+            Storage::delete('public/studentId/' . $student->image);
+            $imageName = time() . $request->file('id_card_image')->getClientOriginalName();
+            $imagePath = $request->file('image')->storeAs('public/studentId', $imageName);
+            $imageUrl = Storage::url($imagePath);
+        }
+
+        $data = $request->all();
+        $data['image'] = $imageUrl;
+
+        $student->save($data);
 
         return response()->json([
             'message' => 'Data Student berhasil diubah',
