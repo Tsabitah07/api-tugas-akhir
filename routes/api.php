@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\API\ArticleController;
 use App\Http\Controllers\API\CounselingController;
 use App\Http\Controllers\API\DisplayDataController;
 use App\Http\Controllers\API\StudentController;
@@ -60,6 +61,13 @@ Route::group(['prefix' => 'counseling'], function() {
     Route::put('/edit/{id}', [CounselingController::class, 'edit']);
     Route::get('/detail/{id}', [CounselingController::class, 'detail']);
     Route::post('/delete/{id}', [CounselingController::class, 'delete']);
+});
+
+Route::group(['prefix' => 'article'], function() {
+    Route::post('/store', [ArticleController::class, 'store']);
+    Route::get('/list', [ArticleController::class, 'index']);
+    Route::post('/edit/{id}', [ArticleController::class, 'edit']);
+    Route::post('/delete/{id}', [ArticleController::class, 'delete']);
 });
 
 Route::group(['prefix' => 'data'], function() {

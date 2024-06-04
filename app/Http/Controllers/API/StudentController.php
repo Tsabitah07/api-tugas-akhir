@@ -63,9 +63,6 @@ class StudentController extends Controller
                 $imagePath = $request->file('id_card_image')->storeAs('public/id_card', $imageName);
                 $imageUrl = Storage::url($imagePath);
             }
-//            $imageName = time() . $request->file('id_card_image')->getClientOriginalName();
-//            $imagePath = $request->file('image')->storeAs('public/studentId', $imageName);
-//            $imageUrl = Storage::url($imagePath);
         }
 
         $data = $request->all();
