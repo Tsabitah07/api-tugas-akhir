@@ -13,12 +13,12 @@ return new class extends Migration
     {
         Schema::create('students', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('user_id');
             $table->string('nis')->unique();
             $table->string('name');
-            $table->unsignedBigInteger('user_id');
             $table->string('grade_id');
             $table->string('phone_number');
-            $table->dateTime('birth_date');
+            $table->string('birth_date');
             $table->string('id_card_image');
             $table->timestamps();
         });

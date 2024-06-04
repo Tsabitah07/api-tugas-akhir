@@ -17,7 +17,7 @@ return new class extends Migration
             $table->string('name');
             $table->foreignId('grade_id');
             $table->string('birth_date');
-            $table->integer('age');
+            $table->integer('age')->nullable();
             $table->string('gender');
             $table->string('experience');
             $table->string('last_education');

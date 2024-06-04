@@ -20,7 +20,7 @@ class Mentor extends Model
         'last_education',
         'last_university',
         'phone_number',
-        'profile_image',
+        'user_id',
         'about_me'
     ];
 

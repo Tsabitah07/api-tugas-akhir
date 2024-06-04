@@ -3,9 +3,9 @@
 namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\CounselingRequset;
+use App\Http\Requests\Counseling\CounselingRequset;
+use App\Http\Requests\Counseling\EditCounselingRequest;
 use App\Models\Counseling;
-use Illuminate\Http\Request;
 
 class CounselingController extends Controller
 {
@@ -38,7 +38,7 @@ class CounselingController extends Controller
         ]);
     }
 
-    public function edit(CounselingRequset $request, $id)
+    public function edit(EditCounselingRequest $request, $id)
     {
         $counseling = Counseling::find($id);
 

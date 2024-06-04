@@ -4,8 +4,10 @@ namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\DataRequest;
+use App\Models\CounselingStatus;
 use App\Models\DataCategory;
 use App\Models\DataService;
+use App\Models\Grade;
 use Illuminate\Http\Request;
 
 class DisplayDataController extends Controller
@@ -129,6 +131,26 @@ class DisplayDataController extends Controller
         return response()->json([
             'message' => 'Data berhasil diambil',
             'data' => $data
+        ]);
+    }
+
+    public function gradeList()
+    {
+        $grade = Grade::all();
+
+        return response()->json([
+            'message' => 'Data grade',
+            'data' => $grade
+        ]);
+    }
+
+    public function statusCounseling()
+    {
+        $status = CounselingStatus::all();
+
+        return response()->json([
+            'message' => 'Data status',
+            'data' => $status
         ]);
     }
 }

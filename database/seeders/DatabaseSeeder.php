@@ -68,11 +68,19 @@ class DatabaseSeeder extends Seeder
         ]);
 
         CounselingStatus::create([
-            'status' => 'Success'
+            'status' => 'Diterima'
         ]);
 
         CounselingStatus::create([
-            'status' => 'Failed'
+            'status' => 'Akan Datang'
+        ]);
+
+        CounselingStatus::create([
+            'status' => 'Jadwal Ulang'
+        ]);
+
+        CounselingStatus::create([
+            'status' => 'Ditolak'
         ]);
 
         DataService::create([
@@ -96,8 +104,8 @@ class DatabaseSeeder extends Seeder
         ]);
 
         DataService::create([
-            'name' => 'Layanan Kalsikal',
-            'description' => 'Layanan kalsikal adalah layanan yang dilakukan oleh seorang konselor dengan seorang klien. Layanan kalsikal adalah layanan yang dilakukan oleh seorang konselor dengan seorang klien.'
+            'name' => 'Layanan Klasikal',
+            'description' => 'Layanan klasikal adalah layanan yang dilakukan oleh seorang konselor dengan seorang klien. Layanan klasikal adalah layanan yang dilakukan oleh seorang konselor dengan seorang klien.'
         ]);
 
         DataCategory::create([
@@ -116,8 +124,8 @@ class DatabaseSeeder extends Seeder
         ]);
 
         DataCategory::create([
-            'name' => 'Konseling Social',
-            'description' => 'Konseling social adalah konseling yang dilakukan oleh seorang konselor dengan seorang klien. Konseling social adalah konseling yang dilakukan oleh seorang konselor dengan seorang klien.'
+            'name' => 'Konseling Sosial',
+            'description' => 'Konseling sosial adalah konseling yang dilakukan oleh seorang konselor dengan seorang klien. Konseling social adalah konseling yang dilakukan oleh seorang konselor dengan seorang klien.'
         ]);
 
         User::create([

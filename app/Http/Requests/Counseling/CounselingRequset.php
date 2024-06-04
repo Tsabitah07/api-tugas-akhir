@@ -1,17 +1,17 @@
 <?php
 
-namespace App\Http\Requests;
+namespace App\Http\Requests\Counseling;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class StudentRequest extends FormRequest
+class CounselingRequset extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -22,12 +22,12 @@ class StudentRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'nis' => 'required|unique',
-            'name' => 'required||max:255',
-            'grade_id' => 'required',
-            'phone_number' => 'required',
-            'birth_date' => 'required',
-            'id_card_image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'grade_id' => 'required|integer',
+            'student_id' => 'required|integer',
+            'counseling_date' => 'required|date',
+            'service' => 'required|string',
+            'subject' => 'required|string',
+            'counseling_status_id' => 'required|integer'
         ];
     }
 }

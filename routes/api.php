@@ -42,14 +42,14 @@ Route::group(['prefix' => 'student'], function() {
     Route::get('/list', [StudentController::class, 'index']);
     Route::get('/detail/{id}', [StudentController::class, 'detail']);
     Route::post('/add', [StudentController::class, 'store']);
-    Route::put('/edit/{id}', [StudentController::class, 'edit']);
+    Route::post('/edit/{id}', [StudentController::class, 'edit']);
     Route::post('/delete/{id}', [StudentController::class, 'delete']);
 });
 
 Route::group(['prefix' => 'mentor'], function() {
     Route::get('/list', [MentorController::class, 'index']);
     Route::post('/store', [MentorController::class, 'store']);
-    Route::put('/edit/{id}', [MentorController::class, 'edit']);
+    Route::post('/edit/{id}', [MentorController::class, 'edit']);
     Route::get('/detail/{id}', [MentorController::class, 'detail']);
     Route::post('/delete/{id}', [MentorController::class, 'delete']);
 });
@@ -72,4 +72,7 @@ Route::group(['prefix' => 'data'], function() {
     Route::put('/edit-category/{id}', [DisplayDataController::class, 'editCategory']);
     Route::get('/category', [DisplayDataController::class, 'category']);
     Route::get('/detail-category/{id}', [DisplayDataController::class, 'detailCategory']);
+
+    Route::get('/grade-list', [DisplayDataController::class, 'gradeList']);
+    Route::get('/status-counseling-list', [DisplayDataController::class, 'statusCounseling']);
 });

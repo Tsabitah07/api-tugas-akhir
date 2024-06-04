@@ -3,11 +3,10 @@
 namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\StudentRequest;
+use App\Http\Requests\Student\EditStudentRequest;
+use App\Http\Requests\Student\StudentRequest;
 use App\Models\Student;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
-use Illuminate\Support\Str;
 
 class StudentController extends Controller
 {
@@ -25,18 +24,19 @@ class StudentController extends Controller
         $request->validated();
 
         if ($request->hasFile('id_card_image')) {
-            $imageName = time() . $request->file('image')->getClientOriginalName();
-            $imagePath = $request->file('image')->storeAs('public/images', $imageName);
+            $imageName = time() . $request->file('id_card_image')->getClientOriginalName();
+            $imagePath = $request->file('id_card_image')->storeAs('public/id_card', $imageName);
             $imageUrl = Storage::url($imagePath);
         }
 
         $student = [
+            'user_id' => $request->user_id,
             'nis' => $request->nis,
             'name' => $request->name,
             'grade_id' => $request->grade_id,
             'phone_number' => $request->phone_number,
             'birth_date' => $request->birth_date,
-            'id_card_image' => $request->$imageUrl,
+            'id_card_image' => $imageUrl,
         ];
 
         $students = Student::create($student);
@@ -46,7 +46,7 @@ class StudentController extends Controller
         ]);
     }
 
-    public function edit(StudentRequest $request, $id)
+    public function edit(EditStudentRequest $request, $id)
     {
         $student = Student::find($id);
 
@@ -57,10 +57,15 @@ class StudentController extends Controller
         }
 
         if ($request->hasFile('id_card_image')) {
-            Storage::delete('public/studentId/' . $student->image);
-            $imageName = time() . $request->file('id_card_image')->getClientOriginalName();
-            $imagePath = $request->file('image')->storeAs('public/studentId', $imageName);
-            $imageUrl = Storage::url($imagePath);
+            $delete = Storage::delete('public/id_card/' . $student->id_card_image);
+            if ($delete) {
+                $imageName = time() . $request->file('id_card_image')->getClientOriginalName();
+                $imagePath = $request->file('id_card_image')->storeAs('public/id_card', $imageName);
+                $imageUrl = Storage::url($imagePath);
+            }
+//            $imageName = time() . $request->file('id_card_image')->getClientOriginalName();
+//            $imagePath = $request->file('image')->storeAs('public/studentId', $imageName);
+//            $imageUrl = Storage::url($imagePath);
         }
 
         $data = $request->all();
@@ -69,7 +74,7 @@ class StudentController extends Controller
         $student->grade_id = $data['grade_id'];
         $student->phone_number = $data['phone_number'];
         $student->birth_date = $data['birth_date'];
-        $student->id_card_image = $data['image'] = $imageUrl;
+        $student->id_card_image = $data['id_card_image'] = $imageUrl;
 
         $student->save($data);
 

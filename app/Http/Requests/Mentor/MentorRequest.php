@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Requests;
+namespace App\Http\Requests\Mentor;
 
 use Illuminate\Foundation\Http\FormRequest;
 
@@ -11,7 +11,7 @@ class MentorRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -23,13 +23,16 @@ class MentorRequest extends FormRequest
     {
         return [
             'name' => 'required|string|max:255',
-            'major' => 'required|string|max:255',
+            'grade_id' => 'required|string|max:255',
             'birth_date' => 'required|date',
-            'age' => 'required|integer',
+            'age' => 'integer',
+            'gender' => 'required|string|max:255',
             'experience' => 'required|string',
             'last_education' => 'required|string',
+            'last_university' => 'required|string',
             'phone_number' => 'required|string',
-            'profile_image' => 'required|image'
+            'user_id' => 'required|integer',
+            'about_me' => 'string'
         ];
     }
 }

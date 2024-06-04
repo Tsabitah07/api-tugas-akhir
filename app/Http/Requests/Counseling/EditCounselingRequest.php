@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Http\Requests;
+namespace App\Http\Requests\Counseling;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class CounselingRequset extends FormRequest
+class EditCounselingRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -22,12 +22,12 @@ class CounselingRequset extends FormRequest
     public function rules(): array
     {
         return [
-            'grade_id' => 'required|integer',
-            'student_id' => 'required|integer',
-            'counseling_date' => 'required|date',
-            'service' => 'required|string',
-            'subject' => 'required|string',
-            'counseling_status_id' => 'required|integer'
+            'grade_id' => 'integer',
+            'student_id' => 'integer',
+            'counseling_date' => 'date',
+            'service' => 'string',
+            'subject' => 'string',
+            'counseling_status_id' => 'integer'
         ];
     }
 }

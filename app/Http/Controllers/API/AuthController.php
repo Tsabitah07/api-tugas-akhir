@@ -20,6 +20,9 @@ class AuthController extends Controller
             $imageName = time() . $request->file('image')->getClientOriginalName();
             $imagePath = $request->file('image')->storeAs('public/images', $imageName);
             $imageUrl = Storage::url($imagePath);
+        } else {
+            $noImage = 'no image';
+            $imageUrl = $noImage;
         }
 
         $userData = [
@@ -104,9 +107,6 @@ class AuthController extends Controller
                 $imagePath = $request->file('image')->storeAs('public/images', $imageName);
                 $imageUrl = Storage::url($imagePath);
             }
-//            $imageName = time() . $request->file('image')->getClientOriginalName();
-//            $imagePath = $request->file('image')->storeAs('public/images', $imageName);
-//            $imageUrl = Storage::url($imagePath);
         }
 
         $data = $request->all();
