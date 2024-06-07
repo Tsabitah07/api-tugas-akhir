@@ -38,6 +38,10 @@ class MentorController extends Controller
             'phone_number' => $request->phone_number,
             'user_id' => $request->user_id,
             'about_me' => $request->about_me,
+            'linkedin' => $request->linkedin,
+            'instagram' => $request->instagram,
+            'twitter' => $request->twitter,
+            'facebook' => $request->facebook
         ];
 
         $mentors = Mentor::create($mentor);
@@ -74,6 +78,10 @@ class MentorController extends Controller
         $mentor->phone_number = $data['phone_number'];
         $mentor->user_id = $data['user_id'];
         $mentor->about_me = $data['about_me'];
+        $mentor->linkedin = $data['linkedin'];
+        $mentor->instagram = $data['instagram'];
+        $mentor->twitter = $data['twitter'];
+        $mentor->facebook = $data['facebook'];
 
         $mentor->save($data);
 

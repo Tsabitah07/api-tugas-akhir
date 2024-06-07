@@ -68,6 +68,11 @@ Route::group(['prefix' => 'article'], function() {
     Route::get('/list', [ArticleController::class, 'index']);
     Route::post('/edit/{id}', [ArticleController::class, 'edit']);
     Route::post('/delete/{id}', [ArticleController::class, 'delete']);
+    Route::get('/detail/{id}', [ArticleController::class, 'detail']);
+
+    Route::get('/show-by/category/{id}', [ArticleController::class, 'showByCategory']);
+
+    Route::get('/category-list', [ArticleController::class, 'category']);
 });
 
 Route::group(['prefix' => 'data'], function() {

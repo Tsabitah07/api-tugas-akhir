@@ -21,7 +21,11 @@ class Mentor extends Model
         'last_university',
         'phone_number',
         'user_id',
-        'about_me'
+        'about_me',
+        'linkedin',
+        'instagram',
+        'twitter',
+        'facebook'
     ];
 
     public function user(): BelongsTo

@@ -32,7 +32,11 @@ class MentorRequest extends FormRequest
             'last_university' => 'required|string',
             'phone_number' => 'required|string',
             'user_id' => 'required|integer',
-            'about_me' => 'string'
+            'about_me' => 'string',
+            'linkedin' => 'string',
+            'instagram' => 'string',
+            'twitter' => 'string',
+            'facebook' => 'string'
         ];
     }
 }

@@ -23,8 +23,10 @@ class ArticleRequest extends FormRequest
     {
         return [
             'title' => 'required|string|max:255',
-            'link_content' => 'required|string',
-            'featured_image' => 'required|image|mimes:jpeg,png,jpg|max:2048',
+            'category_id' => 'required|exists:article_categories,id',
+            'article_content' => 'required|string',
+            'preview_content' => 'string',
+            'featured_image' => 'image|mimes:jpeg,png,jpg|max:2048',
         ];
     }
 }

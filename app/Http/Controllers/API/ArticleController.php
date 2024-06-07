@@ -5,6 +5,7 @@ namespace App\Http\Controllers\API;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\ArticleRequest;
 use App\Models\Article;
+use App\Models\ArticleCategory;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 
@@ -18,11 +19,16 @@ class ArticleController extends Controller
             $imageName = time() . $request->file('featured_image')->getClientOriginalName();
             $imagePath = $request->file('featured_image')->storeAs('public/Article', $imageName);
             $imageUrl = Storage::url($imagePath);
+        } else {
+            $noImage = null;
+            $imageUrl = $noImage;
         }
 
         $data = [
             'title' => $request->title,
-            'link_content' => $request->link_content,
+            'category_id' => $request->category_id,
+            'article_content' => $request->article_content,
+            'preview_content' => $request->preview_content,
             'featured_image' => $imageUrl,
         ];
 
@@ -66,7 +72,9 @@ class ArticleController extends Controller
 
         $data = $request->all();
         $article->title = $data['title'];
-        $article->link_content = $data['link_content'];
+        $article->category_id = $data['category_id'];
+        $article->article_content = $data['article_content'];
+        $article->preview_content = $data['preview_content'];
         $article->featured_image = $imageUrl;
         $article->save();
 
@@ -84,6 +92,50 @@ class ArticleController extends Controller
         return response()->json([
             'status' => 'success',
             'message' => 'Article deleted'
+        ]);
+    }
+
+    public function show($id)
+    {
+        $article = Article::find($id);
+
+        if (!$article) {
+            return response()->json([
+                'status' => 'failed',
+                'message' => 'Article not found'
+            ]);
+        }
+
+        return response()->json([
+            'status' => 'success',
+            'data' => $article
+        ]);
+    }
+
+    public function showByCategory($id)
+    {
+        $article = Article::where('category_id', $id)->get();
+
+        if (!$article) {
+            return response()->json([
+                'status' => 'failed',
+                'message' => 'Article not found'
+            ]);
+        }
+
+        return response()->json([
+            'status' => 'success',
+            'data' => $article
+        ]);
+    }
+
+    public function category()
+    {
+        $category = ArticleCategory::all();
+
+        return response()->json([
+            'status' => 'success',
+            'data' => $category
         ]);
     }
 }

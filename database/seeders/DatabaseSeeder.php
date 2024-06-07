@@ -3,6 +3,7 @@
 namespace Database\Seeders;
 
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+use App\Models\ArticleCategory;
 use App\Models\CounselingStatus;
 use App\Models\DataCategory;
 use App\Models\DataService;
@@ -126,6 +127,66 @@ class DatabaseSeeder extends Seeder
         DataCategory::create([
             'name' => 'Konseling Sosial',
             'description' => 'Konseling sosial adalah konseling yang dilakukan oleh seorang konselor dengan seorang klien. Konseling social adalah konseling yang dilakukan oleh seorang konselor dengan seorang klien.'
+        ]);
+
+        ArticleCategory::create([
+            'category_name' => 'Kesehatan Mental'
+        ]);
+
+        ArticleCategory::create([
+            'category_name' => 'Teknik Terapi'
+        ]);
+
+        ArticleCategory::create([
+            'category_name' => 'Psikologi Anak'
+        ]);
+
+        ArticleCategory::create([
+            'category_name' => 'Psikologi Klinis'
+        ]);
+
+        ArticleCategory::create([
+            'category_name' => 'Strategi Konseling'
+        ]);
+
+        ArticleCategory::create([
+            'category_name' => 'Kesejahteraan Emosional'
+        ]);
+
+        ArticleCategory::create([
+            'category_name' => 'Terapi Perilaku'
+        ]);
+
+        ArticleCategory::create([
+            'category_name' => 'Manajemen Stres'
+        ]);
+
+        ArticleCategory::create([
+            'category_name' => 'Psikologi Kognitif'
+        ]);
+
+        ArticleCategory::create([
+            'category_name' => 'Terapi Keluarga'
+        ]);
+
+        ArticleCategory::create([
+            'category_name' => 'Gangguan Psikologis'
+        ]);
+
+        ArticleCategory::create([
+            'category_name' => 'Pengembangan Diri'
+        ]);
+
+        ArticleCategory::create([
+            'category_name' => 'Mindfulness'
+        ]);
+
+        ArticleCategory::create([
+            'category_name' => 'Trauma dan PTSD'
+        ]);
+
+        ArticleCategory::create([
+            'category_name' => 'Terapi Kelompok'
         ]);
 
         User::create([

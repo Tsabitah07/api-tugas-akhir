@@ -24,6 +24,10 @@ return new class extends Migration
             $table->string('last_university');
             $table->string('phone_number');
             $table->string('about_me');
+            $table->string('linkedin')->nullable();
+            $table->string('instagram')->nullable();
+            $table->string('twitter')->nullable();
+            $table->string('facebook')->nullable();
             $table->timestamps();
         });
     }

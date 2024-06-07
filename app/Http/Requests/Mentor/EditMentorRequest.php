@@ -32,7 +32,11 @@ class EditMentorRequest extends FormRequest
             'last_university' => 'string',
             'phone_number' => 'string',
             'user_id' => 'integer',
-            'about_me' => 'string'
+            'about_me' => 'string',
+            'linkedin' => 'string',
+            'instagram' => 'string',
+            'twitter' => 'string',
+            'facebook' => 'string'
         ];
     }
 }
