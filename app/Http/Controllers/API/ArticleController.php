@@ -138,4 +138,16 @@ class ArticleController extends Controller
             'data' => $category
         ]);
     }
+
+    public function search(Request $request)
+    {
+        $query = $request->get('query');
+
+        $articles = Article::where('title', 'LIKE', "%{$query}%")->get();
+
+        return response()->json([
+            'status' => 'success',
+            'data' => $articles
+        ]);
+    }
 }
