@@ -17,7 +17,7 @@ class Article extends Model
         'featured_image',
     ];
 
-    public function category()
+    public function Category()
     {
         return $this->belongsTo(ArticleCategory::class, 'category_id', 'id');
     }

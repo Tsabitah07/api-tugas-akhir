@@ -139,15 +139,13 @@ class ArticleController extends Controller
         ]);
     }
 
-    public function search(Request $request)
+    public function search($title)
     {
-        $query = $request->get('query');
-
-        $articles = Article::where('title', 'LIKE', "%{$query}%")->get();
+        $article = Article::where('title', 'like', '%' . $title . '%')->get();
 
         return response()->json([
             'status' => 'success',
-            'data' => $articles
+            'data' => $article
         ]);
     }
 }

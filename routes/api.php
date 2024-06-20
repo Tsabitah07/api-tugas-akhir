@@ -74,7 +74,7 @@ Route::group(['prefix' => 'article'], function() {
 
     Route::get('/category-list', [ArticleController::class, 'category']);
 
-    Route::post('/search', [ArticleController::class, 'search']);
+    Route::get('/search/{title}', [ArticleController::class, 'search']);
 });
 
 Route::group(['prefix' => 'data'], function() {
