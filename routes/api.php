@@ -3,6 +3,7 @@
 use App\Http\Controllers\API\ArticleController;
 use App\Http\Controllers\API\CounselingController;
 use App\Http\Controllers\API\DisplayDataController;
+use App\Http\Controllers\API\SelfcareController;
 use App\Http\Controllers\API\StudentController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -90,4 +91,12 @@ Route::group(['prefix' => 'data'], function() {
 
     Route::get('/grade-list', [DisplayDataController::class, 'gradeList']);
     Route::get('/status-counseling-list', [DisplayDataController::class, 'statusCounseling']);
+});
+
+Route::group(['prefix' => 'selfcare'], function() {
+    Route::post('/store', [SelfcareController::class, 'store']);
+    Route::get('/list', [SelfcareController::class, 'index']);
+    Route::get('/detail/{id}', [SelfcareController::class, 'show']);
+    Route::put('/edit/{id}', [SelfcareController::class, 'update']);
+    Route::post('/delete/{id}', [SelfcareController::class, 'destroy']);
 });
