@@ -23,13 +23,8 @@ class SelfcareRequest extends FormRequest
     {
         return [
             'title' => 'required',
-            'description' => 'required',
-            'tutorial' => 'required',
-            'text' => 'required',
-            'text2' => 'required',
-            'text3' => 'max:255',
-            'text4' => 'max:255',
-            'text5' => 'max:255'
+            'description' => 'string',
+            'tutorial' => 'string',
         ];
     }
 }

@@ -15,14 +15,7 @@ class SelfcareController extends Controller
         $selfcare = [
             'title' => $request->title,
             'description' => $request->description,
-            'tutorial' => $request->tutorial,
-            'steps' => [
-                'one' => $request->text,
-                'two' => $request->text2,
-                'three' => $request->text3,
-                'four' => $request->text4,
-                'five' => $request->text5
-            ]
+            'tutorial' => $request->tutorial
         ];
 
         $data = Selfcare::create($selfcare);
@@ -74,14 +67,7 @@ class SelfcareController extends Controller
         $selfcare->update([
             'title' => $request->title,
             'description' => $request->description,
-            'tutorial' => $request->tutorial,
-            'steps' => [
-                'one' => $request->text,
-                'two' => $request->text2,
-                'three' => $request->text3,
-                'four' => $request->text4,
-                'five' => $request->text5
-            ]
+            'tutorial' => $request->tutorial
         ]);
 
         $selfcare->save();

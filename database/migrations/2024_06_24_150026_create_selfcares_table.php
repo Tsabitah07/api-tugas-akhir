@@ -14,13 +14,8 @@ return new class extends Migration
         Schema::create('selfcares', function (Blueprint $table) {
             $table->id();
             $table->string('title');
-            $table->text('description');
-            $table->string('tutorial');
-            $table->string('text');
-            $table->string('text2');
-            $table->string('text3')->nullable();
-            $table->string('text4')->nullable();
-            $table->string('text5')->nullable();
+            $table->text('description')->nullable();
+            $table->string('tutorial')->nullable();
             $table->timestamps();
         });
     }

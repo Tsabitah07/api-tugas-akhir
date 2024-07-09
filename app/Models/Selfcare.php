@@ -13,10 +13,5 @@ class Selfcare extends Model
         'title',
         'description',
         'tutorial',
-        'text',
-        'text2',
-        'text3',
-        'text4',
-        'text5'
     ];
 }
