@@ -46,6 +46,8 @@ Route::group(['prefix' => 'student'], function() {
     Route::post('/add', [StudentController::class, 'store']);
     Route::post('/edit/{id}', [StudentController::class, 'edit']);
     Route::post('/delete/{id}', [StudentController::class, 'delete']);
+
+    Route::post('/login-student', [StudentController::class, 'loginStudent']);
 });
 
 Route::group(['prefix' => 'mentor'], function() {
@@ -97,6 +99,6 @@ Route::group(['prefix' => 'selfcare'], function() {
     Route::post('/store', [SelfcareController::class, 'store']);
     Route::get('/list', [SelfcareController::class, 'index']);
     Route::get('/detail/{id}', [SelfcareController::class, 'show']);
-    Route::put('/edit/{id}', [SelfcareController::class, 'update']);
+    Route::post('/edit/{id}', [SelfcareController::class, 'update']);
     Route::post('/delete/{id}', [SelfcareController::class, 'destroy']);
 });
