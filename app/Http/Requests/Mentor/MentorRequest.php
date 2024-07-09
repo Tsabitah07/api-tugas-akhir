@@ -23,20 +23,26 @@ class MentorRequest extends FormRequest
     {
         return [
             'name' => 'required|string|max:255',
+            'username' => 'required|string|max:255|unique:mentors,username',
+            'email' => 'email',
+            'role_id' => 'integer',
             'grade_id' => 'required|string|max:255',
+            'birth_place' => 'required|string|max:255',
             'birth_date' => 'required|date',
             'age' => 'integer',
             'gender' => 'required|string|max:255',
-            'experience' => 'required|string',
+            'experience' => 'string',
             'last_education' => 'required|string',
-            'last_university' => 'required|string',
-            'phone_number' => 'required|string',
-            'user_id' => 'required|integer',
+            'last_university' => 'string',
+            'phone_number' => 'string',
+//            'user_id' => 'required|integer',
             'about_me' => 'string',
             'linkedin' => 'string',
             'instagram' => 'string',
             'twitter' => 'string',
-            'facebook' => 'string'
+            'facebook' => 'string',
+            'image' => 'required|image',
+            'password' => 'required|string|min:8'
         ];
     }
 }

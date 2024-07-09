@@ -23,7 +23,11 @@ class EditMentorRequest extends FormRequest
     {
         return [
             'name' => 'string|max:255',
-            'grade_id' => 'string|max:255',
+            'username' => 'string|max:255',
+            'email' => 'email',
+            'role_id' => 'integer',
+            'grade_id' => 'required',
+            'birth_place' => 'string|max:255',
             'birth_date' => 'date',
             'age' => 'integer',
             'gender' => 'string|max:255',
@@ -31,12 +35,14 @@ class EditMentorRequest extends FormRequest
             'last_education' => 'string',
             'last_university' => 'string',
             'phone_number' => 'string',
-            'user_id' => 'integer',
+//            'user_id' => 'integer',
             'about_me' => 'string',
             'linkedin' => 'string',
             'instagram' => 'string',
             'twitter' => 'string',
-            'facebook' => 'string'
+            'facebook' => 'string',
+            'image' => 'image',
+            'password' => 'string|min:8'
         ];
     }
 }

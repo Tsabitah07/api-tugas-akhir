@@ -14,10 +14,10 @@ return new class extends Migration
         Schema::create('students', function (Blueprint $table) {
             $table->id();
 //            $table->foreignId('user_id');
-            $table->string('nis')->unique();
+            $table->string('nis');
             $table->string('email')->nullable();
             $table->string('name');
-            $table->foreignId('role_id');
+            $table->foreignId('role_id')->default(3);
             $table->string('grade_id');
             $table->string('phone_number');
             $table->string('birth_place');

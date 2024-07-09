@@ -13,9 +13,13 @@ return new class extends Migration
     {
         Schema::create('mentors', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('user_id');
+//            $table->unsignedBigInteger('user_id');
             $table->string('name');
+            $table->string('username');
+            $table->string('email');
+            $table->foreignId('role_id')->default(2);
             $table->foreignId('grade_id');
+            $table->string('birth_place');
             $table->string('birth_date');
             $table->integer('age')->nullable();
             $table->string('gender');
@@ -28,6 +32,9 @@ return new class extends Migration
             $table->string('instagram')->nullable();
             $table->string('twitter')->nullable();
             $table->string('facebook')->nullable();
+            $table->string('image');
+            $table->string('password');
+            $table->rememberToken();
             $table->timestamps();
         });
     }

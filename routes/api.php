@@ -42,7 +42,7 @@ Route::group(['prefix' => 'auth'], function(){
 
 Route::group(['prefix' => 'student'], function() {
     Route::get('/list', [StudentController::class, 'index']);
-    Route::get('/detail/{id}', [StudentController::class, 'detail']);
+    Route::get('/detail/{id}', [StudentController::class, 'detail'])->middleware('auth:sanctum');
     Route::post('/add', [StudentController::class, 'store']);
     Route::post('/edit/{id}', [StudentController::class, 'edit']);
     Route::post('/delete/{id}', [StudentController::class, 'delete']);
@@ -52,10 +52,12 @@ Route::group(['prefix' => 'student'], function() {
 
 Route::group(['prefix' => 'mentor'], function() {
     Route::get('/list', [MentorController::class, 'index']);
-    Route::post('/store', [MentorController::class, 'store']);
+    Route::post('/add', [MentorController::class, 'store']);
     Route::post('/edit/{id}', [MentorController::class, 'edit']);
-    Route::get('/detail/{id}', [MentorController::class, 'detail']);
+    Route::get('/detail/{id}', [MentorController::class, 'detail'])->middleware('auth:sanctum');
     Route::post('/delete/{id}', [MentorController::class, 'delete']);
+
+    Route::post('/login-mentor', [MentorController::class, 'loginMentor']);
 });
 
 Route::group(['prefix' => 'counseling'], function() {
