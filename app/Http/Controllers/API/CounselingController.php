@@ -22,11 +22,14 @@ class CounselingController extends Controller
     public function store(CounselingRequset $request)
     {
         $counseling = [
+            'name' => $request->name,
             'grade_id' => $request->grade_id,
             'student_id' => $request->student_id,
             'counseling_date' => $request->counseling_date,
+            'time' => $request->time,
             'service' => $request->service,
             'subject' => $request->subject,
+            'place' => $request->place,
             'counseling_status_id' => $request->counseling_status_id=1
         ];
 
@@ -56,7 +59,7 @@ class CounselingController extends Controller
         ]);
     }
 
-    public function detail(CounselingRequset $request, $id)
+    public function detail($id)
     {
         $counseling = Counseling::find($id);
 
@@ -72,7 +75,7 @@ class CounselingController extends Controller
         ]);
     }
 
-    public function delete(CounselingRequset $request, $id)
+    public function delete($id)
     {
         $counseling = Counseling::find($id);
 

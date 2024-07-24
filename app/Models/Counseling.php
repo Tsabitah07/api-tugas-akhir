@@ -10,17 +10,20 @@ class Counseling extends Model
     use HasFactory;
 
     protected $fillable = [
+        'name',
         'grade_id',
         'student_id',
         'counseling_date',
+        'time',
         'service',
         'subject',
+        'place',
         'counseling_status_id',
     ];
 
-    public function User()
+    public function student()
     {
-        return $this->belongsTo(User::class, 'student_id', 'id');
+        return $this->belongsTo(Student::class, 'student_id', 'id');
     }
 
     public function status()

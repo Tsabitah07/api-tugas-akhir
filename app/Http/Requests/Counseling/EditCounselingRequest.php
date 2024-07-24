@@ -22,11 +22,14 @@ class EditCounselingRequest extends FormRequest
     public function rules(): array
     {
         return [
+            'name' => 'string',
             'grade_id' => 'integer',
             'student_id' => 'integer',
             'counseling_date' => 'date',
+            'time' => 'string',
             'service' => 'string',
             'subject' => 'string',
+            'place' => 'string',
             'counseling_status_id' => 'integer'
         ];
     }

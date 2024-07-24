@@ -63,9 +63,12 @@ Route::group(['prefix' => 'mentor'], function() {
 Route::group(['prefix' => 'counseling'], function() {
     Route::get('/list', [CounselingController::class, 'index']);
     Route::post('/store', [CounselingController::class, 'store']);
-    Route::put('/edit/{id}', [CounselingController::class, 'edit']);
+    Route::post('/edit/{id}', [CounselingController::class, 'edit']);
     Route::get('/detail/{id}', [CounselingController::class, 'detail']);
     Route::post('/delete/{id}', [CounselingController::class, 'delete']);
+
+    Route::get('/show-by/user/{id}', [CounselingController::class, 'showByUser']);
+    Route::get('/show-by/grade/{id}', [CounselingController::class, 'showByGrade']);
 });
 
 Route::group(['prefix' => 'article'], function() {
