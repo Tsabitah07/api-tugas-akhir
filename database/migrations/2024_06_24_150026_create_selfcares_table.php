@@ -14,14 +14,20 @@ return new class extends Migration
         Schema::create('selfcares', function (Blueprint $table) {
             $table->id();
             $table->string('title');
-            $table->text('description')->nullable();
-            $table->string('tutorial')->nullable();
+            $table->string('description');
+            $table->string('slug')->unique();
+            $table->string('text_one');
+            $table->string('text_two');
+            $table->string('text_three')->nullable();
+            $table->string('text_four')->nullable();
+            $table->string('text_five')->nullable() ;
+            $table->string('image')->nullable();
             $table->timestamps();
         });
     }
 
     /**
-     * Reverse the migrations.
+     * Reverse the migrations.php artisan make:migration add_slug_to_selfcares_table --table=selfcaresphp artisan make:migration add_slug_to_selfcares_table --table=selfcares
      */
     public function down(): void
     {

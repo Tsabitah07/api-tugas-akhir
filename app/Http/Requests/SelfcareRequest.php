@@ -24,7 +24,13 @@ class SelfcareRequest extends FormRequest
         return [
             'title' => 'required',
             'description' => 'string',
-            'tutorial' => 'string',
+            'slug' => 'string|nullable',
+            'text_one' => 'string',
+            'text_two' => 'string',
+            'text_three' => 'string|nullable',
+            'text_four' => 'string|nullable',
+            'text_five' => 'string|nullable',
+            'image' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
         ];
     }
 }

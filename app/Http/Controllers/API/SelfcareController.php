@@ -5,6 +5,7 @@ namespace App\Http\Controllers\API;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\SelfcareRequest;
 use App\Models\Selfcare;
+use Illuminate\Support\Facades\Storage;
 
 class SelfcareController extends Controller
 {
@@ -12,10 +13,24 @@ class SelfcareController extends Controller
     {
         $request->validated();
 
+        if ($request->hasFile('image')) {
+            $imageName = time() . $request->file('image')->getClientOriginalName();
+            $imagePath = $request->file('image')->storeAs('public/selfcare', $imageName);
+            $imageUrl = Storage::url($imagePath);
+        } else {
+            $imageUrl = null;
+        }
+
         $selfcare = [
             'title' => $request->title,
             'description' => $request->description,
-            'tutorial' => $request->tutorial
+            'slug' => $request->slug,
+            'text_one' => $request->text_one,
+            'text_two' => $request->text_two,
+            'text_three' => $request->text_three,
+            'text_four' => $request->text_four,
+            'text_five' => $request->text_five,
+            'image' => $imageUrl,
         ];
 
         $data = Selfcare::create($selfcare);
@@ -36,9 +51,9 @@ class SelfcareController extends Controller
         ]);
     }
 
-    public function show($id)
+    public function show($slug)
     {
-        $selfcare = Selfcare::find($id);
+        $selfcare = Selfcare::where('slug', $slug)->first();
 
         if (!$selfcare) {
             return response()->json([
@@ -58,6 +73,15 @@ class SelfcareController extends Controller
 
         $selfcare = Selfcare::find($id);
 
+        if ($request->hasFile('image')) {
+            $delete = Storage::delete('public/selfcare/' . $selfcare->image);
+            if ($delete) {
+                $imageName = time() . $request->file('image')->getClientOriginalName();
+                $imagePath = $request->file('image')->storeAs('public/selfcare', $imageName);
+                $imageUrl = Storage::url($imagePath);
+            }
+        }
+
         if (!$selfcare) {
             return response()->json([
                 'message' => 'Data Selfcare tidak ditemukan'
@@ -67,7 +91,13 @@ class SelfcareController extends Controller
         $selfcare->update([
             'title' => $request->title,
             'description' => $request->description,
-            'tutorial' => $request->tutorial
+            'slug' => $request->slug,
+            'text_one' => $request->text_one,
+            'text_two' => $request->text_two,
+            'text_three' => $request->text_three,
+            'text_four' => $request->text_four,
+            'text_five' => $request->text_five,
+            'image' => $imageUrl,
         ]);
 
         $selfcare->save();
