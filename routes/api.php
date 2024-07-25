@@ -5,6 +5,7 @@ use App\Http\Controllers\API\CounselingController;
 use App\Http\Controllers\API\DisplayDataController;
 use App\Http\Controllers\API\PsychologyController;
 use App\Http\Controllers\API\SelfcareController;
+use App\Http\Controllers\API\ShortSelfcareController;
 use App\Http\Controllers\API\StudentController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -115,4 +116,12 @@ Route::group(['prefix' => 'psychology'], function (){
     Route::get('/detail/{slug}', [PsychologyController::class, 'detail']);
     Route::post('/edit/{id}', [PsychologyController::class, 'edit']);
     Route::post('/delete/{id}', [PsychologyController::class, 'delete']);
+});
+
+Route::group(['prefix' => 'short-selfcare'], function (){
+    Route::post('/store', [ShortSelfcareController::class, 'store']);
+    Route::get('/list', [ShortSelfcareController::class, 'index']);
+    Route::get('/detail/{id}', [ShortSelfcareController::class, 'show']);
+    Route::post('/edit/{id}', [ShortSelfcareController::class, 'update']);
+    Route::post('/delete/{id}', [ShortSelfcareController::class, 'destroy']);
 });
