@@ -3,6 +3,7 @@
 use App\Http\Controllers\API\ArticleController;
 use App\Http\Controllers\API\CounselingController;
 use App\Http\Controllers\API\DisplayDataController;
+use App\Http\Controllers\API\PsychologyController;
 use App\Http\Controllers\API\SelfcareController;
 use App\Http\Controllers\API\StudentController;
 use Illuminate\Http\Request;
@@ -103,7 +104,15 @@ Route::group(['prefix' => 'data'], function() {
 Route::group(['prefix' => 'selfcare'], function() {
     Route::post('/store', [SelfcareController::class, 'store']);
     Route::get('/list', [SelfcareController::class, 'index']);
-    Route::get('/detail/{id}', [SelfcareController::class, 'show']);
+    Route::get('/detail/{slug}', [SelfcareController::class, 'show']);
     Route::post('/edit/{id}', [SelfcareController::class, 'update']);
     Route::post('/delete/{id}', [SelfcareController::class, 'destroy']);
+});
+
+Route::group(['prefix' => 'psychology'], function (){
+    Route::post('/store', [PsychologyController::class, 'store']);
+    Route::get('/list', [PsychologyController::class, 'index']);
+    Route::get('/detail/{slug}', [PsychologyController::class, 'detail']);
+    Route::post('/edit/{id}', [PsychologyController::class, 'edit']);
+    Route::post('/delete/{id}', [PsychologyController::class, 'delete']);
 });
