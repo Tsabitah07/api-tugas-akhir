@@ -21,7 +21,7 @@ class PsychologyController extends Controller
 
     public function store(PsychologyRequest $request)
     {
-        $data = $request->all();
+        $request->validated();
 
         if ($request->hasFile('image')) {
             $imageName = time() . $request->file('image')->getClientOriginalName();
@@ -31,7 +31,13 @@ class PsychologyController extends Controller
             $imageUrl = null;
         }
 
-        $data['image'] = $imageUrl;
+        $data = [
+            'title' => $request->title,
+            'description' => $request->description,
+            'slug' => $request->slug,
+            'image' => $imageUrl,
+            'question' => $request->question
+        ];
 
         $psychology = Psychology::create($data);
 

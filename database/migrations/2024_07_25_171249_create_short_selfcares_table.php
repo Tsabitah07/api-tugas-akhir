@@ -11,7 +11,7 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('shortselfcares', function (Blueprint $table) {
+        Schema::create('short_selfcares', function (Blueprint $table) {
             $table->id();
             $table->string('text');
             $table->timestamps();
@@ -23,6 +23,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('shortselfcares');
+        Schema::dropIfExists('short_selfcares');
     }
 };

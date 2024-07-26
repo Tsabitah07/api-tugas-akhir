@@ -119,7 +119,7 @@ Route::group(['prefix' => 'psychology'], function (){
 });
 
 Route::group(['prefix' => 'short-selfcare'], function (){
-    Route::post('/store', [ShortSelfcareController::class, 'store']);
+//    Route::post('/store', [ShortSelfcareController::class, 'store']);
     Route::get('/list', [ShortSelfcareController::class, 'index']);
     Route::get('/detail/{id}', [ShortSelfcareController::class, 'show']);
     Route::post('/edit/{id}', [ShortSelfcareController::class, 'update']);

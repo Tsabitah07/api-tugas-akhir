@@ -15,6 +15,11 @@ class Psychology extends Model
         'slug',
         'description',
         'image',
+        'question',
+    ];
+
+    protected $casts = [
+        'question' => 'array',
     ];
 
     protected static function boot()
