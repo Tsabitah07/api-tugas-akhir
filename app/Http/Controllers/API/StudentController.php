@@ -56,16 +56,13 @@ class StudentController extends Controller
 
     public function loginStudent(LoginRequest $request)
     {
-        $credentials = $request->validate([
-            'nis' => 'required',
-            'password' => 'required'
-        ]);
+        $credentials = $request->validated();
 
-        $student = Student::where('nis', $credentials['nis'])->first();
+        $student = Student::where('nis', $credentials['nis_or_email'])->orWhere('email', $credentials['nis_or_email'])->first();
 
         if (!$student || !Hash::check($credentials['password'], $student->password)) {
             return response()->json([
-                'message' => 'NIS atau Password salah'
+                'message' => 'NIS / email atau Password salah'
             ]);
         }
 

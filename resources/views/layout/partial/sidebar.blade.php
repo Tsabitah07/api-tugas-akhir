@@ -14,6 +14,12 @@
         </div>
     </div>
     <div style="display: flex; height: 20%; justify-content: left; align-items: end">
+{{--        <form action="/auth/logout" method="POST">--}}
+{{--            @csrf--}}
+{{--            <button class="nav-link d-flex align-items-center gap-2" onclick="return confirm('Are you sure you want to logout?')">--}}
+{{--                Sign out--}}
+{{--            </button>--}}
+{{--        </form>--}}
         <a style="text-decoration: none; color: white; font-size: large; font-weight: bold">Logout</a>
     </div>
 </div>

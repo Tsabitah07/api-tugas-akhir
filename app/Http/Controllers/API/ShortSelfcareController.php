@@ -10,7 +10,7 @@ class ShortSelfcareController extends Controller
 {
     public function index()
     {
-        $short = Shortselfcare::all();
+        $short = ShortSelfcare::all();
 
         return response()->json([
             'message' => 'Data Short Selfcare berhasil diambil',
@@ -24,7 +24,7 @@ class ShortSelfcareController extends Controller
             'text' => 'required|string|max:255'
         ]);
 
-        $short = Shortselfcare::create($request->all());
+        $short = ShortSelfcare::create($request->all());
 
         return response()->json([
             'message' => 'Data Short Selfcare berhasil ditambahkan',
@@ -34,7 +34,7 @@ class ShortSelfcareController extends Controller
 
     public function show($id)
     {
-        $short = Shortselfcare::find($id);
+        $short = ShortSelfcare::find($id);
 
         if (!$short) {
             return response()->json([
@@ -50,7 +50,7 @@ class ShortSelfcareController extends Controller
 
     public function update(Request $request, $id)
     {
-        $short = Shortselfcare::find($id);
+        $short = ShortSelfcare::find($id);
 
         if (!$short) {
             return response()->json([
@@ -72,7 +72,7 @@ class ShortSelfcareController extends Controller
 
     public function destroy($id)
     {
-        $short = Shortselfcare::find($id);
+        $short = ShortSelfcare::find($id);
 
         if (!$short) {
             return response()->json([

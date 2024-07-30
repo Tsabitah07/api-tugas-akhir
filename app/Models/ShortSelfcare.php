@@ -17,9 +17,4 @@ class ShortSelfcare extends Model
         'created_at',
         'updated_at'
     ];
-
-    public function selfcare()
-    {
-        return $this->belongsTo(Selfcare::class);
-    }
 }
