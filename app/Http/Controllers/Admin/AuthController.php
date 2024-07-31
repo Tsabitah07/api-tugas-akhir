@@ -14,6 +14,12 @@ use Illuminate\Support\Facades\Hash;
 
 class AuthController extends Controller
 {
+    public function __construct()
+    {
+        // Protecting the routes with the admin middleware
+        $this->middleware('admin')->except(['landing', 'loginView', 'login', 'registerView', 'register']);
+    }
+
     public function landing()
     {
         return view('landing',[

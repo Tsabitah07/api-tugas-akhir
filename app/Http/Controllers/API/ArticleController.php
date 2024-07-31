@@ -16,9 +16,8 @@ class ArticleController extends Controller
         $request->validated();
 
         if ($request->hasFile('featured_image')) {
-            $imageName = time() . $request->file('featured_image')->getClientOriginalName();
-            $imagePath = $request->file('featured_image')->storeAs('public/Article', $imageName);
-            $imageUrl = Storage::url($imagePath);
+            $image = $request->file('featured_image')->storePublicly('article', 'public');
+            $imageUrl = Storage::url($image);
         } else {
             $noImage = null;
             $imageUrl = $noImage;
@@ -64,9 +63,8 @@ class ArticleController extends Controller
         if ($request->hasFile('featured_image')) {
             $delete = Storage::delete('public/article' . $article->featured_image);
             if ($delete) {
-                $imageName = time() . $request->file('featured_image')->getClientOriginalName();
-                $imagePath = $request->file('featured_image')->storeAs('public/article', $imageName);
-                $imageUrl = Storage::url($imagePath);
+                $image = $request->file('featured_image')->storePublicly('article', 'public');
+                $imageUrl = Storage::url($image);
             }
         }
 

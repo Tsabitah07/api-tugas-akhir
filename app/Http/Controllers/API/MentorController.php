@@ -28,9 +28,8 @@ class MentorController extends Controller
         $request->validated();
 
         if ($request->hasFile('image')) {
-            $imageName = time() . $request->file('image')->getClientOriginalName();
-            $imagePath = $request->file('image')->storeAs('public/profile_mentor', $imageName);
-            $imageUrl = Storage::url($imagePath);
+            $image = $request->file('image')->storePublicly('profile_mentor', 'public');
+            $imageUrl = Storage::url($image);
         }
 
         $mentorAge = date_diff(date_create($request->birth_date), date_create(Date::now()))->y;
@@ -102,9 +101,8 @@ class MentorController extends Controller
         if ($request->hasFile('image')) {
             $delete = Storage::delete('public/profile_mentor/' . $mentor->image);
             if ($delete) {
-                $imageName = time() . $request->file('image')->getClientOriginalName();
-                $imagePath = $request->file('image')->storeAs('public/profile_mentor', $imageName);
-                $imageUrl = Storage::url($imagePath);
+                $image = $request->file('image')->storePublicly('profile_mentor', 'public');
+                $imageUrl = Storage::url($image);
             }
         }
 

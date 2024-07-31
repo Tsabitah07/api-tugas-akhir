@@ -14,9 +14,8 @@ class SelfcareController extends Controller
         $request->validated();
 
         if ($request->hasFile('image')) {
-            $imageName = time() . $request->file('image')->getClientOriginalName();
-            $imagePath = $request->file('image')->storeAs('public/selfcare', $imageName);
-            $imageUrl = Storage::url($imagePath);
+            $image = $request->file('image')->storePublicly('selfcare', 'public');
+            $imageUrl = Storage::url($image);
         } else {
             $imageUrl = null;
         }
@@ -71,9 +70,8 @@ class SelfcareController extends Controller
         if ($request->hasFile('image')) {
             $delete = Storage::delete('public/selfcare/' . $selfcare->image);
             if ($delete) {
-                $imageName = time() . $request->file('image')->getClientOriginalName();
-                $imagePath = $request->file('image')->storeAs('public/selfcare', $imageName);
-                $imageUrl = Storage::url($imagePath);
+                $image = $request->file('image')->storePublicly('selfcare', 'public');
+                $imageUrl = Storage::url($image);
             }
         }
 

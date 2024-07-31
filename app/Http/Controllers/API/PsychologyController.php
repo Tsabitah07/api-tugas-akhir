@@ -24,9 +24,8 @@ class PsychologyController extends Controller
         $request->validated();
 
         if ($request->hasFile('image')) {
-            $imageName = time() . $request->file('image')->getClientOriginalName();
-            $imagePath = $request->file('image')->storeAs('public/psychology', $imageName);
-            $imageUrl = Storage::url($imagePath);
+            $image = $request->file('image')->storePublicly('psychology', 'public');
+            $imageUrl = Storage::url($image);
         } else {
             $imageUrl = null;
         }
@@ -72,9 +71,8 @@ class PsychologyController extends Controller
         if ($request->hasFile('image')) {
             $delete = Storage::delete('public/psychology/' . $psychology->image);
             if ($delete) {
-                $imageName = time() . $request->file('image')->getClientOriginalName();
-                $imagePath = $request->file('image')->storeAs('public/psychology', $imageName);
-                $imageUrl = Storage::url($imagePath);
+                $image = $request->file('image')->storePublicly('psychology', 'public');
+                $imageUrl = Storage::url($image);
             }
         }
 

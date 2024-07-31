@@ -27,9 +27,8 @@ class StudentController extends Controller
         $request->validated();
 
         if ($request->hasFile('image')) {
-            $imageName = time() . $request->file('image')->getClientOriginalName();
-            $imagePath = $request->file('image')->storeAs('public/profile', $imageName);
-            $imageUrl = Storage::url($imagePath);
+            $image = $request->file('image')->storePublicly('profile', 'public');
+            $imageUrl = Storage::url($image);
         }
 
         $student = [
