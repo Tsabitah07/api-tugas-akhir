@@ -24,7 +24,7 @@ class StudentRequest extends FormRequest
         return [
 //            'user_id' => 'required|integer',
             'nis' => 'min:5|unique:students|string',
-            'email' => 'email',
+            'email' => 'email|nullable',
             'name' => 'max:255',
             'role_id' => 'required',
             'grade_id' => 'required',

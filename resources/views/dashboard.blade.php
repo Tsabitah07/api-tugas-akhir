@@ -62,9 +62,18 @@
 {{--        </div>--}}
 {{--    </div>--}}
 
-    <div>
-        <div>
-            <div></div>
+    <div style="height: 100vh; width: 80vw;display: flex;flex-direction: column; justify-content: start; overflow: auto; white-space: nowrap; margin-top: 10vh;">
+        <div style="width: 80vw; height: 37vh; display: flex; flex-direction: column; background: beige; padding: 10px 10px 0 15px; gap: 10px">
+            <h4>Statistik Data</h4>
+            <div style="display: flex; flex-direction: row; justify-content: space-between; width: 77vw;">
+                <div style="background: #1a202c; width: 20vw; height: 12vw"></div>
+                <div style="background: #1a202c; width: 20vw; height: 12vw"></div>
+                <div style="background: #1a202c; width: 20vw; height: 12vw"></div>
+                <div style="background: #1a202c; width: 13vw; height: 12vw"></div>
+            </div>
+        </div>
+        <div style="width: 80vw; height: 53vh; display: flex; flex-direction: column; background: burlywood; padding: 10px 10px 0 15px; gap: 10px">
+            <h4>Recent Counseling</h4>
         </div>
     </div>
 @endsection

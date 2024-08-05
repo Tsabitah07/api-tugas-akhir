@@ -18,8 +18,8 @@ use Illuminate\Support\Facades\Route;
 Route::get('/admin', [\App\Http\Controllers\Admin\AuthController::class, 'landing']);
 //Route::get('/admin/login', [\App\Http\Controllers\Admin\AuthController::class, 'loginView']);
 Route::get('/admin/dashboard', [DashboardController::class, 'index']);
-Route::get('/admin/students', [StudentController::class, 'index']);
-Route::get('/admin/mentors', [MentorController::class, 'index']);
+Route::get('/admin/student', [StudentController::class, 'index']);
+Route::get('/admin/mentor', [MentorController::class, 'index']);
 
 Route::group(['prefix' => 'auth'], function(){
     Route::get('/login', [App\Http\Controllers\Admin\AuthController::class, 'loginView'])->name('login');

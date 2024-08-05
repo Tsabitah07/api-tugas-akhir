@@ -62,7 +62,7 @@ class StudentController extends Controller
         if (!$student || !Hash::check($credentials['password'], $student->password)) {
             return response()->json([
                 'message' => 'NIS / email atau Password salah'
-            ]);
+            ], 422);
         }
 
         $token = $student->createToken('authToken')->plainTextToken;
@@ -136,6 +136,30 @@ class StudentController extends Controller
 
         return response()->json([
             'message' => 'Data Student berhasil dihapus'
+        ]);
+    }
+
+    public function editEmail(EditStudentRequest $request, $id)
+    {
+        $student = Student::find($id);
+        $student->email = $request->email;
+        $student->save();
+
+        return response()->json([
+            'message' => 'Email berhasil diubah',
+            'data' => $student
+        ]);
+    }
+
+    public function editPassword(EditStudentRequest $request, $id)
+    {
+        $student = Student::find($id);
+        $student->password = Hash::make($request->password);
+        $student->save();
+
+        return response()->json([
+            'message' => 'Password berhasil diubah',
+            'data' => $student
         ]);
     }
 }

@@ -46,7 +46,11 @@ Route::group(['prefix' => 'student'], function() {
     Route::get('/list', [StudentController::class, 'index']);
     Route::get('/detail/{id}', [StudentController::class, 'detail'])->middleware('auth:sanctum');
     Route::post('/add', [StudentController::class, 'store']);
+
     Route::post('/edit/{id}', [StudentController::class, 'edit']);
+    Route::post('/edit-email/{id}', [StudentController::class, 'editEmail']);
+    Route::post('/edit-password/{id}', [StudentController::class, 'editPassword']);
+
     Route::post('/delete/{id}', [StudentController::class, 'delete']);
 
     Route::post('/login-student', [StudentController::class, 'loginStudent']);
@@ -56,7 +60,8 @@ Route::group(['prefix' => 'mentor'], function() {
     Route::get('/list', [MentorController::class, 'index']);
     Route::post('/add', [MentorController::class, 'store']);
     Route::post('/edit/{id}', [MentorController::class, 'edit']);
-    Route::get('/detail/{id}', [MentorController::class, 'detail'])->middleware('auth:sanctum');
+    Route::get('/detail', [MentorController::class, 'detail'])->middleware('auth:sanctum');
+    Route::get('/detail-data/{id}', [MentorController::class, 'show']);
     Route::post('/delete/{id}', [MentorController::class, 'delete']);
 
     Route::post('/login-mentor', [MentorController::class, 'loginMentor']);

@@ -24,11 +24,11 @@ class EditStudentRequest extends FormRequest
         return [
 //            'user_id' => 'required|integer',
             'nis' => 'string',
-            'email' => 'email',
+            'email' => 'email|nullable',
             'name' => 'max:255',
             'role_id' => 'required',
             'grade_id' => 'required',
-            'phone_number' => 'min:10',
+            'phone_number' => 'min:10|nullable',
             'birth_place' => 'string',
             'birth_date' => 'string',
 //            'id_card_image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',

@@ -75,7 +75,7 @@ class MentorController extends Controller
         if (!$mentor || !Hash::check($credentials['password'], $mentor->password)) {
             return response()->json([
                 'message' => 'Email atau Password salah'
-            ]);
+            ], 422);
         }
 
         $token = $mentor->createToken('auth_token')->plainTextToken;
@@ -140,7 +140,12 @@ class MentorController extends Controller
         ]);
     }
 
-    public function detail($id)
+    public function detail()
+    {
+        return response()->json(auth()->user());
+    }
+
+    public function show($id)
     {
         $mentor = Mentor::find($id);
 
