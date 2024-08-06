@@ -25,6 +25,7 @@ class EditStudentRequest extends FormRequest
 //            'user_id' => 'required|integer',
             'nis' => 'string',
             'email' => 'email|nullable',
+            'username' => 'string|nullable',
             'name' => 'max:255',
             'role_id' => 'required',
             'grade_id' => 'required',

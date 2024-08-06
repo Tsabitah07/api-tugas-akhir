@@ -35,6 +35,7 @@ class StudentController extends Controller
 //            'user_id' => $request->user_id,
             'nis' => $request->nis,
             'email' => $request->email,
+            'username' => $request->username,
             'name' => $request->name,
             'role_id' => $request->role_id = 3,
             'grade_id' => $request->grade_id,
@@ -96,6 +97,7 @@ class StudentController extends Controller
         $data = $request->all();
         $student->nis = $data['nis'];
         $student->email = $data['email'];
+        $student->username = $data['username'];
         $student->name = $data['name'];
         $student->role_id = $data['role_id'];
         $student->grade_id = $data['grade_id'];

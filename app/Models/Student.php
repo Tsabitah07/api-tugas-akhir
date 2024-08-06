@@ -12,16 +12,15 @@ class Student extends Model
     use HasFactory, HasApiTokens;
 
     protected $fillable = [
-//        'user_id',
         'nis',
         'email',
+        'username',
         'name',
         'role_id',
         'grade_id',
         'phone_number',
         'birth_place',
         'birth_date',
-//        'id_card_image',
         'password',
         'image',
     ];

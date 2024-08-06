@@ -16,6 +16,7 @@ return new class extends Migration
 //            $table->foreignId('user_id');
             $table->string('nis');
             $table->string('email')->nullable();
+            $table->string('username')->nullable()->unique();
             $table->string('name');
             $table->foreignId('role_id')->default(3);
             $table->string('grade_id');

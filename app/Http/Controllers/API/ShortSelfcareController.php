@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
-use App\Models\Shortselfcare;
+use App\Models\ShortSelfcare;
 use Illuminate\Http\Request;
 
 class ShortSelfcareController extends Controller
