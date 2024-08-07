@@ -31,17 +31,24 @@ class StudentController extends Controller
             $imageUrl = Storage::url($image);
         }
 
+        if ($request->role_id != null) {
+            $role = $request->role_id;
+        } else {
+            $role = 3;
+        }
+
         $student = [
 //            'user_id' => $request->user_id,
             'nis' => $request->nis,
             'email' => $request->email,
             'username' => $request->username,
             'name' => $request->name,
-            'role_id' => $request->role_id = 3,
+            'role_id' => $role,
             'grade_id' => $request->grade_id,
             'phone_number' => $request->phone_number,
             'birth_place' => $request->birth_place,
             'birth_date' => $request->birth_date,
+            'year_of_entry' => $request->year_of_entry,
             'password' => Hash::make($request->password),
             'image' => $imageUrl,
 //            'id_card_image' => $imageUrl,
@@ -88,9 +95,8 @@ class StudentController extends Controller
         if ($request->hasFile('image')) {
             $delete = Storage::delete('public/profile/' . $student->image);
             if ($delete) {
-                $imageName = time() . $request->file('image')->getClientOriginalName();
-                $imagePath = $request->file('image')->storeAs('public/profile', $imageName);
-                $imageUrl = Storage::url($imagePath);
+                $image = $request->file('image')->storePublicly('profile', 'public');
+                $imageUrl = Storage::url($image);
             }
         }
 
@@ -104,6 +110,7 @@ class StudentController extends Controller
         $student->phone_number = $data['phone_number'];
         $student->birth_place = $data['birth_place'];
         $student->birth_date = $data['birth_date'];
+        $student->year_of_entry = $data['year_of_entry'];
         $student->password = Hash::make($data['password']);
         $student->image = $data['image'] = $imageUrl;
 
@@ -141,6 +148,27 @@ class StudentController extends Controller
         ]);
     }
 
+    public function logout($id)
+    {
+        auth()->user()->tokens()->delete();
+
+        return response()->json([
+            'message' => 'Logout berhasil'
+        ]);
+    }
+
+    public function editUsername(EditStudentRequest $request, $id)
+    {
+        $student = Student::find($id);
+        $student->username = $request->username;
+        $student->save();
+
+        return response()->json([
+            'message' => 'Username berhasil diubah',
+            'data' => $student
+        ]);
+    }
+
     public function editEmail(EditStudentRequest $request, $id)
     {
         $student = Student::find($id);
@@ -161,6 +189,66 @@ class StudentController extends Controller
 
         return response()->json([
             'message' => 'Password berhasil diubah',
+            'data' => $student
+        ]);
+    }
+
+    public function editImage(EditStudentRequest $request, $id)
+    {
+        $student = Student::find($id);
+
+        if (!$student) {
+            return response()->json([
+                'message' => 'Data Student tidak ditemukan'
+            ]);
+        }
+
+        if ($request->hasFile('image')) {
+            $delete = Storage::delete('public/profile/' . $student->image);
+            if ($delete) {
+                $image = $request->file('image')->storePublicly('profile', 'public');
+                $imageUrl = Storage::url($image);
+            }
+        }
+
+        $student->image = $imageUrl;
+        $student->save();
+
+        return response()->json([
+            'message' => 'Image berhasil diubah',
+            'data' => $student
+        ]);
+    }
+
+    public function showByGrade($id)
+    {
+        $student = Student::whereGradeId($id)->latest()->get();
+
+        return response()->json([
+            'message' => 'Data Student berhasil diambil',
+            'data' => $student
+        ]);
+    }
+
+    public function showByEntryYear($year)
+    {
+        $student = Student::where('year_of_entry', $year)->latest()->get();
+
+        return response()->json([
+            'message' => 'Data Student berhasil diambil',
+            'data' => $student
+        ]);
+    }
+
+    public function search($search)
+    {
+        $student = Student::where('name', 'like', '%' . $search . '%')
+            ->orWhere('nis', 'like', '%' . $search . '%')
+            ->orWhere('username', 'like', '%' . $search . '%')
+            ->get();
+
+        return response()->json([
+            'message' => 'Data Student berhasil diambil',
             'data' => $student
         ]);
     }

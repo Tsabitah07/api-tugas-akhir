@@ -22,19 +22,18 @@ class EditStudentRequest extends FormRequest
     public function rules(): array
     {
         return [
-//            'user_id' => 'required|integer',
             'nis' => 'string',
             'email' => 'email|nullable',
             'username' => 'string|nullable',
             'name' => 'max:255',
-            'role_id' => 'required',
-            'grade_id' => 'required',
+            'role_id' => 'nullable|integer',
+            'grade_id' => 'nullable|integer',
             'phone_number' => 'min:10|nullable',
-            'birth_place' => 'string',
-            'birth_date' => 'string',
-//            'id_card_image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
-            'password' => 'min:8',
-            'image' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'birth_place' => 'string|nullable',
+            'birth_date' => 'string|nullable',
+            'year_of_entry' => 'string|nullable',
+            'password' => 'min:8|nullable',
+            'image' => 'image|mimes:jpeg,png,jpg,gif,svg',
         ];
     }
 }

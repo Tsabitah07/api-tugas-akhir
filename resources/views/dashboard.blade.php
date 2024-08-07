@@ -63,17 +63,58 @@
 {{--    </div>--}}
 
     <div style="height: 100vh; width: 80vw;display: flex;flex-direction: column; justify-content: start; overflow: auto; white-space: nowrap; margin-top: 10vh;">
-        <div style="width: 80vw; height: 37vh; display: flex; flex-direction: column; background: beige; padding: 10px 10px 0 15px; gap: 10px">
+        <div style="width: 80vw; height: 24vh; display: flex; flex-direction: column; padding: 10px 10px 0 15px; gap: 10px">
             <h4>Statistik Data</h4>
-            <div style="display: flex; flex-direction: row; justify-content: space-between; width: 77vw;">
-                <div style="background: #1a202c; width: 20vw; height: 12vw"></div>
-                <div style="background: #1a202c; width: 20vw; height: 12vw"></div>
-                <div style="background: #1a202c; width: 20vw; height: 12vw"></div>
-                <div style="background: #1a202c; width: 13vw; height: 12vw"></div>
+            <div style="display: flex; flex-direction: row; justify-content: space-between; width: 63vw;">
+                <div style="display: flex; flex-direction: row; justify-content: space-between; align-items: center; background: #9F41EA; border-radius: 7px; width: 20vw; height: 7vw; padding-left: 15px; padding-right: 20px">
+                    <div>
+                        <h4 style="text-align: center; color: white">Jumlah Mentor</h4>
+                        <p style="padding: 0; margin: 0"><a href="/admin/mentor" style="text-decoration: none; color: white">See Detail</a></p>
+                    </div>
+                    <h3 style="text-align: center; font-size: xxx-large; color: white">{{$mentor_sum}}</h3>
+                </div>
+                <div style="display: flex; flex-direction: row; justify-content: space-between; align-items: center; background: #9F41EA; border-radius: 7px; width: 20vw; height: 7vw; padding-left: 15px; padding-right: 20px">
+                    <div>
+                        <h4 style="text-align: center; color: white">Jumlah Student</h4>
+                        <p style="padding: 0; margin: 0"><a href="/admin/student" style="text-decoration: none; color: white">See Detail</a></p>
+                    </div>
+                    <h3 style="text-align: center; font-size: xxx-large; color: white">{{$student_sum}}</h3>
+                </div>
+                <div style="display: flex; flex-direction: row; justify-content: space-between; align-items: center; background: #9F41EA; border-radius: 7px; width: 20vw; height: 7vw; padding-left: 15px; padding-right: 20px">
+                    <div>
+                        <h4 style="text-align: center; color: white">Jumlah Counseling</h4>
+                        <p style="padding: 0; margin: 0"><a href="/admin/counseling" style="text-decoration: none; color: white">See Detail</a></p>
+                    </div>
+                    <h3 style="text-align: center; font-size: xxx-large; color: white">{{$counseling_sum}}</h3>
+                </div>
+
+{{--                <div style="background: #1a202c; width: 13vw; height: 7vw"></div>--}}
             </div>
         </div>
-        <div style="width: 80vw; height: 53vh; display: flex; flex-direction: column; background: burlywood; padding: 10px 10px 0 15px; gap: 10px">
+        <div style="overflow: auto; width: 77vw; height: 66vh; display: flex; flex-direction: column; padding: 10px 10px 0 15px; gap: 10px">
             <h4>Recent Counseling</h4>
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">Name</th>
+                        <th scope="col">Major</th>
+                        <th scope="col">Date</th>
+                        <th scope="col">Status</th>
+                    </tr>
+                </thead>
+                <tbody class="table-group-divider">
+                @foreach($counseling as $key => $counselings)
+                    <tr>
+                        <th scope="row">{{$no++}}</th>
+                        <td>{{$counselings->Student->name}}</td>
+                        <td>{{$counselings->Grade->grade_name}}</td>
+                        <td>{{\Carbon\Carbon::parse($counselings->counseling_date)->format('F d, Y')}}</td>
+                        <td>{{$counselings->Status->status}}</td>
+                    </tr>
+                @endforeach
+                </tbody>
+            </table>
         </div>
     </div>
 @endsection

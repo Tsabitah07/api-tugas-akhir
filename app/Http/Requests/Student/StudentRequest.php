@@ -22,19 +22,18 @@ class StudentRequest extends FormRequest
     public function rules(): array
     {
         return [
-//            'user_id' => 'required|integer',
             'nis' => 'min:5|unique:students|string',
             'email' => 'email|nullable',
             'username' => 'min:5|unique:students|string|nullable',
             'name' => 'max:255',
-            'role_id' => 'required',
-            'grade_id' => 'required',
+            'role_id' => 'nullable|integer',
+            'grade_id' => 'required|integer',
             'phone_number' => 'min:10',
             'birth_place' => 'string',
             'birth_date' => 'string',
-//            'id_card_image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'year_of_entry' => 'string',
             'password' => 'min:8',
-            'image' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'image' => 'image|mimes:jpeg,png,jpg,gif,svg',
         ];
     }
 }

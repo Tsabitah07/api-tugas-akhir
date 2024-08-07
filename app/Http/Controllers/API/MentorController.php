@@ -48,7 +48,6 @@ class MentorController extends Controller
             'last_education' => $request->last_education,
             'last_university' => $request->last_university,
             'phone_number' => $request->phone_number,
-//            'user_id' => $request->user_id,
             'about_me' => $request->about_me,
             'linkedin' => $request->linkedin,
             'instagram' => $request->instagram,
@@ -123,7 +122,6 @@ class MentorController extends Controller
         $mentor->last_education = $data['last_education'];
         $mentor->last_university = $data['last_university'];
         $mentor->phone_number = $data['phone_number'];
-//        $mentor->user_id = $data['user_id'];
         $mentor->about_me = $data['about_me'];
         $mentor->linkedin = $data['linkedin'];
         $mentor->instagram = $data['instagram'];
@@ -175,6 +173,84 @@ class MentorController extends Controller
 
         return response()->json([
             'message' => 'Data Mentor berhasil dihapus'
+        ]);
+    }
+
+    public function logout()
+    {
+        auth()->user()->tokens()->delete();
+
+        return response()->json([
+            'message' => 'Logout berhasil'
+        ]);
+    }
+
+    public function editUsername(EditMentorRequest $request, $id)
+    {
+        $mentor = Mentor::find($id);
+        $mentor->username = $request->username;
+        $mentor->save();
+
+        return response()->json([
+            'message' => 'Username Mentor berhasil diubah',
+            'data' => $mentor
+        ]);
+    }
+
+    public function editEmail(EditMentorRequest $request, $id)
+    {
+        $mentor = Mentor::find($id);
+        $mentor->email = $request->email;
+        $mentor->save();
+
+        return response()->json([
+            'message' => 'Email Mentor berhasil diubah',
+            'data' => $mentor
+        ]);
+    }
+
+    public function editPassword(EditMentorRequest $request, $id)
+    {
+        $mentor = Mentor::find($id);
+        $mentor->password = Hash::make($request->password);
+        $mentor->save();
+
+        return response()->json([
+            'message' => 'Password Mentor berhasil diubah',
+            'data' => $mentor
+        ]);
+    }
+
+    public function editImage(EditMentorRequest $request, $id)
+    {
+        $mentor = Mentor::find($id);
+
+        if ($request->hasFile('image')) {
+            $delete = Storage::delete('public/profile_mentor/' . $mentor->image);
+            if ($delete) {
+                $image = $request->file('image')->storePublicly('profile_mentor', 'public');
+                $imageUrl = Storage::url($image);
+            }
+        }
+
+        $mentor->image = $imageUrl;
+        $mentor->save();
+
+        return response()->json([
+            'message' => 'Image Mentor berhasil diubah',
+            'data' => $mentor
+        ]);
+    }
+
+    public function search($search)
+    {
+        $mentor = Mentor::where('name', 'like', '%' . $search . '%')
+            ->orWhere('username', 'like', '%' . $search . '%')
+            ->get();
+
+        return response()->json([
+            'message' => 'Data mentor berhasil diambil',
+            'data' => $mentor
         ]);
     }
 }

@@ -73,7 +73,7 @@ class DatabaseSeeder extends Seeder
         ]);
 
         CounselingStatus::create([
-            'status' => 'Akan Datang'
+            'status' => 'Ditolak'
         ]);
 
         CounselingStatus::create([
@@ -81,7 +81,7 @@ class DatabaseSeeder extends Seeder
         ]);
 
         CounselingStatus::create([
-            'status' => 'Ditolak'
+            'status' => 'Selesai'
         ]);
 
         DataService::create([

@@ -15,8 +15,8 @@ return new class extends Migration
             $table->id();
 //            $table->unsignedBigInteger('user_id');
             $table->string('name');
-            $table->string('username');
-            $table->string('email');
+            $table->string('username')->nullable()->unique();
+            $table->string('email')->nullable()->unique();
             $table->foreignId('role_id')->default(2);
             $table->foreignId('grade_id');
             $table->string('birth_place');
@@ -25,9 +25,9 @@ return new class extends Migration
             $table->string('gender');
             $table->string('experience');
             $table->string('last_education');
-            $table->string('last_university');
+            $table->string('last_university')->nullable();
             $table->string('phone_number');
-            $table->string('about_me');
+            $table->string('about_me')->nullable();
             $table->string('linkedin')->nullable();
             $table->string('instagram')->nullable();
             $table->string('twitter')->nullable();

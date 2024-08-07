@@ -21,6 +21,12 @@ class CounselingController extends Controller
 
     public function store(CounselingRequset $request)
     {
+        if ($request->counseling_status_id != null) {
+            $counseling_status = $request->counseling_status_id;
+        } else {
+            $counseling_status = 1;
+        }
+
         $counseling = [
             'name' => $request->name,
             'grade_id' => $request->grade_id,
@@ -30,7 +36,7 @@ class CounselingController extends Controller
             'service' => $request->service,
             'subject' => $request->subject,
             'place' => $request->place,
-            'counseling_status_id' => $request->counseling_status_id=1
+            'counseling_status_id' => $counseling_status
         ];
 
         $counselings = Counseling::create($counseling);

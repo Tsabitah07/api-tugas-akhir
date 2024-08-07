@@ -13,4 +13,12 @@ class StudentController extends Controller
             'title' => 'Students',
         ]);
     }
+
+    public function detail($id)
+    {
+        return view('student-detail',[
+            'title' => 'Student Detail',
+            'id' => $id,
+        ]);
+    }
 }

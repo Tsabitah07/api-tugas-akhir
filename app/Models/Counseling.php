@@ -21,12 +21,17 @@ class Counseling extends Model
         'counseling_status_id',
     ];
 
-    public function student()
+    public function Student()
     {
         return $this->belongsTo(Student::class, 'student_id', 'id');
     }
 
-    public function status()
+    public function Grade()
+    {
+        return $this->belongsTo(Grade::class, 'grade_id', 'id');
+    }
+
+    public function Status()
     {
         return $this->belongsTo(CounselingStatus::class, 'counseling_status_id', 'id');
     }

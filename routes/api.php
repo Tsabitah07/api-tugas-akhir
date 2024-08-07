@@ -48,23 +48,39 @@ Route::group(['prefix' => 'student'], function() {
     Route::post('/add', [StudentController::class, 'store']);
 
     Route::post('/edit/{id}', [StudentController::class, 'edit']);
+    Route::post('/edit-username/{id}', [StudentController::class, 'editUsername']);
     Route::post('/edit-email/{id}', [StudentController::class, 'editEmail']);
     Route::post('/edit-password/{id}', [StudentController::class, 'editPassword']);
+    Route::post('/edit-image/{id}', [StudentController::class, 'editImage']);
 
     Route::post('/delete/{id}', [StudentController::class, 'delete']);
+    Route::post('/logout', [StudentController::class, 'logout']);
 
     Route::post('/login-student', [StudentController::class, 'loginStudent']);
+
+    Route::get('/show-by/grade/{id}', [StudentController::class, 'showByGrade']);
+    Route::get('/show-by/entry-year/{year}', [StudentController::class, 'showByEntryYear']);
+    Route::get('/search/{search}', [StudentController::class, 'search']);
 });
 
 Route::group(['prefix' => 'mentor'], function() {
     Route::get('/list', [MentorController::class, 'index']);
     Route::post('/add', [MentorController::class, 'store']);
-    Route::post('/edit/{id}', [MentorController::class, 'edit']);
     Route::get('/detail', [MentorController::class, 'detail'])->middleware('auth:sanctum');
     Route::get('/detail-data/{id}', [MentorController::class, 'show']);
+
+    Route::post('/edit/{id}', [MentorController::class, 'edit']);
+    Route::post('/edit-username/{id}', [MentorController::class, 'editUsername']);
+    Route::post('/edit-email/{id}', [MentorController::class, 'editEmail']);
+    Route::post('/edit-password/{id}', [MentorController::class, 'editPassword']);
+    Route::post('/edit-image/{id}', [MentorController::class, 'editImage']);
+
     Route::post('/delete/{id}', [MentorController::class, 'delete']);
+    Route::post('/logout', [MentorController::class, 'logout']);
 
     Route::post('/login-mentor', [MentorController::class, 'loginMentor']);
+
+    Route::get('/search/{search}', [MentorController::class, 'search']);
 });
 
 Route::group(['prefix' => 'counseling'], function() {

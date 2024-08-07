@@ -19,11 +19,6 @@
 {{--                Sign out--}}
 {{--            </button>--}}
 {{--        </form>--}}
-        <div>
-            <p>Student</p>
-
-        </div>
-
-        <a style="text-decoration: none; font-size: large; font-weight: bold; margin-bottom: 7px">Logout</a>
+        <a href="/auth/login" style="text-decoration: none; font-size: large; font-weight: bold; margin-bottom: 7px">Logout</a>
     </div>
 </div>

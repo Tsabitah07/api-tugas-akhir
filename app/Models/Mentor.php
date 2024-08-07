@@ -47,7 +47,7 @@ class Mentor extends Model
 //        return $this->belongsTo(User::class, 'user_id', 'id');
 //    }
 
-    public function grade(): BelongsTo
+    public function Grade(): BelongsTo
     {
         return $this->belongsTo(Grade::class, 'grade_id', 'id');
     }

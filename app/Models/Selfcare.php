@@ -16,4 +16,17 @@ class Selfcare extends Model
         'slug',
         'image'
     ];
+
+    protected static function boot()
+    {
+        parent::boot();
+
+        static::creating(function ($selfcare) {
+            $selfcare->slug = Str::slug($selfcare->title);
+        });
+
+        static::updating(function ($selfcare) {
+            $selfcare->slug = Str::slug($selfcare->title);
+        });
+    }
 }

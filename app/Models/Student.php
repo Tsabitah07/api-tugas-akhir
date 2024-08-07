@@ -21,6 +21,7 @@ class Student extends Model
         'phone_number',
         'birth_place',
         'birth_date',
+        'year_of_entry',
         'password',
         'image',
     ];
