@@ -148,7 +148,7 @@ class StudentController extends Controller
         ]);
     }
 
-    public function logout($id)
+    public function logout()
     {
         auth()->user()->tokens()->delete();
 

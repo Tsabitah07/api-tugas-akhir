@@ -1,15 +1,15 @@
 <div class="sidebar" style="width: 20vw; height: 100vh; padding: 15px; margin: 0; border-right: #1a202c solid 1px">
     <div style="height: 80%">
         <div style="margin: 11.5px 0">
-            <h3>Hello, Admin</h3>
+            <h3 style="color: #9F41EA; font-weight: bold">RusCare</h3>
         </div>
 
         <hr class="my-2"  style="border: #1a202c 1px solid">
 
-        <div style="display: flex; flex-direction: column; gap: 15px">
-            <a href="/admin/dashboard" style="text-decoration: none; font-size: large">Dashboard</a>
-            <a href="/admin/mentor" style="text-decoration: none; font-size: large">Mentor</a>
-            <a href="/admin/student" style="text-decoration: none; font-size: large">Student</a>
+        <div style="display: flex; flex-direction: column; gap: 20px">
+            <a href="/admin/dashboard" style="margin-top: 20px; text-decoration: none; font-size: large; font-weight: bold; color: #9F41EA">Dashboard</a>
+            <a href="/admin/mentor" style="text-decoration: none; font-size: large; font-weight: bold; color: #9F41EA">Mentor</a>
+            <a href="/admin/student" style="text-decoration: none; font-size: large; font-weight: bold; color: #9F41EA">Student</a>
         </div>
     </div>
     <div style="display: flex; height: 20%; justify-content: left; align-items: end">
@@ -19,6 +19,6 @@
 {{--                Sign out--}}
 {{--            </button>--}}
 {{--        </form>--}}
-        <a href="/auth/login" style="text-decoration: none; font-size: large; font-weight: bold; margin-bottom: 7px">Logout</a>
+        <a href="/auth/login" style="text-decoration: none; font-size: large; font-weight: bold; margin-bottom: 7px; color: #ef4444">Logout</a>
     </div>
 </div>

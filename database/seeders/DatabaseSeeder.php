@@ -53,7 +53,7 @@ class DatabaseSeeder extends Seeder
         ]);
 
         Grade::create([
-            'grade_name' => 'Animmasi 2D'
+            'grade_name' => 'Animasi 2D'
         ]);
 
         Grade::create([

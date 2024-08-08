@@ -33,12 +33,12 @@ class Student extends Model
         'remember_token'
     ];
 
-    public function grade(): BelongsTo
+    public function Grade(): BelongsTo
     {
         return $this->belongsTo(Grade::class, 'grade_id', 'id');
     }
 
-    public function role(): BelongsTo
+    public function Role(): BelongsTo
     {
         return $this->belongsTo(Role::class, 'role_id', 'id');
     }

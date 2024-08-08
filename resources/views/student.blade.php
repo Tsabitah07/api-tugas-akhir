@@ -49,8 +49,36 @@
 {{--                </tbody>--}}
 {{--            </table>--}}
 {{--        </div>--}}
-        <div style="display: flex">
-            <div></div>
+        <div style="display: flex; width: 77vw">
+            <table class="table" style="margin-left: 15px">
+                <thead>
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">NIS</th>
+                    <th scope="col">Name</th>
+                    <th scope="col">Major</th>
+                    <th scope="col">Action</th>
+                </tr>
+                </thead>
+                <tbody class="table-group-divider">
+                @foreach($students as $key => $student)
+                    <tr>
+                        <th scope="row">{{$no++}}</th>
+                        <td>{{$student->nis}}</td>
+                        <td>{{$student->name}}</td>
+                        <td>{{$student->Grade->grade_name}}</td>
+                        <td>
+                            <a href="/student/detail/{{$student->id}}" class="btn btn-outline-primary">Detail</a>
+                            <a href="/student/edit/{{$student->id}}" class="btn btn-outline-warning">Edit</a>
+                            <form action="/student/delete/{{$student->id}}" method="post" class="d-inline">
+                                @csrf
+                                @method('post')
+                                <button class="btn btn-outline-danger"  onclick="return confirm('Are you sure you want to delete this class?')">Delete</button>
+                            </form>
+                    </tr>
+                @endforeach
+                </tbody>
+            </table>
         </div>
     </div>
 @endsection
