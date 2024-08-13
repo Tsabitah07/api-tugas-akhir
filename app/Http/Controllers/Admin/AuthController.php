@@ -38,10 +38,10 @@ class AuthController extends Controller
     {
         $credentials = $request->validated();
 
-        $student = Student::where('nis', $credentials['nis'])->orWhere('email', $credentials['nis'])->first();
+        $user = User::where('name', $credentials['nis'])->orWhere('email', $credentials['nis'])->first();
 
-        if ($student || !Hash::check($credentials['password'], $student->password)) {
-            if ($student->role_id != 1) {
+        if ($user || !Hash::check($credentials['password'], $user->password)) {
+            if ($user->role_id != 1) {
                 return back()->with('error', 'You are not authorized to access this page.');
             } else {
                 $request->session()->regenerate();

@@ -160,6 +160,25 @@ class StudentController extends Controller
     public function editUsername(EditStudentRequest $request, $id)
     {
         $student = Student::find($id);
+
+        if (!$student) {
+            return response()->json([
+                'message' => 'Data Student tidak ditemukan'
+            ]);
+        }
+
+        if ($request->username == $student->username) {
+            return response()->json([
+                'message' => 'Username sama dengan sebelumnya'
+            ]);
+        }
+
+        if (Student::where('username', $request->username)->first()) {
+            return response()->json([
+                'message' => 'Username sudah digunakan'
+            ]);
+        }
+
         $student->username = $request->username;
         $student->save();
 
@@ -172,6 +191,25 @@ class StudentController extends Controller
     public function editEmail(EditStudentRequest $request, $id)
     {
         $student = Student::find($id);
+
+        if (!$student) {
+            return response()->json([
+                'message' => 'Data Student tidak ditemukan'
+            ]);
+        }
+
+        if ($request->email == $student->email) {
+            return response()->json([
+                'message' => 'Email sama dengan sebelumnya'
+            ]);
+        }
+
+        if (Student::where('email', $request->email)->first()) {
+            return response()->json([
+                'message' => 'Email sudah digunakan'
+            ]);
+        }
+
         $student->email = $request->email;
         $student->save();
 

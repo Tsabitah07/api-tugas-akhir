@@ -64,7 +64,7 @@
 
     <div style="height: 100vh; width: 80vw;display: flex;flex-direction: column; justify-content: start; overflow: auto; white-space: nowrap; margin-top: 10vh;">
         <div style="width: 80vw; height: 24vh; display: flex; flex-direction: column; padding: 10px 10px 0 15px; gap: 10px">
-            <h4>Statistik Data</h4>
+            <h4>Data Penggunaan</h4>
             <div style="display: flex; flex-direction: row; justify-content: space-between; width: 63vw;">
                 <div style="display: flex; flex-direction: row; justify-content: space-between; align-items: center; background: #9F41EA; border-radius: 7px; width: 20vw; height: 7vw; padding-left: 15px; padding-right: 20px">
                     <div>

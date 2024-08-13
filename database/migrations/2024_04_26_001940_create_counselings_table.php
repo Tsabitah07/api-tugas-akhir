@@ -20,7 +20,6 @@ return new class extends Migration
             $table->string('time');
             $table->string('service');
             $table->string('subject');
-            $table->string('place');
             $table->foreignId('counseling_status_id')->default(1);
             $table->timestamps();
         });

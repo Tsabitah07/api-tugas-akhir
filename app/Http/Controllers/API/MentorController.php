@@ -188,6 +188,25 @@ class MentorController extends Controller
     public function editUsername(EditMentorRequest $request, $id)
     {
         $mentor = Mentor::find($id);
+
+        if (!$mentor) {
+            return response()->json([
+                'message' => 'Data Mentor tidak ditemukan'
+            ]);
+        }
+
+        if ($request->username == $mentor->username) {
+            return response()->json([
+                'message' => 'Username sama dengan sebelumnya'
+            ]);
+        }
+
+        if (Mentor::where('username', $request->username)->first()) {
+            return response()->json([
+                'message' => 'Username sudah digunakan'
+            ]);
+        }
+
         $mentor->username = $request->username;
         $mentor->save();
 
@@ -200,6 +219,25 @@ class MentorController extends Controller
     public function editEmail(EditMentorRequest $request, $id)
     {
         $mentor = Mentor::find($id);
+
+        if (!$mentor) {
+            return response()->json([
+                'message' => 'Data Mentor tidak ditemukan'
+            ]);
+        }
+
+        if ($request->email == $mentor->email) {
+            return response()->json([
+                'message' => 'Email sama dengan sebelumnya'
+            ]);
+        }
+
+        if (Mentor::where('email', $request->email)->first()) {
+            return response()->json([
+                'message' => 'Email sudah digunakan'
+            ]);
+        }
+
         $mentor->email = $request->email;
         $mentor->save();
 
