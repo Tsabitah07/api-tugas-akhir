@@ -65,15 +65,11 @@ class DatabaseSeeder extends Seeder
         ]);
 
         CounselingStatus::create([
-            'status' => 'Pending'
+            'status' => 'Menunggu Konfirmasi'
         ]);
 
         CounselingStatus::create([
-            'status' => 'Diterima'
-        ]);
-
-        CounselingStatus::create([
-            'status' => 'Ditolak'
+            'status' => 'Akan Datang'
         ]);
 
         CounselingStatus::create([
@@ -82,6 +78,14 @@ class DatabaseSeeder extends Seeder
 
         CounselingStatus::create([
             'status' => 'Selesai'
+        ]);
+
+        CounselingStatus::create([
+            'status' => 'Dibatalkan'
+        ]);
+
+        CounselingStatus::create([
+            'status' => 'Tidak Hadir'
         ]);
 
         DataService::create([

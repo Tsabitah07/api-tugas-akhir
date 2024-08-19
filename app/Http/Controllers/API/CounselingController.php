@@ -27,15 +27,30 @@ class CounselingController extends Controller
             $counseling_status = 1;
         }
 
+        if ($request->counseling_date < now()) {
+            return response()->json([
+                'message' => 'Tanggal konseling tidak boleh kurang dari hari ini'
+            ]);
+        }
+
+        $counsel = Counseling::where('counseling_date', $request->counseling_date)
+            ->where('time', $request->time)
+            ->first();
+
+        if ($counsel) {
+            return response()->json([
+                'message' => 'Tanggal dan waktu konseling tidak tersedia'
+            ]);
+        }
+
         $counseling = [
-            'name' => $request->name,
             'grade_id' => $request->grade_id,
             'student_id' => $request->student_id,
             'counseling_date' => $request->counseling_date,
             'time' => $request->time,
+            'expired' => $request->expired = false,
             'service' => $request->service,
             'subject' => $request->subject,
-            'place' => $request->place,
             'counseling_status_id' => $counseling_status
         ];
 
@@ -111,6 +126,16 @@ class CounselingController extends Controller
     public function showByGrade($id)
     {
         $counseling = Counseling::whereGradeId($id)->latest()->get();
+
+        return response()->json([
+            'message' => 'Data Counseling berhasil diambil',
+            'data' => $counseling
+        ]);
+    }
+
+    public function showByStatus($id)
+    {
+        $counseling = Counseling::whereCounselingStatusId($id)->latest()->get();
 
         return response()->json([
             'message' => 'Data Counseling berhasil diambil',

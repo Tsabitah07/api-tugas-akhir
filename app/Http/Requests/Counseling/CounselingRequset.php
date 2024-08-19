@@ -22,14 +22,13 @@ class CounselingRequset extends FormRequest
     public function rules(): array
     {
         return [
-            'name' => 'required|string',
             'grade_id' => 'required|integer',
             'student_id' => 'required|integer',
             'counseling_date' => 'required|date',
-            'time' => 'required|string',
+            'time' => 'required',
+            'expired' => 'boolean|nullable',
             'service' => 'required|string',
             'subject' => 'required|string',
-            'place' => 'required|string',
             'counseling_status_id' => 'integer|nullable'
         ];
     }

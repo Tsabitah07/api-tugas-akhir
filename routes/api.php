@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\API\ArticleController;
 use App\Http\Controllers\API\CounselingController;
+use App\Http\Controllers\API\CounselingStatusController;
 use App\Http\Controllers\API\DisplayDataController;
 use App\Http\Controllers\API\PsychologyController;
 use App\Http\Controllers\API\SelfcareController;
@@ -92,6 +93,14 @@ Route::group(['prefix' => 'counseling'], function() {
 
     Route::get('/show-by/user/{id}', [CounselingController::class, 'showByUser']);
     Route::get('/show-by/grade/{id}', [CounselingController::class, 'showByGrade']);
+    Route::get('/show-by/status/{id}', [CounselingController::class, 'showByStatus']);
+
+    Route::group(['prefix' => 'status'], function() {
+        Route::post('/accept/{id}', [CounselingStatusController::class, 'acceptCounseling']);
+        Route::post('/reschedule/{id}', [CounselingStatusController::class, 'rescheduleCounseling']);
+        Route::post('/cancel/{id}', [CounselingStatusController::class, 'cancelCounseling']);
+        Route::post('/complete/{id}', [CounselingStatusController::class, 'completeCounseling']);
+    });
 });
 
 Route::group(['prefix' => 'article'], function() {

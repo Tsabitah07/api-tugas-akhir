@@ -10,15 +10,24 @@ class Counseling extends Model
     use HasFactory;
 
     protected $fillable = [
-        'name',
         'grade_id',
         'student_id',
         'counseling_date',
         'time',
+        'expired',
         'service',
         'subject',
-        'place',
         'counseling_status_id',
+    ];
+
+    protected $casts = [
+        'counseling_date' => 'datetime:Y-m-d',
+        'expired' => 'boolean',
+    ];
+
+    protected $hidden = [
+        'created_at',
+        'updated_at',
     ];
 
     public function Student()
