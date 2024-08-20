@@ -113,9 +113,9 @@ class CounselingController extends Controller
         ]);
     }
 
-    public function showByUser($id)
+    public function showByUser()
     {
-        $counseling = Counseling::whereStudentId($id)->latest()->get();
+        $counseling = Counseling::where('student_id',  auth()->user()->id)->latest()->get();
 
         return response()->json([
             'message' => 'Data Counseling berhasil diambil',
@@ -126,16 +126,6 @@ class CounselingController extends Controller
     public function showByGrade($id)
     {
         $counseling = Counseling::whereGradeId($id)->latest()->get();
-
-        return response()->json([
-            'message' => 'Data Counseling berhasil diambil',
-            'data' => $counseling
-        ]);
-    }
-
-    public function showByStatus($id)
-    {
-        $counseling = Counseling::whereCounselingStatusId($id)->latest()->get();
 
         return response()->json([
             'message' => 'Data Counseling berhasil diambil',

@@ -91,9 +91,11 @@ Route::group(['prefix' => 'counseling'], function() {
     Route::get('/detail/{id}', [CounselingController::class, 'detail']);
     Route::post('/delete/{id}', [CounselingController::class, 'delete']);
 
-    Route::get('/show-by/user/{id}', [CounselingController::class, 'showByUser']);
+    Route::get('/history', [CounselingStatusController::class, 'history'])->middleware('auth:sanctum');
+
+    Route::get('/show-by/user', [CounselingController::class, 'showByUser'])->middleware('auth:sanctum');
     Route::get('/show-by/grade/{id}', [CounselingController::class, 'showByGrade']);
-    Route::get('/show-by/status/{id}', [CounselingController::class, 'showByStatus']);
+    Route::get('/show-by/status/{id}', [CounselingStatusController::class, 'showByStatus'])->middleware('auth:sanctum');
 
     Route::group(['prefix' => 'status'], function() {
         Route::post('/accept/{id}', [CounselingStatusController::class, 'acceptCounseling']);

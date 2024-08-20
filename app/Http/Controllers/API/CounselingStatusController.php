@@ -110,9 +110,32 @@ class CounselingStatusController extends Controller
 
     public function history()
     {
-        $counseling = Counseling::where('counseling_status_id', 4)
-            ->orWhere('counseling_status_id', 5)
-            ->orWhere('counseling_status_id', 6)
+        if (!auth()->check()) {
+            return response()->json([
+                'message' => 'Authentication is required'
+            ]);
+        }
+
+        $counseling = Counseling::where('student_id', auth()->user()->id)
+            ->whereIn('counseling_status_id', [4, 5, 6])
+            ->get();
+
+        return response()->json([
+            'message' => 'History Counseling berhasil diambil',
+            'data' => $counseling
+        ]);
+    }
+
+    public function showByStatus($status_id)
+    {
+        if (!auth()->check()) {
+            return response()->json([
+                'message' => 'Authentication is required'
+            ]);
+        }
+
+        $counseling = Counseling::where('student_id', auth()->user()->id)
+            ->where('counseling_status_id', $status_id)
             ->get();
 
         return response()->json([
