@@ -26,7 +26,7 @@ class EditRequest extends FormRequest
             "email" => "email",
             "password" => "string|min:8",
             "role_id" => "exists:roles,id",
-            "image" => "image|mimes:jpeg,png,jpg,gif,svg|max:2048",
+            "image" => "image|mimes:jpeg,png,jpg,gif,svg",
         ];
     }
 }

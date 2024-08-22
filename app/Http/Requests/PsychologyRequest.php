@@ -25,7 +25,7 @@ class PsychologyRequest extends FormRequest
             'title' => 'required|string',
             'slug' => 'string|nullable',
             'description' => 'required|string',
-            'image' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048|nullable',
+            'image' => 'image|mimes:jpeg,png,jpg,gif,svg|nullable',
             'question' => 'required|array',
             'question.*' => 'required|string',
         ];

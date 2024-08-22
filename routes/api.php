@@ -98,8 +98,10 @@ Route::group(['prefix' => 'counseling'], function() {
     Route::get('/show-by/status/{id}', [CounselingStatusController::class, 'showByStatus'])->middleware('auth:sanctum');
 
     Route::group(['prefix' => 'status'], function() {
+        Route::get('/count', [CounselingStatusController::class, 'count'])->middleware('auth:sanctum');
         Route::post('/accept/{id}', [CounselingStatusController::class, 'acceptCounseling']);
         Route::post('/reschedule/{id}', [CounselingStatusController::class, 'rescheduleCounseling']);
+        Route::post('/on-going/{id}', [CounselingStatusController::class, 'onGoingCounseling']);
         Route::post('/cancel/{id}', [CounselingStatusController::class, 'cancelCounseling']);
         Route::post('/complete/{id}', [CounselingStatusController::class, 'completeCounseling']);
     });
