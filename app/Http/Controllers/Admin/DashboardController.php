@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Counseling;
+use App\Models\CounselingStatus;
 use App\Models\Mentor;
 use App\Models\Student;
 use App\Models\User;
@@ -27,5 +28,12 @@ class DashboardController extends Controller
             'mentor_sum' => $mentor_sum,
             'counseling_sum' => $counseling_sum
         ]);
+    }
+
+    public function status()
+    {
+        $status = CounselingStatus::all();
+
+        $counseling = Counseling::where('counseling_status_id', $status->id);
     }
 }

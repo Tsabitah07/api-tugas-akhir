@@ -5,11 +5,12 @@ namespace App\Http\Controllers\API;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Counseling\EditCounselingRequest;
 use App\Models\Counseling;
+use App\Models\Mentor;
 use Illuminate\Http\Request;
 
 class CounselingStatusController extends Controller
 {
-    public function acceptCounseling($id)
+    public function acceptCounseling(EditCounselingRequest $request, $id)
     {
         $counseling = Counseling::find($id);
 
@@ -20,6 +21,7 @@ class CounselingStatusController extends Controller
         }
 
         $counseling->update([
+            'place' => $request->place,
             'counseling_status_id' => 2
         ]);
 
@@ -68,26 +70,6 @@ class CounselingStatusController extends Controller
         ]);
     }
 
-    public function onGoingCounseling($id)
-    {
-        $counseling = Counseling::find($id);
-
-        if (!$counseling){
-            return response()->json([
-                'message' => 'Data Counseling tidak ditemukan'
-            ]);
-        }
-
-        $counseling->update([
-            'counseliing_status_id' => 4
-        ]);
-
-        return response()->json([
-            'message' => 'Status Counseling berhasil diubah',
-            'data' => $counseling
-        ]);
-    }
-
     public function cancelCounseling($id)
     {
         $counseling = Counseling::find($id);
@@ -99,7 +81,7 @@ class CounselingStatusController extends Controller
         }
 
         $counseling->update([
-            'counseling_status_id' => 6
+            'counseling_status_id' => 5
         ]);
 
         return response()->json([
@@ -108,7 +90,7 @@ class CounselingStatusController extends Controller
         ]);
     }
 
-    public function completeCounseling($id)
+    public function completeCounseling(EditCounselingRequest $request, $id)
     {
         $counseling = Counseling::find($id);
 
@@ -119,7 +101,8 @@ class CounselingStatusController extends Controller
         }
 
         $counseling->update([
-            'counseling_status_id' => 5
+            'counseling_status_id' => 4,
+            'note' => $request->note
         ]);
 
         return response()->json([
@@ -137,7 +120,7 @@ class CounselingStatusController extends Controller
         }
 
         $counseling = Counseling::where('student_id', auth()->user()->id)
-            ->whereIn('counseling_status_id', [5, 6, 7])
+            ->whereIn('counseling_status_id', [4, 5, 6])
             ->get();
 
         return response()->json([
@@ -193,6 +176,101 @@ class CounselingStatusController extends Controller
             ->count();
 
         $not_attending = Counseling::where('student_id', auth()->user()->id)
+            ->where('counseling_status_id', 6)
+            ->count();
+
+        $counseling = [
+            'pending' => $pending,
+            'coming_soon' => $coming_soon,
+            'reschedule' => $reschedule,
+            'complete' => $completed,
+            'cancel' => $cancel,
+            'not_attending' => $not_attending
+        ];
+
+        return response()->json([
+            'message' => 'Jumlah Counseling berhasil diambil',
+            'data' => $counseling
+        ]);
+    }
+
+    public function showByStatusMentor($status_id)
+    {
+        if (!auth()->check()) {
+            return response()->json([
+                'message' => 'Authentication is required'
+            ]);
+        }
+
+        $mentor = Mentor::where('id', auth()->user()->id)->first();
+
+        $grade = $mentor->grade_id;
+
+        $counseling = Counseling::where('grade_id', $grade)
+            ->where('counseling_status_id', $status_id)
+            ->get();
+
+        return response()->json([
+            'message' => 'History Counseling berhasil diambil',
+            'data' => $counseling
+        ]);
+    }
+
+    public function historyMentor()
+    {
+        if (!auth()->check()) {
+            return response()->json([
+                'message' => 'Authentication is required'
+            ]);
+        }
+
+        $mentor = Mentor::where('id', auth()->user()->id)->first();
+
+        $grade = $mentor->grade_id;
+
+        $counseling = Counseling::where('grade_id', $grade)
+            ->whereIn('counseling_status_id', [4, 5, 6])
+            ->get();
+
+        return response()->json([
+            'message' => 'History Counseling berhasil diambil',
+            'data' => $counseling
+        ]);
+    }
+
+    public function countMentor()
+    {
+        if (!auth()->check()) {
+            return response()->json([
+                'message' => 'Authentication is required'
+            ]);
+        }
+
+        $mentor = Mentor::where('id', auth()->user()->id)->first();
+
+        $grade = $mentor->grade_id;
+
+        $pending = Counseling::where('grade_id', $grade)
+            ->where('counseling_status_id', 1)
+            ->count();
+
+        $coming_soon = Counseling::where('grade_id', $grade)
+            ->where('counseling_status_id', 2)
+            ->count();
+
+        $reschedule = Counseling::where('grade_id', $grade)
+            ->where('counseling_status_id', 3)
+            ->count();
+
+        $completed = Counseling::where('grade_id', $grade)
+            ->where('counseling_status_id', 4)
+            ->count();
+
+        $cancel = Counseling::where('grade_id', $grade)
+            ->where('counseling_status_id', 5)
+            ->count();
+
+        $not_attending = Counseling::where('grade_id', $grade)
             ->where('counseling_status_id', 6)
             ->count();
 

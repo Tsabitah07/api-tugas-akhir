@@ -77,10 +77,6 @@ class DatabaseSeeder extends Seeder
         ]);
 
         CounselingStatus::create([
-            'status' => 'Sedang Berlangsung'
-        ]);
-
-        CounselingStatus::create([
             'status' => 'Selesai'
         ]);
 

@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Http\Requests\Counseling;
+namespace App\Http\Requests\Inbox;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class EditCounselingRequest extends FormRequest
+class InboxRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -22,16 +22,10 @@ class EditCounselingRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'grade_id' => 'integer|nullable',
-            'student_id' => 'integer|nullable',
-            'counseling_date' => 'date|nullable',
-            'time' => 'string|nullable',
-            'expired' => 'boolean|nullable',
-            'service' => 'string|nullable',
+            'counseling_id' => 'integer|nullable',
             'subject' => 'string|nullable',
-            'place' => 'string|nullable',
-            'counseling_status_id' => 'integer',
-            'note' => 'string|nullable'
+            'message' => 'string|nullable',
+            'is_read' => 'boolean|nullable'
         ];
     }
 }

@@ -25,7 +25,6 @@ class Mentor extends Model
         'last_education',
         'last_university',
         'phone_number',
-//        'user_id',
         'about_me',
         'linkedin',
         'instagram',

@@ -17,7 +17,9 @@ class Counseling extends Model
         'expired',
         'service',
         'subject',
+        'place',
         'counseling_status_id',
+        'note',
     ];
 
     protected $casts = [

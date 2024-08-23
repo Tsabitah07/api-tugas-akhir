@@ -20,7 +20,9 @@ return new class extends Migration
             $table->boolean('expired')->default(false);
             $table->string('service');
             $table->string('subject');
+            $table->string('place')->nullable();
             $table->foreignId('counseling_status_id')->default(1);
+            $table->string('note')->nullable();
             $table->timestamps();
         });
     }

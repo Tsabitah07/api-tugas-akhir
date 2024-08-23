@@ -29,7 +29,9 @@ class CounselingRequset extends FormRequest
             'expired' => 'boolean|nullable',
             'service' => 'required|string',
             'subject' => 'required|string',
-            'counseling_status_id' => 'integer|nullable'
+            'place' => 'string|nullable',
+            'counseling_status_id' => 'integer|nullable',
+            'note' => 'string|nullable'
         ];
     }
 }

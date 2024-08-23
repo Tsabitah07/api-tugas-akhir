@@ -92,16 +92,17 @@ Route::group(['prefix' => 'counseling'], function() {
     Route::post('/delete/{id}', [CounselingController::class, 'delete']);
 
     Route::get('/history', [CounselingStatusController::class, 'history'])->middleware('auth:sanctum');
+    Route::get('/history-mentor', [CounselingStatusController::class, 'historyMentor'])->middleware('auth:sanctum');
 
     Route::get('/show-by/user', [CounselingController::class, 'showByUser'])->middleware('auth:sanctum');
-    Route::get('/show-by/grade/{id}', [CounselingController::class, 'showByGrade']);
+    Route::get('/show-by/grade', [CounselingController::class, 'showByGrade'])->middleware('auth:sanctum');
     Route::get('/show-by/status/{id}', [CounselingStatusController::class, 'showByStatus'])->middleware('auth:sanctum');
 
     Route::group(['prefix' => 'status'], function() {
         Route::get('/count', [CounselingStatusController::class, 'count'])->middleware('auth:sanctum');
+        Route::get('/count-mentor', [CounselingStatusController::class, 'countMentor'])->middleware('auth:sanctum');
         Route::post('/accept/{id}', [CounselingStatusController::class, 'acceptCounseling']);
         Route::post('/reschedule/{id}', [CounselingStatusController::class, 'rescheduleCounseling']);
-        Route::post('/on-going/{id}', [CounselingStatusController::class, 'onGoingCounseling']);
         Route::post('/cancel/{id}', [CounselingStatusController::class, 'cancelCounseling']);
         Route::post('/complete/{id}', [CounselingStatusController::class, 'completeCounseling']);
     });

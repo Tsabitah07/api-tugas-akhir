@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Counseling\CounselingRequset;
 use App\Http\Requests\Counseling\EditCounselingRequest;
 use App\Models\Counseling;
+use App\Models\Mentor;
 
 class CounselingController extends Controller
 {
@@ -123,9 +124,13 @@ class CounselingController extends Controller
         ]);
     }
 
-    public function showByGrade($id)
+    public function showByGrade()
     {
-        $counseling = Counseling::whereGradeId($id)->latest()->get();
+        $mentor = Mentor::where('id', auth()->user()->id)->first();
+
+        $grade = $mentor->grade_id;
+
+        $counseling = Counseling::where('grade_id', $grade)->latest()->get();
 
         return response()->json([
             'message' => 'Data Counseling berhasil diambil',
