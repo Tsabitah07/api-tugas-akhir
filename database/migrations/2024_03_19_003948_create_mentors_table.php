@@ -32,7 +32,7 @@ return new class extends Migration
             $table->string('instagram')->nullable();
             $table->string('twitter')->nullable();
             $table->string('facebook')->nullable();
-            $table->string('image');
+            $table->string('image')->nullable();
             $table->string('password');
             $table->rememberToken();
             $table->timestamps();

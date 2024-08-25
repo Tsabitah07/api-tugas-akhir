@@ -4,6 +4,7 @@ use App\Http\Controllers\API\ArticleController;
 use App\Http\Controllers\API\CounselingController;
 use App\Http\Controllers\API\CounselingStatusController;
 use App\Http\Controllers\API\DisplayDataController;
+use App\Http\Controllers\API\ExcelController;
 use App\Http\Controllers\API\InboxController;
 use App\Http\Controllers\API\PsychologyController;
 use App\Http\Controllers\API\SelfcareController;
@@ -47,7 +48,9 @@ Route::group(['prefix' => 'auth'], function(){
 Route::group(['prefix' => 'student'], function() {
     Route::get('/list', [StudentController::class, 'index']);
     Route::get('/detail/{id}', [StudentController::class, 'detail'])->middleware('auth:sanctum');
+
     Route::post('/add', [StudentController::class, 'store']);
+    Route::post('/import-student', [ExcelController::class, 'import']);
 
     Route::post('/edit/{id}', [StudentController::class, 'edit']);
     Route::post('/edit-username/{id}', [StudentController::class, 'editUsername']);
@@ -67,9 +70,11 @@ Route::group(['prefix' => 'student'], function() {
 
 Route::group(['prefix' => 'mentor'], function() {
     Route::get('/list', [MentorController::class, 'index']);
-    Route::post('/add', [MentorController::class, 'store']);
     Route::get('/detail', [MentorController::class, 'detail'])->middleware('auth:sanctum');
     Route::get('/detail-data/{id}', [MentorController::class, 'show']);
+
+    Route::post('/add', [MentorController::class, 'store']);
+    Route::post('/import-mentor', [ExcelController::class, 'importMentor']);
 
     Route::post('/edit/{id}', [MentorController::class, 'edit']);
     Route::post('/edit-username/{id}', [MentorController::class, 'editUsername']);
