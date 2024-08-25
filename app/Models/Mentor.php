@@ -41,13 +41,31 @@ class Mentor extends Model
         'updated_at'
     ];
 
-//    public function user(): BelongsTo
-//    {
-//        return $this->belongsTo(User::class, 'user_id', 'id');
-//    }
+    protected $primaryKey = 'id';
+    public $incrementing = false;
+    protected $keyType = 'string';
 
     public function Grade(): BelongsTo
     {
         return $this->belongsTo(Grade::class, 'grade_id', 'id');
+    }
+
+    public function Role(): BelongsTo
+    {
+        return $this->belongsTo(Role::class, 'role_id', 'id');
+    }
+
+    protected static function boot()
+    {
+        parent::boot();
+
+        static::creating(function ($mentor) {
+            $mentor->id = Mentor::generateUniqueId();
+        });
+    }
+
+    public static function generateUniqueId()
+    {
+        return 'MT-'.date('YmdHis').rand(100, 999);
     }
 }

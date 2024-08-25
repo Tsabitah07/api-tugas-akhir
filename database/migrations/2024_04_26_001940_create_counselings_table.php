@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('counselings', function (Blueprint $table) {
             $table->id();
             $table->foreignId('grade_id');
-            $table->foreignId('student_id');
+            $table->string('student_id');
             $table->dateTime('counseling_date');
             $table->string('time');
             $table->boolean('expired')->default(false);

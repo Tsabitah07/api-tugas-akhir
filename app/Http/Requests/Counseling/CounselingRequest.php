@@ -4,7 +4,7 @@ namespace App\Http\Requests\Counseling;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class CounselingRequset extends FormRequest
+class CounselingRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -22,8 +22,8 @@ class CounselingRequset extends FormRequest
     public function rules(): array
     {
         return [
-            'grade_id' => 'required|integer',
-            'student_id' => 'required|integer',
+            'grade_id' => 'integer|nullable',
+            'student_id' => 'integer|nullable',
             'counseling_date' => 'required|date',
             'time' => 'required',
             'expired' => 'boolean|nullable',

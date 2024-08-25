@@ -33,6 +33,11 @@ class Student extends Model
         'remember_token'
     ];
 
+    protected $primaryKey = 'id';
+    public $incrementing = false;
+    protected $keyType = 'string';
+
+
     public function Grade(): BelongsTo
     {
         return $this->belongsTo(Grade::class, 'grade_id', 'id');
@@ -43,8 +48,17 @@ class Student extends Model
         return $this->belongsTo(Role::class, 'role_id', 'id');
     }
 
-//    public function user(): BelongsTo
-//    {
-//        return $this->belongsTo(User::class, 'user_id', 'id');
-//    }
+    protected static function boot()
+    {
+        parent::boot();
+
+        static::creating(function ($student) {
+            $student->id = self::generateUniqueId();
+        });
+    }
+
+    public static function generateUniqueId()
+    {
+        return 'ST-'.date('YmdHis').'-'.rand(1000, 9999);
+    }
 }

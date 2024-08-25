@@ -36,6 +36,7 @@ class ExpireCounselings extends Command
 
         $expiredCounselings = Counseling::where('counseling_date', '<', $now)
             ->where('expired', false)
+            ->whereIn('counseling_status_id', [1, 2, 3])
             ->update(['expired' => true, 'counseling_status_id' => 6]);
 
         $this->info("Expired {$expiredCounselings} counseling sessions.");

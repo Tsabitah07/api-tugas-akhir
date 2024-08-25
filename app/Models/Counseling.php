@@ -23,11 +23,13 @@ class Counseling extends Model
     ];
 
     protected $casts = [
+        'student_id' => 'string',
         'counseling_date' => 'datetime:Y-m-d',
         'expired' => 'boolean',
     ];
 
     protected $hidden = [
+        'Student',
         'created_at',
         'updated_at',
     ];

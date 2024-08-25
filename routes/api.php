@@ -4,6 +4,7 @@ use App\Http\Controllers\API\ArticleController;
 use App\Http\Controllers\API\CounselingController;
 use App\Http\Controllers\API\CounselingStatusController;
 use App\Http\Controllers\API\DisplayDataController;
+use App\Http\Controllers\API\InboxController;
 use App\Http\Controllers\API\PsychologyController;
 use App\Http\Controllers\API\SelfcareController;
 use App\Http\Controllers\API\ShortSelfcareController;
@@ -86,7 +87,7 @@ Route::group(['prefix' => 'mentor'], function() {
 
 Route::group(['prefix' => 'counseling'], function() {
     Route::get('/list', [CounselingController::class, 'index']);
-    Route::post('/store', [CounselingController::class, 'store']);
+    Route::post('/store', [CounselingController::class, 'store'])->middleware('auth:sanctum');
     Route::post('/edit/{id}', [CounselingController::class, 'edit']);
     Route::get('/detail/{id}', [CounselingController::class, 'detail']);
     Route::post('/delete/{id}', [CounselingController::class, 'delete']);
@@ -97,13 +98,15 @@ Route::group(['prefix' => 'counseling'], function() {
     Route::get('/show-by/user', [CounselingController::class, 'showByUser'])->middleware('auth:sanctum');
     Route::get('/show-by/grade', [CounselingController::class, 'showByGrade'])->middleware('auth:sanctum');
     Route::get('/show-by/status/{id}', [CounselingStatusController::class, 'showByStatus'])->middleware('auth:sanctum');
+    Route::get('/mentor/show-by/status/{id}', [CounselingStatusController::class, 'showByStatusMentor'])->middleware('auth:sanctum');
 
     Route::group(['prefix' => 'status'], function() {
         Route::get('/count', [CounselingStatusController::class, 'count'])->middleware('auth:sanctum');
         Route::get('/count-mentor', [CounselingStatusController::class, 'countMentor'])->middleware('auth:sanctum');
-        Route::post('/accept/{id}', [CounselingStatusController::class, 'acceptCounseling']);
+        Route::post('/mentor/accept/{id}', [CounselingStatusController::class, 'acceptCounseling'])->middleware('auth:sanctum');
+        Route::post('/student/accept/{id}', [CounselingStatusController::class, 'acceptCounselingStudent']);
         Route::post('/reschedule/{id}', [CounselingStatusController::class, 'rescheduleCounseling']);
-        Route::post('/cancel/{id}', [CounselingStatusController::class, 'cancelCounseling']);
+        Route::post('/cancel/{id}', [CounselingStatusController::class, 'cancelCounseling'])->middleware('auth:sanctum');
         Route::post('/complete/{id}', [CounselingStatusController::class, 'completeCounseling']);
     });
 });
@@ -159,4 +162,10 @@ Route::group(['prefix' => 'short-selfcare'], function (){
     Route::get('/detail/{id}', [ShortSelfcareController::class, 'show']);
     Route::post('/edit/{id}', [ShortSelfcareController::class, 'update']);
     Route::post('/delete/{id}', [ShortSelfcareController::class, 'destroy']);
+});
+
+Route::group(['prefix' => 'inbox'], function() {
+    Route::get('/list', [InboxController::class, 'index']);
+    Route::get('/user', [InboxController::class, 'inbox'])->middleware('auth:sanctum');
+    Route::get('/user/detail/{id}', [InboxController::class, 'show'])->middleware('auth:sanctum');
 });

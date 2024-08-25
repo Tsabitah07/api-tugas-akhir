@@ -1,17 +1,17 @@
 <?php
 
-namespace App\Http\Requests\Inbox;
+namespace App\Http\Requests\Counseling;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class EditInboxRequest extends FormRequest
+class CancelCounselingRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -22,7 +22,7 @@ class EditInboxRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            'message' => 'required|string'
         ];
     }
 }
