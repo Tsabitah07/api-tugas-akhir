@@ -46,20 +46,22 @@ Route::group(['prefix' => 'auth'], function(){
 });
 
 Route::group(['prefix' => 'student'], function() {
-    Route::get('/list', [StudentController::class, 'index']);
-    Route::get('/detail/{id}', [StudentController::class, 'detail'])->middleware('auth:sanctum');
+    Route::group(['middleware' => 'auth:sanctum'], function() {
+        Route::get('/detail/{id}', [StudentController::class, 'show']);
+
+        Route::post('/edit', [StudentController::class, 'edit']);
+        Route::post('/edit-username', [StudentController::class, 'editUsername']);
+        Route::post('/edit-email', [StudentController::class, 'editEmail']);
+        Route::post('/edit-password', [StudentController::class, 'editPassword']);
+        Route::post('/edit-image', [StudentController::class, 'editImage']);
+
+        Route::post('/delete', [StudentController::class, 'delete']);
+        Route::post('/logout', [StudentController::class, 'logout']);
+    });
 
     Route::post('/add', [StudentController::class, 'store']);
     Route::post('/import-student', [ExcelController::class, 'import']);
-
-    Route::post('/edit/{id}', [StudentController::class, 'edit']);
-    Route::post('/edit-username/{id}', [StudentController::class, 'editUsername']);
-    Route::post('/edit-email/{id}', [StudentController::class, 'editEmail']);
-    Route::post('/edit-password/{id}', [StudentController::class, 'editPassword']);
-    Route::post('/edit-image/{id}', [StudentController::class, 'editImage']);
-
-    Route::post('/delete/{id}', [StudentController::class, 'delete']);
-    Route::post('/logout', [StudentController::class, 'logout']);
+    Route::get('/list', [StudentController::class, 'index']);
 
     Route::post('/login-student', [StudentController::class, 'loginStudent']);
 
@@ -69,21 +71,23 @@ Route::group(['prefix' => 'student'], function() {
 });
 
 Route::group(['prefix' => 'mentor'], function() {
+    Route::group(['middleware' => 'auth:sanctum'], function() {
+        Route::get('/detail', [MentorController::class, 'detail']);
+
+        Route::post('/edit', [MentorController::class, 'edit']);
+        Route::post('/edit-username', [MentorController::class, 'editUsername']);
+        Route::post('/edit-email', [MentorController::class, 'editEmail']);
+        Route::post('/edit-password', [MentorController::class, 'editPassword']);
+        Route::post('/edit-image', [MentorController::class, 'editImage']);
+
+        Route::post('/delete/{id}', [MentorController::class, 'delete']);
+        Route::post('/logout', [MentorController::class, 'logout']);
+    });
     Route::get('/list', [MentorController::class, 'index']);
-    Route::get('/detail', [MentorController::class, 'detail'])->middleware('auth:sanctum');
     Route::get('/detail-data/{id}', [MentorController::class, 'show']);
 
     Route::post('/add', [MentorController::class, 'store']);
     Route::post('/import-mentor', [ExcelController::class, 'importMentor']);
-
-    Route::post('/edit/{id}', [MentorController::class, 'edit']);
-    Route::post('/edit-username/{id}', [MentorController::class, 'editUsername']);
-    Route::post('/edit-email/{id}', [MentorController::class, 'editEmail']);
-    Route::post('/edit-password/{id}', [MentorController::class, 'editPassword']);
-    Route::post('/edit-image/{id}', [MentorController::class, 'editImage']);
-
-    Route::post('/delete/{id}', [MentorController::class, 'delete']);
-    Route::post('/logout', [MentorController::class, 'logout']);
 
     Route::post('/login-mentor', [MentorController::class, 'loginMentor']);
 
@@ -92,27 +96,30 @@ Route::group(['prefix' => 'mentor'], function() {
 
 Route::group(['prefix' => 'counseling'], function() {
     Route::get('/list', [CounselingController::class, 'index']);
-    Route::post('/store', [CounselingController::class, 'store'])->middleware('auth:sanctum');
     Route::post('/edit/{id}', [CounselingController::class, 'edit']);
     Route::get('/detail/{id}', [CounselingController::class, 'detail']);
     Route::post('/delete/{id}', [CounselingController::class, 'delete']);
 
-    Route::get('/history', [CounselingStatusController::class, 'history'])->middleware('auth:sanctum');
-    Route::get('/history-mentor', [CounselingStatusController::class, 'historyMentor'])->middleware('auth:sanctum');
+    Route::group(['middleware' => 'auth:sanctum'], function() {
+        Route::post('/store', [CounselingController::class, 'store']);
 
-    Route::get('/show-by/user', [CounselingController::class, 'showByUser'])->middleware('auth:sanctum');
-    Route::get('/show-by/grade', [CounselingController::class, 'showByGrade'])->middleware('auth:sanctum');
-    Route::get('/show-by/status/{id}', [CounselingStatusController::class, 'showByStatus'])->middleware('auth:sanctum');
-    Route::get('/mentor/show-by/status/{id}', [CounselingStatusController::class, 'showByStatusMentor'])->middleware('auth:sanctum');
+        Route::get('/history', [CounselingStatusController::class, 'history']);
+        Route::get('/history-mentor', [CounselingStatusController::class, 'historyMentor']);
 
-    Route::group(['prefix' => 'status'], function() {
-        Route::get('/count', [CounselingStatusController::class, 'count'])->middleware('auth:sanctum');
-        Route::get('/count-mentor', [CounselingStatusController::class, 'countMentor'])->middleware('auth:sanctum');
-        Route::post('/mentor/accept/{id}', [CounselingStatusController::class, 'acceptCounseling'])->middleware('auth:sanctum');
-        Route::post('/student/accept/{id}', [CounselingStatusController::class, 'acceptCounselingStudent']);
-        Route::post('/reschedule/{id}', [CounselingStatusController::class, 'rescheduleCounseling']);
-        Route::post('/cancel/{id}', [CounselingStatusController::class, 'cancelCounseling'])->middleware('auth:sanctum');
-        Route::post('/complete/{id}', [CounselingStatusController::class, 'completeCounseling']);
+        Route::get('/show-by/user', [CounselingController::class, 'showByUser']);
+        Route::get('/show-by/grade', [CounselingController::class, 'showByGrade']);
+        Route::get('/show-by/status/{id}', [CounselingStatusController::class, 'showByStatus']);
+        Route::get('/mentor/show-by/status/{id}', [CounselingStatusController::class, 'showByStatusMentor']);
+
+        Route::group(['prefix' => 'status'], function() {
+            Route::get('/count', [CounselingStatusController::class, 'count']);
+            Route::get('/count-mentor', [CounselingStatusController::class, 'countMentor']);
+            Route::post('/mentor/accept/{id}', [CounselingStatusController::class, 'acceptCounseling']);
+            Route::post('/student/accept/{id}', [CounselingStatusController::class, 'acceptCounselingStudent']);
+            Route::post('/reschedule/{id}', [CounselingStatusController::class, 'rescheduleCounseling']);
+            Route::post('/cancel/{id}', [CounselingStatusController::class, 'cancelCounseling']);
+            Route::post('/complete/{id}', [CounselingStatusController::class, 'completeCounseling']);
+        });
     });
 });
 

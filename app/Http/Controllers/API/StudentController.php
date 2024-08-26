@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Auth\LoginRequest;
 use App\Http\Requests\Student\EditStudentRequest;
 use App\Http\Requests\Student\StudentRequest;
+use App\Models\Mentor;
 use App\Models\Student;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
@@ -31,19 +32,12 @@ class StudentController extends Controller
             $imageUrl = Storage::url($image);
         }
 
-        if ($request->role_id != null) {
-            $role = $request->role_id;
-        } else {
-            $role = 3;
-        }
-
         $student = [
-//            'user_id' => $request->user_id,
             'nis' => $request->nis,
             'email' => $request->email,
             'username' => $request->username,
             'name' => $request->name,
-            'role_id' => $role,
+            'role_id' => 3,
             'grade_id' => $request->grade_id,
             'phone_number' => $request->phone_number,
             'birth_place' => $request->birth_place,
@@ -51,7 +45,6 @@ class StudentController extends Controller
             'year_of_entry' => $request->year_of_entry,
             'password' => Hash::make($request->password),
             'image' => $imageUrl,
-//            'id_card_image' => $imageUrl,
         ];
 
         $students = Student::create($student);
@@ -65,7 +58,8 @@ class StudentController extends Controller
     {
         $credentials = $request->validated();
 
-        $student = Student::where('nis', $credentials['nis_or_email'])->orWhere('email', $credentials['nis_or_email'])->first();
+        $student = Student::where('nis', $credentials['nis_or_email'])
+            ->orWhere('email', $credentials['nis_or_email'])->first();
 
         if (!$student || !Hash::check($credentials['password'], $student->password)) {
             return response()->json([
@@ -82,9 +76,9 @@ class StudentController extends Controller
         ]);
     }
 
-    public function edit(EditStudentRequest $request, $id)
+    public function edit(EditStudentRequest $request)
     {
-        $student = Student::find($id);
+        $student = Student::where('id', auth()->user()->id)->first();
 
         if (!$student) {
             return response()->json([
@@ -122,9 +116,9 @@ class StudentController extends Controller
         ]);
     }
 
-    public function detail($id)
+    public function show()
     {
-        $student = Student::find($id);
+        $student = Student::where('id', auth()->user()->id)->first();
 
         if (!$student) {
             return response()->json([
@@ -138,9 +132,9 @@ class StudentController extends Controller
         ]);
     }
 
-    public function delete($id)
+    public function delete()
     {
-        $student = Student::find($id);
+        $student = Student::where('id', auth()->user()->id)->first();
         $student->delete();
 
         return response()->json([
@@ -152,14 +146,20 @@ class StudentController extends Controller
     {
         auth()->user()->tokens()->delete();
 
+        if (!auth()->user()) {
+            return response()->json([
+                'message' => 'Logout gagal'
+            ]);
+        }
+
         return response()->json([
             'message' => 'Logout berhasil'
         ]);
     }
 
-    public function editUsername(EditStudentRequest $request, $id)
+    public function editUsername(EditStudentRequest $request)
     {
-        $student = Student::find($id);
+        $student = Student::where('id', auth()->user()->id)->first();
 
         if (!$student) {
             return response()->json([
@@ -188,9 +188,9 @@ class StudentController extends Controller
         ]);
     }
 
-    public function editEmail(EditStudentRequest $request, $id)
+    public function editEmail(EditStudentRequest $request)
     {
-        $student = Student::find($id);
+        $student = Student::where('id', auth()->user()->id)->first();
 
         if (!$student) {
             return response()->json([
@@ -219,9 +219,9 @@ class StudentController extends Controller
         ]);
     }
 
-    public function editPassword(EditStudentRequest $request, $id)
+    public function editPassword(EditStudentRequest $request)
     {
-        $student = Student::find($id);
+        $student = Student::where('id', auth()->user()->id)->first();
         $student->password = Hash::make($request->password);
         $student->save();
 
@@ -231,9 +231,9 @@ class StudentController extends Controller
         ]);
     }
 
-    public function editImage(EditStudentRequest $request, $id)
+    public function editImage(EditStudentRequest $request)
     {
-        $student = Student::find($id);
+        $student = Student::where('id', auth()->user()->id)->first();
 
         if (!$student) {
             return response()->json([
@@ -258,9 +258,11 @@ class StudentController extends Controller
         ]);
     }
 
-    public function showByGrade($id)
+    public function showByGrade()
     {
-        $student = Student::whereGradeId($id)->latest()->get();
+        $mentor = Mentor::where('id', auth()->user()->id)->first();
+
+        $student = Student::where('grade_id', $mentor->grade_id)->latest()->get();
 
         return response()->json([
             'message' => 'Data Student berhasil diambil',

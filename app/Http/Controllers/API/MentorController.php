@@ -86,10 +86,10 @@ class MentorController extends Controller
         ]);
     }
 
-    public function edit(EditMentorRequest $request, $id)
+    public function edit(EditMentorRequest $request)
     {
         $request->validated();
-        $mentor = Mentor::find($id);
+        $mentor = Mentor::where('id', auth()->user()->id)->first();
 
         if (!$mentor) {
             return response()->json([
@@ -145,7 +145,7 @@ class MentorController extends Controller
 
     public function show($id)
     {
-        $mentor = Mentor::find($id);
+        $mentor = Mentor::where ('id', $id)->first();
 
         if (!$mentor) {
             return response()->json([
@@ -159,9 +159,9 @@ class MentorController extends Controller
         ]);
     }
 
-    public function delete($id)
+    public function delete()
     {
-        $mentor = Mentor::find($id);
+        $mentor = Mentor::where('id', auth()->user()->id)->first();
 
         if (!$mentor) {
             return response()->json([
@@ -180,14 +180,20 @@ class MentorController extends Controller
     {
         auth()->user()->tokens()->delete();
 
+        if (!auth()->user()) {
+            return response()->json([
+                'message' => 'Logout gagal'
+            ]);
+        }
+
         return response()->json([
             'message' => 'Logout berhasil'
         ]);
     }
 
-    public function editUsername(EditMentorRequest $request, $id)
+    public function editUsername(EditMentorRequest $request)
     {
-        $mentor = Mentor::find($id);
+        $mentor = Mentor::where('id', auth()->user()->id)->first();
 
         if (!$mentor) {
             return response()->json([
@@ -216,9 +222,9 @@ class MentorController extends Controller
         ]);
     }
 
-    public function editEmail(EditMentorRequest $request, $id)
+    public function editEmail(EditMentorRequest $request)
     {
-        $mentor = Mentor::find($id);
+        $mentor = Mentor::where('id', auth()->user()->id)->first();
 
         if (!$mentor) {
             return response()->json([
@@ -247,9 +253,9 @@ class MentorController extends Controller
         ]);
     }
 
-    public function editPassword(EditMentorRequest $request, $id)
+    public function editPassword(EditMentorRequest $request)
     {
-        $mentor = Mentor::find($id);
+        $mentor = Mentor::where('id', auth()->user()->id)->first();
         $mentor->password = Hash::make($request->password);
         $mentor->save();
 
@@ -259,9 +265,9 @@ class MentorController extends Controller
         ]);
     }
 
-    public function editImage(EditMentorRequest $request, $id)
+    public function editImage(EditMentorRequest $request)
     {
-        $mentor = Mentor::find($id);
+        $mentor = Mentor::where('id', auth()->user()->id)->first();
 
         if ($request->hasFile('image')) {
             $delete = Storage::delete('public/profile_mentor/' . $mentor->image);

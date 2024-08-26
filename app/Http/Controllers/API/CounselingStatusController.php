@@ -44,7 +44,7 @@ class CounselingStatusController extends Controller
             'title' => 'Konseling Diterima',
             'receiver' => 'Dear, '.$counseling->Student->name,
             'subject' => 'Konseling anda telah diterima',
-            'message' => 'Konseling anda pada tanggal '. $counseling->counseling_date->format('Y-m-d'). ' jam '. $counseling->time. ' telah di terima dan bertempat di '.$counseling->place,
+            'message' => 'Konseling anda pada tanggal '. $counseling->counseling_date->format('Y-m-d'). ' jam '. $counseling->time. ' telah di terima dan akan bertempat di '.$counseling->place,
             'sender' => $mentor->name,
             'is_read' => false
         ]);
@@ -52,7 +52,7 @@ class CounselingStatusController extends Controller
         return response()->json([
             'message' => 'Status Counseling berhasil diubah',
             'data' => $counseling,
-            'inbox' => $inbox
+//            'inbox' => $inbox
         ]);
     }
 
@@ -63,6 +63,12 @@ class CounselingStatusController extends Controller
         if (!$counseling) {
             return response()->json([
                 'message' => 'Data Counseling tidak ditemukan'
+            ]);
+        }
+
+        if (auth()->user()->id != $counseling->student_id) {
+            return response()->json([
+                'message' => 'Unauthorized'
             ]);
         }
 
@@ -88,7 +94,7 @@ class CounselingStatusController extends Controller
         return response()->json([
             'message' => 'Status Counseling berhasil diubah',
             'data' => $counseling,
-            'inbox' => $inbox
+//            'inbox' => $inbox
         ]);
     }
 
@@ -139,6 +145,12 @@ class CounselingStatusController extends Controller
 
         $mentor = Mentor::where('grade_id', $counseling->grade_id)->first();
 
+        if (auth()->user()->id != $mentor->id) {
+            return response()->json([
+                'message' => 'Unauthorized'
+            ]);
+        }
+
         $inbox = Inbox::create([
             'student_id' => $counseling->student_id,
             'mentor_id' => $mentor->id,
@@ -155,7 +167,7 @@ class CounselingStatusController extends Controller
         return response()->json([
             'message' => 'Data Counseling berhasil diubah',
             'data' => $counseling,
-            'inbox' => $inbox
+//            'inbox' => $inbox
         ]);
     }
 
@@ -200,7 +212,7 @@ class CounselingStatusController extends Controller
         return response()->json([
             'message' => 'Status Counseling berhasil diubah',
             'data' => $counseling,
-            'inbox' => $inbox
+//            'inbox' => $inbox
         ]);
     }
 
@@ -221,6 +233,12 @@ class CounselingStatusController extends Controller
 
         $mentor = Mentor::where('grade_id', $counseling->grade_id)->first();
 
+        if (auth()->user()->id != $mentor->id) {
+            return response()->json([
+                'message' => 'Unauthorized'
+            ]);
+        }
+
         $inbox = Inbox::create([
             'student_id' => $counseling->student_id,
             'mentor_id' => $mentor->id,
@@ -237,7 +255,7 @@ class CounselingStatusController extends Controller
         return response()->json([
             'message' => 'Data Counseling berhasil diubah',
             'data' => $counseling,
-            'inbox' => $inbox
+//            'inbox' => $inbox
         ]);
     }
 
