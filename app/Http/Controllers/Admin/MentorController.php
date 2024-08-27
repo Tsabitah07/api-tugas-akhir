@@ -7,6 +7,7 @@ use App\Http\Requests\Mentor\EditMentorRequest;
 use App\Models\Grade;
 use App\Models\Mentor;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
 
 class MentorController extends Controller
 {
@@ -31,17 +32,26 @@ class MentorController extends Controller
 
     public function create()
     {
-        return view('mentor.create',[
-            'title' => 'Create Mentor'
+        $grade = Grade::all();
+
+        return view('mentor.add',[
+            'title' => 'Create Mentor',
+            'grades' => $grade
         ]);
     }
 
     public function store(Request $request)
     {
         $data = $request->all();
+
+        if ($request->password == null) {
+            if ($request->grade_id == 1) {
+                $data['password'] = Hash::make('mentor123');
+            }
+        }
         Mentor::create($data);
 
-        return redirect()->route('mentor.index')->with('success', 'Mentor created!');
+        return redirect('/admin/mentor')->with('success', 'Mentor created!');
     }
 
     public function editView($id)

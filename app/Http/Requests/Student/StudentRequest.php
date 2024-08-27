@@ -28,7 +28,7 @@ class StudentRequest extends FormRequest
             'name' => 'max:255',
             'role_id' => 'nullable|integer',
             'grade_id' => 'required|integer',
-            'phone_number' => 'min:10',
+            'phone_number' => 'min:10|nullable',
             'birth_place' => 'string',
             'birth_date' => 'string',
             'year_of_entry' => 'string',

@@ -25,11 +25,17 @@ class AuthController extends Controller
             $imageUrl = $noImage;
         }
 
+        if ($request->role_id == null) {
+            $role = 1;
+        } else {
+            $role = $request->role_id;
+        }
+
         $userData = [
             'name' => $request->name,
             'email' => $request->email,
             'password' => Hash::make($request->password),
-            'role_id' => $request->role_id=4,
+            'role_id' => $role,
             'image' => $imageUrl
         ];
 

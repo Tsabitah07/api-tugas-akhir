@@ -2,6 +2,9 @@
 @section('container')
     <div style="height: 100vh; width: 80vw;display: flex;flex-direction: column; justify-content: start; overflow: auto; white-space: nowrap; margin-top: 10vh;">
         <div style="width: 77vw; height: 7.5vh; padding: 15px 10px 0 15px">
+            <a href="/admin/mentor" style="text-decoration: none; color: #1a202c">
+                <h5 style="margin-bottom: 15px; padding: 0">< Back to List</h5>
+            </a>
             <form action="/mentor/edit/{{$mentor->id}}" method="post">
                 @csrf
                 @method('post')
@@ -57,11 +60,11 @@
                 </div>
                 <div class="form-group">
                     <label for="last_university">Last University:</label>
-                    <input type="text" name="last_university" id="last_university" class="form-control" value="{{ old('last_university', $mentor->last_university) }}" required>
+                    <input type="text" name="last_university" id="last_university" class="form-control" value="{{ old('last_university', $mentor->last_university) }}">
                 </div>
                 <div class="form-group">
                     <label for="about_me">About Me:</label>
-                    <input type="text" name="about_me" id="about_me" class="form-control" value="{{ old('about_me', $mentor->about_me) }}" required>
+                    <input type="text" name="about_me" id="about_me" class="form-control" value="{{ old('about_me', $mentor->about_me) }}">
                 </div>
                 <button type="submit" class="btn btn-primary" style="margin-top: 15px; margin-bottom: 20px">Update mentor data</button>
             </form>

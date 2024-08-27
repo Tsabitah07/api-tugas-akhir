@@ -14,11 +14,11 @@ use Illuminate\Support\Facades\Hash;
 
 class AuthController extends Controller
 {
-    public function __construct()
-    {
-        // Protecting the routes with the admin middleware
-        $this->middleware('admin')->except(['landing', 'loginView', 'login', 'registerView', 'register']);
-    }
+//    public function __construct()
+//    {
+//        // Protecting the routes with the admin middleware
+//        $this->middleware('admin')->except(['landing', 'loginView', 'login', 'registerView', 'register']);
+//    }
 
     public function landing()
     {
@@ -38,18 +38,21 @@ class AuthController extends Controller
     {
         $credentials = $request->validated();
 
-        $user = User::where('name', $credentials['nis'])->orWhere('email', $credentials['nis'])->first();
+        if (Auth::attempt(['email' => $credentials['nis'], 'password' => $credentials['password']]) ||
+            Auth::attempt(['name' => $credentials['nis'], 'password' => $credentials['password']])) {
 
-        if ($user || !Hash::check($credentials['password'], $user->password)) {
+            $user = Auth::user();
+
             if ($user->role_id != 1) {
-                return back()->with('error', 'You are not authorized to access this page.');
+                Auth::logout();
+                return redirect('auth/unauthorized')->with('error', 'Login failed!');
             } else {
                 $request->session()->regenerate();
-                return redirect()->intended('/admin/dashboard')->with('success', 'Login successful!');
+                return redirect('/admin/dashboard')->with('success', 'Login successful!');
             }
+        } else {
+            return redirect('auth/unauthorized')->with('error', 'Login failed!');
         }
-
-        return back()->with('error', 'Invalid credentials. Please try again.');
     }
 
     public function logout(Request $request)
@@ -81,13 +84,10 @@ class AuthController extends Controller
         return redirect('/admin/dashboard/{id}')->with('success', 'Register Success!');
     }
 
-    public function dashboard()
+    public function unauthorized()
     {
-//        $data = Student::where('id', $id);
-
-        return view('dashboard',[
-            'title' => 'Dashboard',
-//            'id' => $data,
+        return view('warning',[
+            'title' => 'Unauthorized',
         ]);
     }
 }

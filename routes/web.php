@@ -18,16 +18,18 @@ use Illuminate\Support\Facades\Route;
 */
 Route::get('/admin', [AuthController::class, 'landing']);
 
-Route::group(['prefix' => 'admin'], function(){
-    Route::get('/dashboard', [DashboardController::class, 'index']);
+Route::group(['prefix' => 'admin', 'middleware' => 'auth:sanctum'], function(){
+    Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
     Route::get('/student', [StudentController::class, 'index']);
     Route::get('/mentor', [MentorController::class, 'index']);
 });
 
 Route::group(['prefix' => 'auth'], function(){
-    Route::get('/login', [AuthController::class, 'loginView'])->name('login');
+    Route::get('/login', [AuthController::class, 'loginView'])->name('login')->middleware('guest');
     Route::post('/login', [AuthController::class, 'login']);
     Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
+
+    Route::get('/unauthorized', [AuthController::class, 'unauthorized']);
 });
 
 Route::group(['prefix' => 'mentor'], function(){
@@ -44,10 +46,14 @@ Route::group(['prefix' => 'mentor'], function(){
 Route::group(['prefix' => 'student'], function(){
     Route::get('/detail/{id}', [StudentController::class, 'detail']);
     Route::get('/create', [StudentController::class, 'create']);
+    Route::get('/import', [StudentController::class, 'import']);
     Route::post('/create', [StudentController::class, 'store']);
+    Route::post('/import', [StudentController::class, 'importExcel']);
     Route::get('/edit/{id}', [StudentController::class, 'editView']);
     Route::post('/edit/{id}', [StudentController::class, 'edit']);
     Route::post('/delete/{id}', [StudentController::class, 'destroy']);
+
+//    Route::get('/count-by/year', [StudentController::class, 'countByYear']);
 
     Route::get('/search/', [StudentController::class, 'search']);
 });

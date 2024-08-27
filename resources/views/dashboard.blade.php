@@ -63,36 +63,36 @@
 {{--    </div>--}}
 
     <div style="height: 100vh; width: 80vw;display: flex;flex-direction: column; justify-content: start; overflow: auto; white-space: nowrap; margin-top: 10vh;">
-        <div style="width: 80vw; height: 24vh; display: flex; flex-direction: column; padding: 10px 10px 0 15px; gap: 10px">
-            <h4>Data Penggunaan</h4>
+        <div style="width: 80vw; height: 24vh; display: flex; flex-direction: column; padding: 10px 10px 0 15px; gap: 10px; background: linear-gradient(to bottom, #9F41EA 70%, #f7f7f7 30%)">
+            <h4 style="color: white">Data Penggunaan</h4>
             <div style="display: flex; flex-direction: row; justify-content: space-between; width: 63vw;">
-                <div style="display: flex; flex-direction: row; justify-content: space-between; align-items: center; background: #9F41EA; border-radius: 7px; width: 20vw; height: 7vw; padding-left: 15px; padding-right: 20px">
+                <div style="display: flex; flex-direction: row; justify-content: space-between; align-items: center; background: white; border-radius: 7px; width: 20vw; height: 7vw; padding-left: 15px; padding-right: 20px">
                     <div>
-                        <h4 style="text-align: center; color: white">Jumlah Mentor</h4>
-                        <p style="padding: 0; margin: 0"><a href="/admin/mentor" style="text-decoration: none; color: white">See Detail</a></p>
+                        <h4 style="text-align: center; color: #1a1a1a">Jumlah Mentor</h4>
+                        <p style="padding: 0; margin: 0"><a href="/admin/mentor" style="text-decoration: underline; color: #1a1a1a; font-weight: bold">See Detail</a></p>
                     </div>
-                    <h3 style="text-align: center; font-size: xxx-large; color: white">{{$mentor_sum}}</h3>
+                    <h3 style="text-align: center; font-size: xxx-large; color: #1a1a1a">{{$mentor_sum}}</h3>
                 </div>
-                <div style="display: flex; flex-direction: row; justify-content: space-between; align-items: center; background: #9F41EA; border-radius: 7px; width: 20vw; height: 7vw; padding-left: 15px; padding-right: 20px">
+                <div style="display: flex; flex-direction: row; justify-content: space-between; align-items: center; background: white; border-radius: 7px; width: 20vw; height: 7vw; padding-left: 15px; padding-right: 20px">
                     <div>
-                        <h4 style="text-align: center; color: white">Jumlah Student</h4>
-                        <p style="padding: 0; margin: 0"><a href="/admin/student" style="text-decoration: none; color: white">See Detail</a></p>
+                        <h4 style="text-align: center; color: #1a1a1a">Jumlah Student</h4>
+                        <p style="padding: 0; margin: 0"><a href="/admin/student" style="text-decoration: underline; color: #1a1a1a; font-weight: bold">See Detail</a></p>
                     </div>
-                    <h3 style="text-align: center; font-size: xxx-large; color: white">{{$student_sum}}</h3>
+                    <h3 style="text-align: center; font-size: xxx-large; color: #1a1a1a">{{$student_sum}}</h3>
                 </div>
-                <div style="display: flex; flex-direction: row; justify-content: space-between; align-items: center; background: #9F41EA; border-radius: 7px; width: 20vw; height: 7vw; padding-left: 15px; padding-right: 20px">
+                <div style="display: flex; flex-direction: row; justify-content: space-between; align-items: center; background: white; border-radius: 7px; width: 20vw; height: 7vw; padding-left: 15px; padding-right: 20px">
                     <div>
-                        <h4 style="text-align: center; color: white">Jumlah Counseling</h4>
-                        <p style="padding: 0; margin: 0"><a href="/admin/counseling" style="text-decoration: none; color: white">See Detail</a></p>
+                        <h4 style="text-align: center; color: #1a1a1a">Jumlah Counseling</h4>
+                        <p style="padding: 0; margin: 0"><a href="/admin/counseling" style="text-decoration: underline; color: #1a1a1a; font-weight: bold">See Detail</a></p>
                     </div>
-                    <h3 style="text-align: center; font-size: xxx-large; color: white">{{$counseling_sum}}</h3>
+                    <h3 style="text-align: center; font-size: xxx-large; color: #1a1a1a">{{$counseling_sum}}</h3>
                 </div>
 
 {{--                <div style="background: #1a202c; width: 13vw; height: 7vw"></div>--}}
             </div>
         </div>
-        <div style="overflow: auto; width: 77vw; height: 66vh; display: flex; flex-direction: column; padding: 10px 10px 0 15px; gap: 10px">
-            <h4>Recent Counseling</h4>
+        <div style="overflow: auto; width: 80vw; height: 66vh; display: flex; flex-direction: column; justify-content: start; padding: 10px 10px 0 15px; background: #f7f7f7; border-radius: 7px">
+            <h4 style="background: white; padding: 10px 7px; margin: 0; border-top-left-radius: 7px; border-top-right-radius: 7px">Recent Counseling</h4>
             <table class="table">
                 <thead>
                     <tr>

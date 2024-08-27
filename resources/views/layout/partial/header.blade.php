@@ -5,7 +5,7 @@
 
     <div>
         <div>
-            Image
+            Hello, {{ auth()->user()->name }}
         </div>
     </div>
 </div>

@@ -80,7 +80,7 @@ Route::group(['prefix' => 'mentor'], function() {
         Route::post('/edit-password', [MentorController::class, 'editPassword']);
         Route::post('/edit-image', [MentorController::class, 'editImage']);
 
-        Route::post('/delete/{id}', [MentorController::class, 'delete']);
+        Route::post('/delete', [MentorController::class, 'delete']);
         Route::post('/logout', [MentorController::class, 'logout']);
     });
     Route::get('/list', [MentorController::class, 'index']);

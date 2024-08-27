@@ -17,8 +17,8 @@
                 <form method="post" action="{{ route('login') }}" style="margin-top: 2vh; width: 55%; text-align: center;" >
                     @csrf
                     <div class="mb-2" style="text-align: left">
-                        <label for="nis" class="form-label">NIS or Email</label>
-                        <input type="text" class="form-control" id="nis" name="nis" placeholder="input nis or email" style="padding: 10px 15px">
+                        <label for="nis" class="form-label">Name or Email</label>
+                        <input type="text" class="form-control" id="nis" name="nis" placeholder="input name or email" style="padding: 10px 15px">
                     </div>
                     <div class="mb-2" style="text-align: left">
                         <label for="password" class="form-label">Password</label>

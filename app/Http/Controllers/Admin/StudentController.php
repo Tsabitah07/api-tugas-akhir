@@ -3,21 +3,40 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\ExcelRequest;
 use App\Http\Requests\Student\EditStudentRequest;
+use App\Imports\StudentImport;
 use App\Models\Grade;
 use App\Models\Student;
 use Illuminate\Http\Request;
+use Maatwebsite\Excel\Excel;
 
 class StudentController extends Controller
 {
+    protected $excel;
+
+    public function __construct(Excel $excel)
+    {
+        $this->excel = $excel;
+    }
+
     public function index()
     {
         $students = Student::latest()->get();
 
-        return view('student',[
+        $years = Student::select('year_of_entry')->distinct()->pluck('year_of_entry');
+        $counts = [];
+
+        foreach ($years as $year) {
+            $counts[$year] = Student::where('year_of_entry', $year)->count();
+        }
+
+        return view('student', [
             'title' => 'Students',
             'no' => 1,
             'students' => $students,
+            'years' => $years,
+            'counts' => $counts,
         ]);
     }
 
@@ -33,45 +52,34 @@ class StudentController extends Controller
 
     public function create()
     {
-        return view('student.create',[
+        $grades = Grade::all();
+        return view('student.add',[
             'title' => 'Create Student',
+            'grades' => $grades,
+        ]);
+    }
+
+    public function import()
+    {
+        return view('student.import',[
+            'title' => 'Import Student',
         ]);
     }
 
     public function store(Request $request)
     {
-        $request->validate([
-            'nis' => 'min:5|unique:students|string',
-            'email' => 'email|nullable',
-            'username' => 'min:5|unique:students|string|nullable',
-            'name' => 'max:255',
-            'role_id' => 'nullable|integer',
-            'grade_id' => 'required|integer',
-            'phone_number' => 'min:10',
-            'birth_place' => 'string',
-            'birth_date' => 'string',
-            'year_of_entry' => 'string',
-            'password' => 'min:8',
-            'image' => 'image|mimes:jpeg,png,jpg,gif,svg',
-        ]);
+        $student = $request->all();
 
-        $student = new Student();
-        $student->nis = $request->nis;
-        $student->email = $request->email;
-        $student->username = $request->username;
-        $student->name = $request->name;
-        $student->role_id = $request->role_id;
-        $student->grade_id = $request->grade_id;
-        $student->phone_number = $request->phone_number;
-        $student->birth_place = $request->birth_place;
-        $student->birth_date = $request->birth_date;
-        $student->year_of_entry = $request->year_of_entry;
-        $student->password = bcrypt($request->password);
-        $student->image = $request->image->store('images');
+        Student::create($student);
 
-        $student->save();
+        return redirect('/admin/student');
+    }
 
-        return redirect('/student');
+    public function importExcel(ExcelRequest $request)
+    {
+        $this->excel->import(new StudentImport, $request->file('file'));
+
+        return redirect('/admin/student')->with('success', 'Import success');
     }
 
     public function editView($id)
@@ -103,5 +111,28 @@ class StudentController extends Controller
         $student->delete();
 
         return redirect('/admin/student')->with('success', 'Student deleted!');
+    }
+
+    public function search(Request $request)
+    {
+        $search = $request->input('search');
+        $students = Student::where('name', 'like', '%'.$search.'%')
+            ->orWhere('nis', 'like', '%'.$search.'%')
+            ->get();
+
+        // Fetch years and counts
+        $years = Student::select('year_of_entry')->distinct()->pluck('year_of_entry');
+        $counts = [];
+        foreach ($years as $year) {
+            $counts[$year] = Student::where('year_of_entry', $year)->count();
+        }
+
+        return view('student', [
+            'title' => 'Students',
+            'students' => $students,
+            'no' => 1,
+            'years' => $years,
+            'counts' => $counts,
+        ]);
     }
 }

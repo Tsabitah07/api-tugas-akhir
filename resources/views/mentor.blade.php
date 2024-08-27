@@ -2,12 +2,16 @@
 @section('container')
     <div style="height: 100vh; width: 80vw;display: flex;flex-direction: column; justify-content: start; overflow: auto; white-space: nowrap; margin-top: 10vh;">
         <div div style="width: 78vw; height: 9vh; display: flex; flex-direction: row; padding: 15px 10px 0 15px; justify-content: space-between; align-items: center">
-            <h4 style="margin: 0; padding: 0">Mentor List</h4>
-            <form action="/mentor/search" method="get" style="display: flex; flex-direction: row; gap: 5px">
-                <input type="search" placeholder="Search" aria-label="search" name="search" value="{{old('search')}}" style="height: 35px; width: 260px; border: 1px solid gray; border-radius: 7px; padding-left: 10px; margin: 0">
-                <button type="submit" style="width: 35px; height: 35px; border: 1px solid gray; border-radius: 7px"></button>
-{{--                <button class="btn btn-info" type="submit" id="button-addon2">Search</button>--}}
-            </form>
+            <div style="display: flex; flex-direction: row; gap: 10px">
+                <h4 style="margin: 0; padding: 0">Mentor List</h4>
+                <form action="/mentor/search" method="get" style="display: flex; flex-direction: row; gap: 5px">
+                    <input type="search" placeholder="Search" aria-label="search" name="search" value="{{old('search')}}" style="height: 35px; width: 260px; border: 1px solid gray; border-radius: 7px; padding-left: 10px; margin: 0">
+                    <button type="submit" style="display: flex; justify-content: center; align-items: center; width: 35px; height: 35px; border: 1px solid gray; border-radius: 7px; background: white">
+                        <img src="https://www.pixsector.com/cache/e7836840/av6584c34aabb39f00a10.png" style="width: 40px; height: 40px">
+                    </button>
+                </form>
+            </div>
+            <a href="/mentor/create" style="border: #1a202c solid 1px; padding: 5px 15px; color: #1a202c; text-decoration: none">+ Add Mentor</a>
         </div>
 {{--        <div style="padding: 10px 30px; max-height: 85vh;">--}}
 {{--            <table class="table">--}}
@@ -72,7 +76,7 @@
                     <form action="/mentor/delete/{{$mentor->id}}" method="post" class="d-inline">
                         @csrf
                         @method('post')
-                        <button class="btn btn-outline-danger"  onclick="return confirm('Are you sure you want to delete this class?')">Delete</button>
+                        <button  onclick="return confirm('Are you sure you want to delete this class?')" style="border: #ef4444 solid 1px; width: 125px; height: 30px; border-radius: 5px; display: flex; justify-content: center; align-items: center; background: white; color: #ef4444">Delete</button>
                     </form>
                 </div>
             </div>

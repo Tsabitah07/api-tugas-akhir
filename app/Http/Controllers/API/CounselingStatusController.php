@@ -189,7 +189,7 @@ class CounselingStatusController extends Controller
 
         $counseling->update([
             'counseling_status_id' => 5,
-            'note' => 'Dibatalkan karena'.$request->message
+            'note' => 'Dibatalkan karena '.$request->message
         ]);
 
         $student = Student::where('id', auth()->user()->id)->first();

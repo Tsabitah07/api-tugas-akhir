@@ -3,7 +3,7 @@
     <div style="height: 100vh; width: 80vw;display: flex;flex-direction: column; justify-content: start; overflow: auto; white-space: nowrap; margin-top: 10vh;">
         <div style="width: 80vw; height: 7.5vh; padding: 15px 10px 0 15px">
             <a href="/admin/mentor" style="text-decoration: none; color: #1a202c">
-                <h5 style="margin: 0; padding: 0">Back to List</h5>
+                <h5 style="margin-bottom: 15px; padding: 0">< Back to List</h5>
             </a>
         </div>
         <div style="display: flex; flex-direction: row; width: 80vw; height: 82.5vh">

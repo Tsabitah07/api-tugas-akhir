@@ -19,6 +19,10 @@
 {{--                Sign out--}}
 {{--            </button>--}}
 {{--        </form>--}}
-        <a href="/auth/login" style="text-decoration: none; font-size: large; font-weight: bold; margin-bottom: 7px; color: #ef4444">Logout</a>
+        <form action="/auth/logout" method="post" class="d-inline">
+            @csrf
+            @method('post')
+            <button onclick="return confirm('Are you sure you want to Logout')" style="text-decoration: none; font-size: large; font-weight: bold; margin-bottom: 7px; color: #ef4444; border: none; background: white">Logout</button>
+        </form>
     </div>
 </div>

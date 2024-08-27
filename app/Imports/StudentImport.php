@@ -24,7 +24,7 @@ class StudentImport implements ToModel
         ];
 
         return new Student([
-            'nis' => $row[0],
+            'nis' => '0'.$row[0],
             'email' => $row[1],
             'username' => $row[2],
             'name' => $row[3],
