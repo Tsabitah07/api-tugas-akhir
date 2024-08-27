@@ -96,7 +96,7 @@ class StudentController extends Controller
 
     public function edit(EditStudentRequest $request, $id)
     {
-        $data = $request->validated();
+        $data = $request->all();
         $student = Student::find($id);
 
         $student->update($data);

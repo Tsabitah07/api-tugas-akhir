@@ -92,6 +92,8 @@ class StudentController extends Controller
                 $image = $request->file('image')->storePublicly('profile', 'public');
                 $imageUrl = Storage::url($image);
             }
+        } else {
+            $imageUrl = $request->image;
         }
 
         $data = $request->all();
@@ -235,25 +237,21 @@ class StudentController extends Controller
     {
         $student = Student::where('id', auth()->user()->id)->first();
 
-        if (!$student) {
-            return response()->json([
-                'message' => 'Data Student tidak ditemukan'
-            ]);
-        }
-
         if ($request->hasFile('image')) {
             $delete = Storage::delete('public/profile/' . $student->image);
             if ($delete) {
                 $image = $request->file('image')->storePublicly('profile', 'public');
                 $imageUrl = Storage::url($image);
             }
+        } else {
+            $imageUrl = $request->image;
         }
 
         $student->image = $imageUrl;
         $student->save();
 
         return response()->json([
-            'message' => 'Image berhasil diubah',
+            'message' => 'Image Mentor berhasil diubah',
             'data' => $student
         ]);
     }

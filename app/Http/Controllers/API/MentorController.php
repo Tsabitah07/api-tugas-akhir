@@ -103,6 +103,8 @@ class MentorController extends Controller
                 $image = $request->file('image')->storePublicly('profile_mentor', 'public');
                 $imageUrl = Storage::url($image);
             }
+        } else {
+            $imageUrl = $request->image;
         }
 
         $data = $request->all();

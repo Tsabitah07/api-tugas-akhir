@@ -47,7 +47,7 @@ Route::group(['prefix' => 'auth'], function(){
 
 Route::group(['prefix' => 'student'], function() {
     Route::group(['middleware' => 'auth:sanctum'], function() {
-        Route::get('/detail/{id}', [StudentController::class, 'show']);
+        Route::get('/detail', [StudentController::class, 'show']);
 
         Route::post('/edit', [StudentController::class, 'edit']);
         Route::post('/edit-username', [StudentController::class, 'editUsername']);
