@@ -17,7 +17,7 @@ return new class extends Migration
             $table->string('slug');
             $table->text('description');
             $table->string('image')->nullable();
-            $table->json('question');
+            $table->string('link')->nullable();
             $table->timestamps();
         });
     }

@@ -14,6 +14,7 @@ class Selfcare extends Model
         'title',
         'description',
         'slug',
+        'link',
         'image'
     ];
 

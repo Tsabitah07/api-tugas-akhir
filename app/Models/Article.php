@@ -11,9 +11,11 @@ class Article extends Model
 
     protected $fillable = [
         'title',
+        'writer',
         'category_id',
         'article_content',
         'preview_content',
+        'link',
         'featured_image',
     ];
 

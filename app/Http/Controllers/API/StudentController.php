@@ -247,7 +247,7 @@ class StudentController extends Controller
             $imageUrl = $request->image;
         }
 
-        $student->image = $imageUrl;
+        $student['image'] = $imageUrl;
         $student->save();
 
         return response()->json([

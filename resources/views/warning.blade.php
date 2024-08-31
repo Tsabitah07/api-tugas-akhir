@@ -7,7 +7,7 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Unauthorized</title>
 </head>
-<body style="display: flex; flex-direction: column">
+<body style="display: flex; flex-direction: column; justify-content: center; align-items: center">
     <h1>Unauthorized</h1>
     <p>You are not authorized to access this page</p>
     <a href="/auth/login">Back to Login</a>

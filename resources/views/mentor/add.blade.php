@@ -5,7 +5,7 @@
             <a href="/admin/mentor" style="text-decoration: none; color: #1a202c">
                 <h5 style="margin-bottom: 15px; padding: 0">< Back to List</h5>
             </a>
-            <form action="/mentor/create" method="post">
+            <form action="/mentor/create" method="post" enctype="multipart/form-data">
                 @csrf
                 @method('post')
                 <div class="form-group">
@@ -18,7 +18,7 @@
                 </div>
                 <div class="form-group">
                     <label for="username">Email:</label>
-                    <input type="email" name="email" id="email" class="form-control" value="{{ old('email') }}">
+                    <input type="email" name="email" id="email" class="form-control" value="{{ old('email') || null}}" >
                 </div>
                 <div class="form-group">
                     <label for="phone_number">No Telp:</label>
@@ -64,12 +64,12 @@
                 </div>
                 <div class="form-group">
                     <label for="password">Password:</label>
-                    <input type="text" name="password" id="password" class="form-control" value="{{ old('password') }}">
+                    <input type="password" name="password" id="password" class="form-control" value="{{ old('password') }}">
                 </div>
-{{--                <div class="form-group">--}}
-{{--                    <label for="image">Image:</label>--}}
-{{--                    <input type="file" name="image" id="image" class="form-control" value="{{ old('image') }}">--}}
-{{--                </div>--}}
+                <div class="form-group">
+                    <label for="image">Image:</label>
+                    <input type="file" name="image" id="image" class="form-control">
+                </div>
                 <button type="submit" class="btn btn-primary" style="margin-top: 15px; margin-bottom: 20px">Tambah mentor data</button>
             </form>
         </div>

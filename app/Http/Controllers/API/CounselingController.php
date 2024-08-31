@@ -35,9 +35,11 @@ class CounselingController extends Controller
         ->where('time', $request->time)
         ->first();
 
-    if ($counsel) {
+    $student = Student::where('id', auth()->user()->id)->first();
+
+    if ($counsel && $counsel->grade_id == $student->grade_id) {
         return response()->json([
-            'message' => 'Tanggal dan waktu konseling tidak tersedia'
+            'message' => 'Tanggal dan waktu konseling tidak tersedia untuk mentor ini'
         ]);
     }
 
@@ -70,7 +72,7 @@ class CounselingController extends Controller
 
     $counselings = Counseling::create($counseling);
 
-    $mentor = Mentor::where('grade_id', $counselings->grade_id)->first();
+    $mentor = Mentor::where('grade_id', $counselings['grade_id'])->first();
 
     $inbox = Inbox::create([
         'student_id' => $counselings->student_id,

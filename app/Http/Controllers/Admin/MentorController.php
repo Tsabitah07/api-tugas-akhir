@@ -4,16 +4,18 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Mentor\EditMentorRequest;
+use App\Http\Requests\Mentor\MentorRequest;
 use App\Models\Grade;
 use App\Models\Mentor;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Storage;
 
 class MentorController extends Controller
 {
     public function index()
     {
-        $mentors = Mentor::all();
+        $mentors = Mentor::latest()->get();
         return view('mentor',[
             'title' => 'Mentor',
             'mentors' => $mentors
@@ -40,18 +42,27 @@ class MentorController extends Controller
         ]);
     }
 
-    public function store(Request $request)
+    public function store(MentorRequest $request)
     {
         $data = $request->all();
+
+        if ($request->birth_date != null) {
+            $data['age'] = date('Y') - date('Y', strtotime($request->birth_date));
+        }
 
         if ($request->password == null) {
             if ($request->grade_id == 1) {
                 $data['password'] = Hash::make('mentor123');
             }
         }
+
+        if ($request->hasFile('image')) {
+            $data['image'] =Storage::url($request->file('image')->store('images/profile_mentor', 'public'));
+        }
+
         Mentor::create($data);
 
-        return redirect('/admin/mentor')->with('success', 'Mentor created!');
+        return redirect('/admin/mentor')->with('success', 'Mentor added!');
     }
 
     public function editView($id)
@@ -75,6 +86,12 @@ class MentorController extends Controller
             $data['age'] = date('Y') - date('Y', strtotime($request->birth_date));
         } else {
             $data['age'] = $mentor->age;
+        }
+
+        if ($request->hasFile('image')) {
+            $data['image'] = Storage::url($request->file('image')->store('images/profile_mentor', 'public'));
+        } else {
+            $data['image'] = $mentor->image;
         }
 
         $mentor->update($data);

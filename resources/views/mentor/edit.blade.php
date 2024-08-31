@@ -5,7 +5,7 @@
             <a href="/admin/mentor" style="text-decoration: none; color: #1a202c">
                 <h5 style="margin-bottom: 15px; padding: 0">< Back to List</h5>
             </a>
-            <form action="/mentor/edit/{{$mentor->id}}" method="post">
+            <form action="/mentor/edit/{{$mentor->id}}" method="post" enctype="multipart/form-data">
                 @csrf
                 @method('post')
                 <div class="form-group">
@@ -17,16 +17,16 @@
                     <input type="text" name="username" id="username" class="form-control" value="{{ old('username', $mentor->username) }}" required>
                 </div>
                 <div class="form-group">
-                    <label for="username">Email:</label>
-                    <input type="email" name="email" id="email" class="form-control" value="{{ old('email', $mentor->email) }}">
+                    <label for="email">Email:</label>
+                    <input type="email" name="email" id="email" class="form-control" value="{{ old('email', $mentor->email) }}" nullable>
                 </div>
                 <div class="form-group">
-                    <label for="phone">No Telp:</label>
-                    <input type="text" name="phone" id="phone" class="form-control" value="{{ old('email', $mentor->phone_number) }}">
+                    <label for="phone_number">No Telp:</label>
+                    <input type="text" name="phone_number" id="phone_number" class="form-control" value="{{ old('phone_number', $mentor->phone_number) }}">
                 </div>
                 <div class="form-group">
-                    <label for="tempat_lahir">Birth Place:</label>
-                    <input type="text" name="tempat_lahir" id="tempat_lahir" class="form-control" value="{{ old('birth_place', $mentor->birth_place) }}" required>
+                    <label for="birth_place">Birth Place:</label>
+                    <input type="text" name="birth_place" id="birth_place" class="form-control" value="{{ old('birth_place', $mentor->birth_place) }}" nullable>
                 </div>
                  <div class="form-group">
                      @php
@@ -60,11 +60,15 @@
                 </div>
                 <div class="form-group">
                     <label for="last_university">Last University:</label>
-                    <input type="text" name="last_university" id="last_university" class="form-control" value="{{ old('last_university', $mentor->last_university) }}">
+                    <input type="text" name="last_university" id="last_university" class="form-control" value="{{ old('last_university', $mentor->last_university) }}" nullable>
                 </div>
                 <div class="form-group">
                     <label for="about_me">About Me:</label>
-                    <input type="text" name="about_me" id="about_me" class="form-control" value="{{ old('about_me', $mentor->about_me) }}">
+                    <input type="text" name="about_me" id="about_me" class="form-control" value="{{ old('about_me', $mentor->about_me) }}" nullable>
+                </div>
+                <div class="form-group">
+                    <label for="image">Profile Image:</label>
+                    <input type="file" name="image" id="image" class="form-control">
                 </div>
                 <button type="submit" class="btn btn-primary" style="margin-top: 15px; margin-bottom: 20px">Update mentor data</button>
             </form>

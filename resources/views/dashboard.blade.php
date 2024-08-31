@@ -107,10 +107,10 @@
                 @foreach($counseling as $key => $counselings)
                     <tr>
                         <th scope="row">{{$no++}}</th>
-                        <td>{{$counselings->Student->name}}</td>
-                        <td>{{$counselings->Grade->grade_name}}</td>
-                        <td>{{\Carbon\Carbon::parse($counselings->counseling_date)->format('F d, Y')}}</td>
-                        <td>{{$counselings->Status->status}}</td>
+                        <td>{{ optional($counselings->Student)->name ?? 'No Student' }}</td>
+                        <td>{{ optional($counselings->Grade)->grade_name ?? 'No Grade' }}</td>
+                        <td>{{ \Carbon\Carbon::parse($counselings->counseling_date)->format('F d, Y') }}</td>
+                        <td>{{ optional($counselings->Status)->status ?? 'No Status' }}</td>
                     </tr>
                 @endforeach
                 </tbody>

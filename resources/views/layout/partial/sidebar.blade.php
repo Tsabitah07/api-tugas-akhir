@@ -10,6 +10,10 @@
             <a href="/admin/dashboard" style="margin-top: 20px; text-decoration: none; font-size: large; font-weight: bold; color: #9F41EA">Dashboard</a>
             <a href="/admin/mentor" style="text-decoration: none; font-size: large; font-weight: bold; color: #9F41EA">Mentor</a>
             <a href="/admin/student" style="text-decoration: none; font-size: large; font-weight: bold; color: #9F41EA">Student</a>
+            <a href="/admin/counseling" style="text-decoration: none; font-size: large; font-weight: bold; color: #9F41EA">Counseling</a>
+            <a href="/admin/article" style="text-decoration: none; font-size: large; font-weight: bold; color: #9F41EA">Article</a>
+            <a href="/admin/selfcare" style="text-decoration: none; font-size: large; font-weight: bold; color: #9F41EA">Selfcare</a>
+            <a href="/admin/psychology" style="text-decoration: none; font-size: large; font-weight: bold; color: #9F41EA">Tes Mengenal Diri</a>
         </div>
     </div>
     <div style="display: flex; height: 20%; justify-content: left; align-items: end">

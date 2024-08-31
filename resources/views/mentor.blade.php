@@ -57,7 +57,9 @@
         <div style="display: flex; flex-direction: column; padding: 15px 25px 15px 15px; gap: 17px">
             @foreach($mentors as $key => $mentor)
             <div style="display: flex; flex-direction: row; padding: 13px 19px 13px 19px; justify-content: space-between; border: #1a202c 1px solid; border-radius: 5px">
-                <div style="width: 7.5vw; height: 10vw; background: bisque"><img src="@env('APP_URL') @endenv{{$mentor["image"]}}" style="width: 7.5vw; height: 10vw"></div>
+                <div style="width: 7.5vw; height: 10vw; background: bisque">
+                    <img src="@env('APP_URL') @endenv{{$mentor["image"]}}" style="width: 7.5vw; height: 10vw">
+                </div>
                 <div style="width: 55vw; height: 10vw; display: flex; flex-direction: column; justify-content: start;">
                     <h4 style="margin: 0; padding-bottom: 5px">{{$mentor["name"]}}</h4>
                     <div style="display: flex; flex-direction: column;">

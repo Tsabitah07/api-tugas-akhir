@@ -90,22 +90,22 @@ class DatabaseSeeder extends Seeder
 
         DataService::create([
             'name' => 'Konseling Individu',
-            'description' => 'Konseling individu adalah konseling yang dilakukan oleh seorang konselor dengan seorang klien. Konseling individu adalah konseling yang dilakukan oleh seorang konselor dengan seorang klien.'
+            'description' => 'Konseling individu adalah konsultasi yang dilakukan oleh satu individu dengan seorang konselor dan membahas masalah yang dihadapi oleh individu tersebut.'
         ]);
 
         DataService::create([
             'name' => 'Konseling Kelompok',
-            'description' => 'Konseling kelompok adalah konseling yang dilakukan oleh seorang konselor dengan beberapa klien sekaligus. Konseling kelompok adalah konseling yang dilakukan oleh seorang konselor dengan beberapa klien sekaligus.'
+            'description' => 'Konseling kelompok adalah konsultasi yang dilakukan oleh beberapa individu dengan seorang konselor dan membahas masalah yang dihadapi oleh individu tersebut.'
         ]);
 
         DataService::create([
             'name' => 'Bimbingan Kelompok',
-            'description' => 'Bimbingan kelompok adalah bimbingan yang dilakukan oleh seorang bimbingan konselor dengan beberapa klien sekaligus. Bimbingan kelompok adalah bimbingan yang dilakukan oleh seorang bimbingan konselor dengan beberapa klien sekaligus.'
+            'description' => 'Bimbingan kelompok adalah konsultasi yang dilakukan oleh beberapa individu dengan konselor dan membahas masalah yang umum yang terjadi di dunia.'
         ]);
 
         DataService::create([
             'name' => 'Bimbingan Individu',
-            'description' => 'Bimbingan individu adalah bimbingan yang dilakukan oleh seorang bimbingan konselor dengan seorang klien. Bimbingan individu adalah bimbingan yang dilakukan oleh seorang bimbingan konselor dengan seorang klien.'
+            'description' => 'Bimbingan individu adalah konsultasi yang dilakukan oleh satu individu dengan seorang konselor dan membahas masalah yang umum yang terjadi di dunia.'
         ]);
 
         DataService::create([
@@ -115,22 +115,22 @@ class DatabaseSeeder extends Seeder
 
         DataCategory::create([
             'name' => 'Konseling Pribadi',
-            'description' => 'Konseling pribadi adalah konseling yang dilakukan oleh seorang konselor dengan seorang klien. Konseling pribadi adalah konseling yang dilakukan oleh seorang konselor dengan seorang klien.'
+            'description' => 'Konseling pribadi adalah konsultasi yang membahas masalah pribadi seseorang, seperti masalah keluarga, masalah kesehatan, dan lain-lain.'
         ]);
 
         DataCategory::create([
             'name' => 'Konseling Karir',
-            'description' => 'Konseling karir adalah konseling yang dilakukan oleh seorang konselor dengan seorang klien. Konseling karir adalah konseling yang dilakukan oleh seorang konselor dengan seorang klien.'
+            'description' => 'Konseling karir adalah konsultasi yang membahas masalah karir seseorang, seperti masalah pekerjaan.'
         ]);
 
         DataCategory::create([
             'name' => 'Konseling Belajar',
-            'description' => 'Konseling belajar adalah konseling yang dilakukan oleh seorang konselor dengan seorang klien. Konseling belajar adalah konseling yang dilakukan oleh seorang konselor dengan seorang klien.'
+            'description' => 'Konseling belajar adalah konsultasi yang membahas masalah terkait pembelajaran seseorang, seperti masalah belajar di sekolah maupun diluar sekolah.'
         ]);
 
         DataCategory::create([
             'name' => 'Konseling Sosial',
-            'description' => 'Konseling sosial adalah konseling yang dilakukan oleh seorang konselor dengan seorang klien. Konseling social adalah konseling yang dilakukan oleh seorang konselor dengan seorang klien.'
+            'description' => 'Konseling sosial adalah konsultasi yang membahas masalah kehidupan sosial seseorang, seperti masalah pertemanan dan masalah dengan masyarakat sekitar.'
         ]);
 
         ArticleCategory::create([

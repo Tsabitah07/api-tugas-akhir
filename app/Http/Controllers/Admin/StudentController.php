@@ -5,10 +5,13 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\ExcelRequest;
 use App\Http\Requests\Student\EditStudentRequest;
+use App\Http\Requests\Student\StudentRequest;
 use App\Imports\StudentImport;
+use App\Models\Counseling;
 use App\Models\Grade;
 use App\Models\Student;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 use Maatwebsite\Excel\Excel;
 
 class StudentController extends Controller
@@ -66,9 +69,15 @@ class StudentController extends Controller
         ]);
     }
 
-    public function store(Request $request)
+    public function store(StudentRequest $request)
     {
         $student = $request->all();
+
+        if ($request->hasFile('image')) {
+            $student['image'] = Storage::url($request->file('image')->store('images/profile', 'public'));
+        }
+
+        $student['password'] = bcrypt($request->password);
 
         Student::create($student);
 
@@ -108,7 +117,12 @@ class StudentController extends Controller
     public function destroy($id)
     {
         $student = Student::find($id);
+        $counselings = Counseling::where('student_id', $id)->get();
+
         $student->delete();
+        foreach ($counselings as $counseling) {
+            $counseling->delete();
+        }
 
         return redirect('/admin/student')->with('success', 'Student deleted!');
     }

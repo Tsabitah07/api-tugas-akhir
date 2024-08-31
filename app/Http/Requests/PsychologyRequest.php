@@ -26,8 +26,7 @@ class PsychologyRequest extends FormRequest
             'slug' => 'string|nullable',
             'description' => 'required|string',
             'image' => 'image|mimes:jpeg,png,jpg,gif,svg|nullable',
-            'question' => 'required|array',
-            'question.*' => 'required|string',
+            'link' => 'string|nullable',
         ];
     }
 }

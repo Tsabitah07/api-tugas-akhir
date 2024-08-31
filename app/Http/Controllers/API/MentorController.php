@@ -271,17 +271,10 @@ class MentorController extends Controller
     {
         $mentor = Mentor::where('id', auth()->user()->id)->first();
 
-        if ($request->hasFile('image')) {
-            $delete = Storage::delete('public/profile_mentor/' . $mentor->image);
-            if ($delete) {
-                $image = $request->file('image')->storePublicly('profile_mentor', 'public');
-                $imageUrl = Storage::url($image);
-            }
-        } else {
-            $imageUrl = $request->image;
-        }
+        $image = $request->file('image')->storePublicly('profile_mentor', 'public');
+        $imageUrl = Storage::url($image);
 
-        $mentor->image = $imageUrl;
+        $mentor['image'] = $imageUrl;
         $mentor->save();
 
         return response()->json([

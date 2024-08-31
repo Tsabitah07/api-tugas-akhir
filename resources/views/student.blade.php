@@ -34,7 +34,6 @@
         </div>
         <div style="width: 80vw; height: 9vh; display: flex; flex-direction: row; padding: 5px 35px 0 15px; justify-content: space-between; align-items: center">
             <div style="display: flex;flex-direction: row; gap: 10px">
-                <h4>List Student</h4>
                 <form action="/student/search" method="get" style="display: flex; flex-direction: row; gap: 5px">
                     <input type="search" placeholder="Search" aria-label="search" name="search" value="{{old('search')}}" style="height: 35px; width: 260px; border: 1px solid gray; border-radius: 7px; padding-left: 10px; margin: 0">
                     <button type="submit" style="display: flex; justify-content: center; align-items: center; width: 35px; height: 35px; border: 1px solid gray; border-radius: 7px; background: white">

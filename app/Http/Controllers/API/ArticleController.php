@@ -13,7 +13,7 @@ class ArticleController extends Controller
 {
     public function store(ArticleRequest $request)
     {
-        $request->validated();
+        $data = $request->validated();
 
         if ($request->hasFile('featured_image')) {
             $image = $request->file('featured_image')->storePublicly('article', 'public');
@@ -23,13 +23,7 @@ class ArticleController extends Controller
             $imageUrl = $noImage;
         }
 
-        $data = [
-            'title' => $request->title,
-            'category_id' => $request->category_id,
-            'article_content' => $request->article_content,
-            'preview_content' => $request->preview_content,
-            'featured_image' => $imageUrl,
-        ];
+        $data['featured_image'] = $imageUrl;
 
         $article = Article::create($data);
 

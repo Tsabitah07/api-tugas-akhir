@@ -15,7 +15,7 @@ class Psychology extends Model
         'slug',
         'description',
         'image',
-        'question',
+        'link',
     ];
 
     protected $casts = [

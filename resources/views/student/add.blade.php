@@ -25,8 +25,8 @@
                     <input type="email" name="email" id="email" class="form-control" value="{{ old('email') }}">
                 </div>
                 <div class="form-group">
-                    <label for="phone">No Telp:</label>
-                    <input type="text" name="phone" id="phone" class="form-control" value="{{ old('email') }}">
+                    <label for="phone_number">No Telp:</label>
+                    <input type="text" name="phone_number" id="phone_number" class="form-control" value="{{ old('phone_number') }}">
                 </div>
                 <div class="form-group">
                     <label for="birth_place">Birth Place:</label>
@@ -51,7 +51,7 @@
                     <input type="text" name="year_of_entry" id="year_of_entry" class="form-control" value="{{ old('year_of_entry')}}" required>
                 </div>
                 <div class="form-group">
-                    <label for="password">Password:</label>
+                    <label for="password">Password: [*min 8 character]</label>
                     <input type="password" name="password" id="password" class="form-control" value="{{ old('password')}}" required>
                 </div>
                 {{--                <div class="form-group">--}}
