@@ -24,6 +24,7 @@ class SelfcareController extends Controller
             'title' => $request->title,
             'description' => $request->description,
             'slug' => $request->slug,
+            'link' => $request->link,
             'image' => $imageUrl,
         ];
 
@@ -85,6 +86,7 @@ class SelfcareController extends Controller
             'title' => $request->title,
             'description' => $request->description,
             'slug' => $request->slug,
+            'link' => $request->link,
             'image' => $imageUrl,
         ]);
 

@@ -17,8 +17,8 @@
                     <input type="text" name="writer" id="writer" class="form-control" value="{{ old('writer') }}">
                 </div>
                 <div class="form-group">
-                    <label for="category">Category</label>
-                    <select class="form-select" name="category" id="category">
+                    <label for="category_id">Category</label>
+                    <select class="form-select" name="category_id" id="category_id">
                         @foreach($categories as $category)
                             <option value={{ $category->id }}>
                                 {{ $category->category_name }}
@@ -28,11 +28,11 @@
                 </div>
                 <div class="form-group">
                     <label for="article_content">Content</label>
-                    <textarea name="article_content" id="article_content" class="form-control">{{ old('article_content') }}</textarea>
+                    <textarea name="article_content" id="article_content" class="form-control"></textarea>
                 </div>
                 <div class="form-group">
                     <label for="preview_content">Preview Content</label>
-                    <textarea name="preview_content" id="preview_content" class="form-control">{{ old('preview_content') }}</textarea>
+                    <textarea name="preview_content" id="preview_content" class="form-control"></textarea>
                 </div>
                 <div class="form-group">
                     <label for="featured_image">Image</label>

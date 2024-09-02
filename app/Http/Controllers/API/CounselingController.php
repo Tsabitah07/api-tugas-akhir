@@ -22,77 +22,77 @@ class CounselingController extends Controller
         ]);
     }
 
-    public function store(CounselingRequest $request)
-{
-    if ($request->counseling_date < now()) {
+        public function store(CounselingRequest $request)
+    {
+        if ($request->counseling_date < now()) {
+            return response()->json([
+                'message' => 'Tanggal konseling tidak boleh kurang dari hari ini'
+            ]);
+        }
+
+        //time
+        $counsel = Counseling::where('counseling_date', $request->counseling_date)
+            ->where('time', $request->time)
+            ->first();
+
+        $student = Student::where('id', auth()->user()->id)->first();
+
+        if ($counsel && $counsel->grade_id == $student->grade_id) {
+            return response()->json([
+                'message' => 'Tanggal dan waktu konseling tidak tersedia untuk mentor ini'
+            ]);
+        }
+
+        //auth
+        $user = auth()->user();
+        if (!$user) {
+            return response()->json([
+                'message' => 'User not authenticated'
+            ]);
+        }
+
+    //    $student = Student::where('id', $user->id)->first();
+        if (!$student) {
+            return response()->json([
+                'message' => 'Student not found'
+            ]);
+        }
+
+        $counseling = [
+            'grade_id' => $student->grade_id,
+            'student_id' => $student->id,
+            'counseling_date' => $request->counseling_date,
+            'time' => $request->time,
+            'expired' => false,
+            'service' => $request->service,
+            'subject' => $request->subject,
+            'counseling_status_id' => 1,
+            'mentor_id' => $request->mentor_id,
+        ];
+
+        $counselings = Counseling::create($counseling);
+
+        $mentor = Mentor::where('grade_id', $counselings['grade_id'])->first();
+
+        $inbox = Inbox::create([
+            'student_id' => $counselings->student_id,
+            'mentor_id' => $mentor->id,
+            'receiver_id' => $mentor->id,
+            'counseling_id' => $counselings->id,
+            'title' => 'Ajuan Konseling Baru',
+            'receiver' => 'Halo, '.$mentor->name,
+            'subject' => 'Ajuan konsultasi baru dari siswa '. $counselings->Student->name,
+            'message' => 'Ada ajuan konsultasi baru dari siswa '. $counselings->Student->name. ' untuk tanggal '. $counselings->counseling_date->format('Y-m-d'). ' jam '. $counselings->time,
+            'sender' => $counselings->Student->name,
+            'is_read' => false
+        ]);
+
         return response()->json([
-            'message' => 'Tanggal konseling tidak boleh kurang dari hari ini'
+            'message' => 'Data Counseling berhasil ditambahkan',
+            'data' => $counselings,
+            'inbox' => $inbox
         ]);
     }
-
-    //time
-    $counsel = Counseling::where('counseling_date', $request->counseling_date)
-        ->where('time', $request->time)
-        ->first();
-
-    $student = Student::where('id', auth()->user()->id)->first();
-
-    if ($counsel && $counsel->grade_id == $student->grade_id) {
-        return response()->json([
-            'message' => 'Tanggal dan waktu konseling tidak tersedia untuk mentor ini'
-        ]);
-    }
-
-    //auth
-    $user = auth()->user();
-    if (!$user) {
-        return response()->json([
-            'message' => 'User not authenticated'
-        ]);
-    }
-
-    $student = Student::where('id', $user->id)->first();
-    if (!$student) {
-        return response()->json([
-            'message' => 'Student not found'
-        ]);
-    }
-
-    $counseling = [
-        'grade_id' => $student->grade_id,
-        'student_id' => $student->id,
-        'counseling_date' => $request->counseling_date,
-        'time' => $request->time,
-        'expired' => false,
-        'service' => $request->service,
-        'subject' => $request->subject,
-        'counseling_status_id' => 1,
-        'mentor_id' => $request->mentor_id,
-    ];
-
-    $counselings = Counseling::create($counseling);
-
-    $mentor = Mentor::where('grade_id', $counselings['grade_id'])->first();
-
-    $inbox = Inbox::create([
-        'student_id' => $counselings->student_id,
-        'mentor_id' => $mentor->id,
-        'receiver_id' => $mentor->id,
-        'counseling_id' => $counselings->id,
-        'title' => 'Ajuan Konseling Baru',
-        'receiver' => 'Halo, '.$mentor->name,
-        'subject' => 'Ajuan konsultasi baru dari siswa '. $counselings->Student->name,
-        'message' => 'Ada ajuan konsultasi baru dari siswa '. $counselings->Student->name. ' untuk tanggal '. $counselings->counseling_date->format('Y-m-d'). ' jam '. $counselings->time,
-        'sender' => $counselings->Student->name,
-        'is_read' => false
-    ]);
-
-    return response()->json([
-        'message' => 'Data Counseling berhasil ditambahkan',
-        'data' => $counselings,
-        'inbox' => $inbox
-    ]);
-}
 
     public function edit(EditCounselingRequest $request, $id)
     {

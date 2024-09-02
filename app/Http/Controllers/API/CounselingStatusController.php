@@ -101,6 +101,7 @@ class CounselingStatusController extends Controller
     public function rescheduleCounseling(EditCounselingRequest $request, $id)
     {
         $counseling = Counseling::find($id);
+        $student = Student::where('grade_id', $counseling->grade_id)->first();
 
         if (!$counseling) {
             return response()->json([
@@ -130,7 +131,7 @@ class CounselingStatusController extends Controller
             ->where('time', $request->time)
             ->first();
 
-        if ($counsel) {
+        if ($counsel  && $counsel->grade_id == $student->grade_id) {
             return response()->json([
                 'message' => 'Tanggal dan waktu konseling tidak tersedia'
             ]);
@@ -223,6 +224,24 @@ class CounselingStatusController extends Controller
         if (!$counseling) {
             return response()->json([
                 'message' => 'Data Counseling tidak ditemukan'
+            ]);
+        }
+
+        if ($counseling->counseling_status_id == 5) {
+            return response()->json([
+                'message' => 'Konseling telah dibatalkan'
+            ]);
+        }
+
+        if ($counseling->counseling_status_id == 6) {
+            return response()->json([
+                'message' => 'Konseling telah terlewat'
+            ]);
+        }
+
+        if ($counseling->counseling_date < now()) {
+            return response()->json([
+                'message' => 'Konseling belum dilakukan'
             ]);
         }
 

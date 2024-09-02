@@ -35,7 +35,7 @@ class PsychologyController extends Controller
             'description' => $request->description,
             'slug' => $request->slug,
             'image' => $imageUrl,
-            'question' => $request->question
+            'link' => $request->link,
         ];
 
         $psychology = Psychology::create($data);

@@ -13,7 +13,7 @@ class ArticleController extends Controller
 {
     public function index()
     {
-        $articles = Article::all();
+        $articles = Article::latest()->get();
 
         return view('article.index', [
             'title' => 'Article',
@@ -46,15 +46,18 @@ class ArticleController extends Controller
         $data = $request->all();
 
         if ($request->hasFile('featured_image')) {
-            $image =Storage::url($request->file('featured_image')->store('images/article', 'public'));
+            $data['featured_image'] = Storage::url($request->file('featured_image')->store('images/article', 'public'));
+        } else {
+            $data['featured_image'] = null;
         }
 
         Article::create([
             'title' => $data['title'],
+            'writer' => $data['writer'],
             'article_content' => $data['article_content'],
             'preview_content' => $data['preview_content'],
             'category_id' => $data['category_id'],
-            'featured_image' => $image
+            'featured_image' => $data['featured_image'],
         ]);
 
         return redirect('/admin/article')->with('success', 'Article has been added');
@@ -75,15 +78,22 @@ class ArticleController extends Controller
     public function edit(ArticleRequest $request, $id)
     {
         $article = Article::find($id);
-        $data = $request->validate();
+        $data = $request->all();
 
-        if ($request->hasFile('image')){
-            $data['image'] = Storage::url($request->file('image')->store('images/article', 'public'));
+        if ($request->hasFile('featured_image')){
+            $data['featured_image'] = Storage::url($request->file('featured_image')->store('images/article', 'public'));
         } else {
-            $data['image'] = $article->image;
+            $data['featured_image'] = $article->image;
         }
 
-        $article->update($data);
+        $article->update([
+            'title' => $data['title'],
+            'writer' => $data['writer'],
+            'article_content' => $data['article_content'],
+            'preview_content' => $data['preview_content'],
+            'category_id' => $data['category_id'],
+            'featured_image' => $data['featured_image'],
+        ]);
 
         return redirect('/admin/article')->with('success', 'Article has been updated');
     }

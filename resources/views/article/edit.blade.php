@@ -1,38 +1,44 @@
 @extends('layout.main')
 @section('container')
     <div style="height: 100vh; width: 80vw;display: flex;flex-direction: column; justify-content: start; align-items: center; overflow: auto; white-space: nowrap; margin-top: 10vh;">
-        <div>
-            <h4>Edit Article</h4>
-        </div>
-        <div style="width: 100%; display: flex; justify-content: center; align-items: center;">
-            <form action="/article/update/{{ $article->id }}" method="POST" style="width: 100%; display: flex; flex-direction: column; justify-content: center; align-items: center;">
+        <div style="width: 77vw; height: 7.5vh; padding: 15px 10px 0 15px">
+            <a href="/admin/article" style="text-decoration: none; color: #1a202c">
+                <h5 style="margin-bottom: 15px; padding: 0">< Back to List</h5>
+            </a>
+            <form action="/article/edit/{{ $article->id }}" method="post" enctype="multipart/form-data">
                 @csrf
                 @method('post')
-                <div style="width: 100%; display: flex; flex-direction: column; justify-content: center; align-items: center;">
-                    <div style="width: 100%; display: flex; justify-content: center; align-items: center;">
-                        <label for="title" style="width: 20%;">Title</label>
-                        <input type="text" name="title" id="title" value="{{ $article->title }}" style="width: 80%;">
-                    </div>
-                    <div style="width: 100%; display: flex; justify-content: center; align-items: center;">
-                        <label for="writer" style="width: 20%;">Writer</label>
-                        <input type="text" name="writer" id="writer" value="{{ $article->writer }}" style="width: 80%;">
-                    </div>
-                    <div style="width: 100%; display: flex; justify-content: center; align-items: center;">
-                        <label for="category" style="width: 20%;">Category</label>
-                        <input type="text" name="category" id="category" value="{{ $article->category }}" style="width: 80%;">
-                    </div>
-                    <div style="width: 100%; display: flex; justify-content: center; align-items: center;">
-                        <label for="content" style="width: 20%;">Content</label>
-                        <textarea name="content" id="content" style="width: 80%;">{{ $article->content }}</textarea>
-                    </div>
-                    <div style="width: 100%; display: flex; justify-content: center; align-items: center;">
-                        <label for="featured_image" style="width: 20%;">Image</label>
-                        <input type="file" name="featured_image" id="featured_image" style="width: 80%;" value="{{ $article->featured_image }}">
-                    </div>
-                    <div style="width: 100%; display: flex; justify-content: center; align-items: center;">
-                        <button type="submit" style="width: 100%;">Update</button>
-                    </div>
+                <div class="form-group">
+                    <label for="title">Title</label>
+                    <input type="text" name="title" id="title" class="form-control" value="{{ old('title', $article->title) }}">
                 </div>
+                <div class="form-group">
+                    <label for="writer">Writer</label>
+                    <input type="text" name="writer" id="writer" class="form-control" value="{{ old('writer', $article->writer) }}">
+                </div>
+                <div class="form-group">
+                    <label for="category_id">Category</label>
+                    <select class="form-select" name="category_id" id="category_id">
+                        @foreach($categories as $category)
+                            <option value="{{ $category->id }}" {{ $article->category_id == $category->id ? 'selected' : '' }}>
+                                {{ $category->category_name }}
+                            </option>
+                        @endforeach
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="article_content">Content</label>
+                    <textarea name="article_content" id="article_content" class="form-control">{{ old('article_content', $article->article_content) }}</textarea>
+                </div>
+                <div class="form-group">
+                    <label for="preview_content">Preview Content</label>
+                    <textarea name="preview_content" id="preview_content" class="form-control">{{ old('preview_content', $article->preview_content) }}</textarea>
+                </div>
+                <div class="form-group">
+                    <label for="featured_image">Image</label>
+                    <input type="file" name="featured_image" id="featured_image" class="form-control">
+                </div>
+                <button type="submit" class="btn btn-primary" style="margin-top: 15px; margin-bottom: 20px">Tambah Artikel</button>
             </form>
         </div>
     </div>

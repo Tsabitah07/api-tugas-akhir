@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Auth\LoginRequest;
 use App\Http\Requests\Student\EditStudentRequest;
 use App\Http\Requests\Student\StudentRequest;
+use App\Models\Counseling;
 use App\Models\Mentor;
 use App\Models\Student;
 use Illuminate\Support\Facades\Auth;
@@ -137,7 +138,20 @@ class StudentController extends Controller
     public function delete()
     {
         $student = Student::where('id', auth()->user()->id)->first();
-        $student->delete();
+
+        if (!$student) {
+            return response()->json([
+                'message' => 'Data Student tidak ditemukan'
+            ]);
+        }
+
+         $counseling = Counseling::where('student_id', $student->id)->get();
+
+        if ($student->delete()) {
+            foreach ($counseling as $counsel) {
+                $counsel->delete();
+            }
+        }
 
         return response()->json([
             'message' => 'Data Student berhasil dihapus'

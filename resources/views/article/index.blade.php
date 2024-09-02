@@ -12,7 +12,7 @@
             <a href="/article/create" style="border: #1a202c solid 1px; padding: 5px 15px; color: #1a202c; text-decoration: none">+ Add Article</a>
         </div>
 
-        <div style="width: 77vw; display: flex; flex-direction: column; align-items: center; margin-top: 10px">
+        <div style="width: 77vw; display: flex; flex-direction: column; align-items: center; margin-top: 10px; gap: 10px">
             @foreach($articles as $key => $article)
             <div style="width: 75vw; height: 10vw; display: flex; flex-direction: row; justify-content: space-evenly; align-items: center; border: #9F41EA solid 2px; border-radius: 7px">
                 <img src="@env('APP_URL') @endenv{{ $article->featured_image }}" style="width: 14vw; height: 8vw">
