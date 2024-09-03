@@ -13,8 +13,10 @@ return new class extends Migration
     {
         Schema::create('galeries', function (Blueprint $table) {
             $table->id();
-            $table->string('image');
+            $table->string('title');
             $table->string('description');
+            $table->string('image');
+            $table->json('tags')->nullable();
             $table->timestamps();
         });
     }

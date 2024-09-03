@@ -13,4 +13,22 @@ class Galery extends Model
         'image',
         'description'
     ];
+
+    protected $hidden = [
+        'updated_at'
+    ];
+
+    protected static function boot()
+    {
+        parent::boot();
+
+        static::creating(function ($galery) {
+            $galery->id = self::generateUniqueId();
+        });
+    }
+
+    public static function generateUniqueId()
+    {
+        return 'GI-' . date('YmdHis') . rand(1000, 9999);
+    }
 }

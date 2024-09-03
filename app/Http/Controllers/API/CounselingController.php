@@ -5,10 +5,15 @@ namespace App\Http\Controllers\API;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Counseling\CounselingRequest;
 use App\Http\Requests\Counseling\EditCounselingRequest;
+use App\Mail\CounselingNotification;
 use App\Models\Counseling;
 use App\Models\Inbox;
 use App\Models\Mentor;
 use App\Models\Student;
+use App\Notifications\ConsultationNotification;
+use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\Notification;
 
 class CounselingController extends Controller
 {
@@ -22,7 +27,7 @@ class CounselingController extends Controller
         ]);
     }
 
-        public function store(CounselingRequest $request)
+    public function store(CounselingRequest $request)
     {
         if ($request->counseling_date < now()) {
             return response()->json([
@@ -86,6 +91,17 @@ class CounselingController extends Controller
             'sender' => $counselings->Student->name,
             'is_read' => false
         ]);
+
+//        Log::info('Mentor Email: ' . $this->inbox->mentor->email);
+//        Mail::to($mentor->email)->send(new CounselingNotification($inbox, $mentor));
+        $detail = [
+            'subject' => 'Ajuan Konseling Baru',
+            'receiver' => $inbox->receiver,
+            'message' => $inbox->message,
+            'sender' => $inbox->sender,
+        ];
+
+        Notification::send($mentor, new ConsultationNotification($detail));
 
         return response()->json([
             'message' => 'Data Counseling berhasil ditambahkan',

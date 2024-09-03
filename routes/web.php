@@ -8,6 +8,7 @@ use App\Http\Controllers\Admin\MentorController;
 use App\Http\Controllers\Admin\PsychologyController;
 use App\Http\Controllers\Admin\SelfcareController;
 use App\Http\Controllers\Admin\StudentController;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -108,4 +109,13 @@ Route::group(['prefix' => 'selfcare'], function(){
     Route::post('/delete/{id}', [SelfcareController::class, 'destroy']);
 
     Route::get('/search/', [SelfcareController::class, 'search']);
+});
+
+Route::get('/test-email', function () {
+    Mail::raw('This is a test email using Sendinblue!', function ($message) {
+        $message->to('inas.tsabitah22@gmail.com')
+            ->subject('Test Email from Laravel');
+    });
+
+    return 'Test email sent!';
 });

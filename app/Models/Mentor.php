@@ -68,4 +68,9 @@ class Mentor extends Model
     {
         return 'MT-'.date('YmdHis').rand(100, 999);
     }
+
+    public function routeNotificationFor($notification)
+    {
+        return $this->email;
+    }
 }

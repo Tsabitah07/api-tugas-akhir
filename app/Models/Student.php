@@ -61,4 +61,9 @@ class Student extends Model
     {
         return 'ST-'.date('YmdHis').'-'.rand(1000, 9999);
     }
+
+    public function routeNotificationFor($notification)
+    {
+        return $this->email;
+    }
 }

@@ -142,7 +142,18 @@ class MentorController extends Controller
 
     public function detail()
     {
-        return response()->json(auth()->user());
+        $mentor = Mentor::where('id', auth()->user()->id)->first();
+
+        if (!$mentor) {
+            return response()->json([
+                'message' => 'Data Mentor tidak ditemukan'
+            ]);
+        }
+
+        return response()->json([
+            'message' => 'Data Mentor berhasil diambil',
+            'data' => $mentor
+        ]);
     }
 
     public function show($id)

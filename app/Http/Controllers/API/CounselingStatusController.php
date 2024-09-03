@@ -9,7 +9,9 @@ use App\Models\Counseling;
 use App\Models\Inbox;
 use App\Models\Mentor;
 use App\Models\Student;
+use App\Notifications\ConsultationNotification;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Notification;
 
 class CounselingStatusController extends Controller
 {
@@ -29,6 +31,7 @@ class CounselingStatusController extends Controller
         ]);
 
         $mentor = Mentor::where('id', auth()->user()->id)->first();
+        $student = Student::where('id', $counseling->student_id)->first();
 
         if (auth()->user()->id != $mentor->id) {
             return response()->json([
@@ -48,6 +51,15 @@ class CounselingStatusController extends Controller
             'sender' => $mentor->name,
             'is_read' => false
         ]);
+
+        $detail = [
+            'subject' => $inbox->title,
+            'receiver' => $inbox->receiver,
+            'message' => $inbox->message,
+            'sender' => $inbox->sender,
+        ];
+
+        Notification::send($student, new ConsultationNotification($detail));
 
         return response()->json([
             'message' => 'Status Counseling berhasil diubah',
@@ -86,10 +98,19 @@ class CounselingStatusController extends Controller
             'title' => 'Konseling Diterima',
             'receiver' => 'Dear, '.$mentor->name,
             'subject' => 'Konseling yang dijadwalkan ulang telah diterima',
-            'message' => 'Konseling yang dijadwalkan ulang menjadi tanggal '. $counseling->counseling_date->format('Y-m-d'). ' jam '. $counseling->time. ' dan bertempat di '.$counseling->place.'telah diterima',
+            'message' => 'Konseling yang dijadwalkan ulang menjadi tanggal '. $counseling->counseling_date->format('Y-m-d'). ' jam '. $counseling->time. ' dan bertempat di '.$counseling->place.' telah diterima',
             'sender' => $counseling->Student->name,
             'is_read' => false
         ]);
+
+        $detail = [
+            'subject' => $inbox->title,
+            'receiver' => $inbox->receiver,
+            'message' => $inbox->message,
+            'sender' => $inbox->sender,
+        ];
+
+        Notification::send($mentor, new ConsultationNotification($detail));
 
         return response()->json([
             'message' => 'Status Counseling berhasil diubah',
@@ -131,6 +152,12 @@ class CounselingStatusController extends Controller
             ->where('time', $request->time)
             ->first();
 
+        if ($request->counseling_date < now()) {
+            return response()->json([
+                'message' => 'Tanggal konseling tidak boleh kurang dari hari ini'
+            ]);
+        }
+
         if ($counsel  && $counsel->grade_id == $student->grade_id) {
             return response()->json([
                 'message' => 'Tanggal dan waktu konseling tidak tersedia'
@@ -164,6 +191,15 @@ class CounselingStatusController extends Controller
             'sender' => $mentor->name,
             'is_read' => false
         ]);
+
+        $detail = [
+            'subject' => $inbox->title,
+            'receiver' => $inbox->receiver,
+            'message' => $inbox->message,
+            'sender' => $inbox->sender,
+        ];
+
+        Notification::send($student, new ConsultationNotification($detail));
 
         return response()->json([
             'message' => 'Data Counseling berhasil diubah',
@@ -210,6 +246,15 @@ class CounselingStatusController extends Controller
             'is_read' => false
         ]);
 
+        $detail = [
+            'subject' => $inbox->title,
+            'receiver' => $inbox->receiver,
+            'message' => $inbox->message,
+            'sender' => $inbox->sender,
+        ];
+
+        Notification::send($mentor, new ConsultationNotification($detail));
+
         return response()->json([
             'message' => 'Status Counseling berhasil diubah',
             'data' => $counseling,
@@ -239,7 +284,11 @@ class CounselingStatusController extends Controller
             ]);
         }
 
-        if ($counseling->counseling_date < now()) {
+        $counsel = Counseling::where('counseling_date', $request->counseling_date)
+            ->where('time', $request->time)
+            ->first();
+
+        if ($counsel < now()) {
             return response()->json([
                 'message' => 'Konseling belum dilakukan'
             ]);
@@ -251,6 +300,7 @@ class CounselingStatusController extends Controller
         ]);
 
         $mentor = Mentor::where('grade_id', $counseling->grade_id)->first();
+        $student = Student::where('id', $counseling->student_id)->first();
 
         if (auth()->user()->id != $mentor->id) {
             return response()->json([
@@ -270,6 +320,15 @@ class CounselingStatusController extends Controller
             'sender' => $mentor->name,
             'is_read' => false
         ]);
+
+        $detail = [
+            'subject' => $inbox->title,
+            'receiver' => $inbox->receiver,
+            'message' => $inbox->message,
+            'sender' => $inbox->sender,
+        ];
+
+        Notification::send($student, new ConsultationNotification($detail));
 
         return response()->json([
             'message' => 'Data Counseling berhasil diubah',

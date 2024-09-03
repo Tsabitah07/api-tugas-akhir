@@ -30,6 +30,7 @@ class Counseling extends Model
 
     protected $hidden = [
         'Student',
+        'Mentor',
         'created_at',
         'updated_at',
     ];
