@@ -12,7 +12,7 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule): void
     {
-         $schedule->command('app:expire-counselings')->hourly();
+         $schedule->command('counseling:check-expired')->hourly();
     }
 
     /**

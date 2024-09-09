@@ -104,7 +104,7 @@ class MentorController extends Controller
                 $imageUrl = Storage::url($image);
             }
         } else {
-            $imageUrl = $request->image;
+            $imageUrl = $mentor->image;
         }
 
         $data = $request->all();
@@ -283,9 +283,8 @@ class MentorController extends Controller
         $mentor = Mentor::where('id', auth()->user()->id)->first();
 
         $image = $request->file('image')->storePublicly('profile_mentor', 'public');
-        $imageUrl = Storage::url($image);
+        $mentor['image'] = Storage::url($image);
 
-        $mentor['image'] = $imageUrl;
         $mentor->save();
 
         return response()->json([

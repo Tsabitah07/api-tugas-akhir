@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -13,7 +14,7 @@ class Counseling extends Model
         'grade_id',
         'student_id',
         'counseling_date',
-        'time',
+        'session_id',
         'expired',
         'service',
         'subject',
@@ -48,5 +49,18 @@ class Counseling extends Model
     public function Status()
     {
         return $this->belongsTo(CounselingStatus::class, 'counseling_status_id', 'id');
+    }
+
+    public function Session()
+    {
+        return $this->belongsTo(CounselingSession::class, 'session_id', 'id');
+    }
+
+    public function isExpired()
+    {
+        $currentDateTime = Carbon::now()->addHour();
+        $counselingDateTime = Carbon::parse($this->counseling_date->format('Y-m-d') . ' ' . $this->Session->end_time);
+
+        return $currentDateTime->greaterThan($counselingDateTime);
     }
 }

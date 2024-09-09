@@ -33,7 +33,7 @@ class StudentRequest extends FormRequest
             'birth_date' => 'string',
             'year_of_entry' => 'string',
             'password' => 'min:8',
-            'image' => 'image|mimes:jpeg,png,jpg,gif,svg',
+            'image' => 'image|mimes:jpeg,png,jpg,gif,svg|nullable',
         ];
     }
 }

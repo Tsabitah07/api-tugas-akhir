@@ -4,6 +4,7 @@ namespace Database\Seeders;
 
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use App\Models\ArticleCategory;
+use App\Models\CounselingSession;
 use App\Models\CounselingStatus;
 use App\Models\DataCategory;
 use App\Models\DataService;
@@ -191,6 +192,42 @@ class DatabaseSeeder extends Seeder
 
         ArticleCategory::create([
             'category_name' => 'Terapi Kelompok'
+        ]);
+
+        CounselingSession::create([
+            'name' => 'Session 1',
+            'start_time' => '08:00:00',
+            'end_time' => '09:00:00'
+        ]);
+
+        CounselingSession::create([
+            'name' => 'Session 2',
+            'start_time' => '09:00:00',
+            'end_time' => '10:00:00'
+        ]);
+
+        CounselingSession::create([
+            'name' => 'Session 3',
+            'start_time' => '10:00:00',
+            'end_time' => '11:00:00'
+        ]);
+
+        CounselingSession::create([
+            'name' => 'Session 4',
+            'start_time' => '11:00:00',
+            'end_time' => '12:00:00'
+        ]);
+
+        CounselingSession::create([
+            'name' => 'Session 5',
+            'start_time' => '13:00:00',
+            'end_time' => '14:00:00'
+        ]);
+
+        CounselingSession::create([
+            'name' => 'Session 6',
+            'start_time' => '14:00:00',
+            'end_time' => '15:00:00'
         ]);
 
         User::create([

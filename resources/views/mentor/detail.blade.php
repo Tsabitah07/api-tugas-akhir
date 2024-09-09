@@ -42,7 +42,7 @@
 
                             <div style="width: 16.5vw; height: 19vh; display: flex; flex-direction: column; justify-content: space-between; font-size: large">
                                 <p style="margin: 0; padding: 0">: {{$mentor->birth_place}}</p>
-                                <p style="margin: 0; padding: 0">: {{\Carbon\Carbon::parse($mentor->birth_date)->format('F m, Y')}}</p>
+                                <p style="margin: 0; padding: 0">: {{$mentor->birth_date}}</p>
                                 <p style="margin: 0; padding: 0">: {{$mentor->age}} years old</p>
                                 <p style="margin: 0; padding: 0">: {{$mentor->gender}}</p>
                             </div>

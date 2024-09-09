@@ -8,7 +8,7 @@
 
         <div style="display: flex; flex-direction: column; gap: 20px">
             <a href="/admin/dashboard" style="margin-top: 20px; text-decoration: none; font-size: large; font-weight: bold; color: #9F41EA">Dashboard</a>
-            <a href="/admin/mentor" style="text-decoration: none; font-size: large; font-weight: bold; color: #9F41EA">Mentor</a>
+            <a href="/admin/mentor" style="text-decoration: none; font-size: large; font-weight: bold; color: #9F41EA">Konselor</a>
             <a href="/admin/student" style="text-decoration: none; font-size: large; font-weight: bold; color: #9F41EA">Student</a>
             <a href="/admin/counseling" style="text-decoration: none; font-size: large; font-weight: bold; color: #9F41EA">Counseling</a>
             <a href="/admin/article" style="text-decoration: none; font-size: large; font-weight: bold; color: #9F41EA">Article</a>

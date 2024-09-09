@@ -16,7 +16,7 @@ return new class extends Migration
             $table->foreignId('grade_id');
             $table->string('student_id');
             $table->dateTime('counseling_date');
-            $table->string('time');
+            $table->foreignId('session_id');
             $table->boolean('expired')->default(false);
             $table->string('service');
             $table->string('subject');

@@ -25,7 +25,7 @@ class EditCounselingRequest extends FormRequest
             'grade_id' => 'integer|nullable',
             'student_id' => 'integer|nullable',
             'counseling_date' => 'date|nullable',
-            'time' => 'string|nullable',
+            'session_id' => 'nullable',
             'expired' => 'boolean|nullable',
             'service' => 'string|nullable',
             'subject' => 'string|nullable',

@@ -1,7 +1,7 @@
 @extends('layout.main')
 @section('container')
     <div style="height: 100vh; width: 80vw;display: flex;flex-direction: column; justify-content: start; overflow: auto; white-space: nowrap; margin-top: 10vh;">
-        <div style="width: 80vw; height: 9vh; display: flex; flex-direction: row; padding: 5px 35px 0 15px; justify-content: space-between; align-items: center">
+        <div style="width: 78vw; height: 9vh; display: flex; flex-direction: row; padding: 5px 35px 0 15px; justify-content: space-between; align-items: center">
             <h4>Jumlah Data Siswa</h4>
         </div>
         <div style="display: flex; flex-direction: row; justify-content: start; gap: 10px; width: 63vw; padding: 0 15px">
@@ -32,7 +32,7 @@
 
             {{--                <div style="background: #1a202c; width: 13vw; height: 7vw"></div>--}}
         </div>
-        <div style="width: 80vw; height: 9vh; display: flex; flex-direction: row; padding: 5px 35px 0 15px; justify-content: space-between; align-items: center">
+        <div style="width: 78vw; height: 9vh; display: flex; flex-direction: row; padding: 5px 35px 0 15px; justify-content: space-between; align-items: center">
             <div style="display: flex;flex-direction: row; gap: 10px">
                 <form action="/student/search" method="get" style="display: flex; flex-direction: row; gap: 5px">
                     <input type="search" placeholder="Search" aria-label="search" name="search" value="{{old('search')}}" style="height: 35px; width: 260px; border: 1px solid gray; border-radius: 7px; padding-left: 10px; margin: 0">

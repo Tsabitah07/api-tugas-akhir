@@ -11,6 +11,7 @@ use App\Models\Counseling;
 use App\Models\Grade;
 use App\Models\Student;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Storage;
 use Maatwebsite\Excel\Excel;
 
@@ -47,6 +48,10 @@ class StudentController extends Controller
     {
         $student = Student::find($id);
 
+        if ($student->image == null){
+            $student->image = 'https://www.svgrepo.com/show/381886/user-profile-person.svg';
+        }
+
         return view('student.detail',[
             'title' => 'Student Detail',
             'student' => $student,
@@ -69,17 +74,26 @@ class StudentController extends Controller
         ]);
     }
 
-    public function store(StudentRequest $request)
+    public function store(  Request $request)
     {
         $student = $request->all();
 
-        if ($request->hasFile('image')) {
-            $student['image'] = Storage::url($request->file('image')->store('images/profile', 'public'));
-        }
+        $student['password'] = Hash::make($request->password);
 
-        $student['password'] = bcrypt($request->password);
+        $students = [
+            'name' => $student['name'],
+            'nis' => $student['nis'],
+            'email' => $student['email'],
+            'username' => $student['username'],
+            'grade_id' => $student['grade_id'],
+            'year_of_entry' => $student['year_of_entry'],
+            'phone_number' => $student['phone_number'],
+            'birth_place' => $student['birth_place'],
+            'birth_date' => $student['birth_date'],
+            'password' => $student['password'],
+        ];
 
-        Student::create($student);
+        Student::create($students);
 
         return redirect('/admin/student');
     }
@@ -132,6 +146,10 @@ class StudentController extends Controller
         $search = $request->input('search');
         $students = Student::where('name', 'like', '%'.$search.'%')
             ->orWhere('nis', 'like', '%'.$search.'%')
+            ->orWhere('year_of_entry', 'like', '%'.$search.'%')
+            ->orWhereHas('Grade', function ($query) use ($search) {
+                $query->where('grade_name', 'like', '%'.$search.'%');
+            })
             ->get();
 
         // Fetch years and counts

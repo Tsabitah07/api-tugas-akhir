@@ -17,32 +17,20 @@
                     <input type="text" name="username" id="username" class="form-control" value="{{ old('username', $student->username) }}" required>
                 </div>
                 <div class="form-group">
-                    <label for="username">Email:</label>
+                    <label for="email">Email:</label>
                     <input type="email" name="email" id="email" class="form-control" value="{{ old('email', $student->email) }}">
                 </div>
                 <div class="form-group">
-                    <label for="phone">No Telp:</label>
-                    <input type="text" name="phone" id="phone" class="form-control" value="{{ old('email', $student->phone_number) }}">
+                    <label for="phone_number">No Telp:</label>
+                    <input type="text" name="phone_number" id="phone_number" class="form-control" value="{{ old('email', $student->phone_number) }}">
                 </div>
                 <div class="form-group">
                     <label for="tempat_lahir">Birth Place:</label>
                     <input type="text" name="tempat_lahir" id="tempat_lahir" class="form-control" value="{{ old('birth_place', $student->birth_place) }}" required>
                 </div>
                 <div class="form-group">
-                    @php
-                        $birth_date = $student->birth_date;
-                        $format = 'd-m-Y';
-
-                        // Check if the date is already in 'Y-m-d' format
-                        if (preg_match('/\d{4}-\d{2}-\d{2}/', $birth_date)) {
-                            $format = 'Y-m-d';
-                        }
-
-                        $birth_date = \Carbon\Carbon::createFromFormat($format, $birth_date)->format('Y-m-d');
-                    @endphp
-
                     <label for="birth_date">Birthdate:</label>
-                    <input type="date" name="birth_date" id="birth_date" class="form-control" value="{{ old('birth_date', $birth_date)}}" required>
+                    <input type="date" name="birth_date" id="birth_date" class="form-control" value="{{ old('birth_date', \Carbon\Carbon::parse($student->birth_date)->format('Y-m-d'))}}" required>
                 </div>
                 <div class="form-group">
                     <label for="grade_id">Major:</label>

@@ -4,6 +4,7 @@ namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\DataRequest;
+use App\Models\CounselingSession;
 use App\Models\CounselingStatus;
 use App\Models\DataCategory;
 use App\Models\DataService;
@@ -151,6 +152,16 @@ class DisplayDataController extends Controller
         return response()->json([
             'message' => 'Data status',
             'data' => $status
+        ]);
+    }
+
+    public function session()
+    {
+        $session = CounselingSession::all();
+
+        return response()->json([
+            'message' => 'Data session',
+            'data' => $session
         ]);
     }
 }

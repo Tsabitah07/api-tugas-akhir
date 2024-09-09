@@ -13,7 +13,7 @@ class CounselingController extends Controller
 {
     public function index()
     {
-        $counseling = Counseling::latest()->take(7)->get();
+        $counseling = Counseling::latest()->simplePaginate(7);
         $grades = Grade::all();
 
         return view('counseling.index', [

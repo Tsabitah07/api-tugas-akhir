@@ -44,7 +44,7 @@
                     <label for="grade_id">Major:</label>
                     <select class="form-select" name="grade_id" id="grade_id">
                         @foreach($grades as $grade)
-                            <option value={{ $grade->id }}>
+                            <option value="{{ $grade->id }}">
                                 {{ $grade->grade_name }}
                             </option>
                         @endforeach

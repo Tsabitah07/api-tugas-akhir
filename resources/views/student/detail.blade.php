@@ -44,7 +44,7 @@
                                 <p style="margin: 0; padding: 0">: {{$student->username}}</p>
                                 <p style="margin: 0; padding: 0">: {{$student->phone_number}}</p>
                                 <p style="margin: 0; padding: 0">: {{$student->birth_place}}</p>
-                                <p style="margin: 0; padding: 0">: {{\Carbon\Carbon::parse($student->birth_date)->format('F m, Y')}}</p>
+                                <p style="margin: 0; padding: 0">: {{$student->birth_date}}</p>
                             </div>
                         </div>
                     </div>

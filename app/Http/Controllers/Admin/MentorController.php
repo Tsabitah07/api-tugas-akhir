@@ -16,8 +16,15 @@ class MentorController extends Controller
     public function index()
     {
         $mentors = Mentor::latest()->get();
+
+        foreach ($mentors as $mentor) {
+            if ($mentor->image == null){
+                $mentor->image = 'https://www.svgrepo.com/show/381886/user-profile-person.svg';
+            }
+        }
+
         return view('mentor',[
-            'title' => 'Mentor',
+            'title' => 'Konselor',
             'mentors' => $mentors
         ]);
     }
@@ -25,6 +32,10 @@ class MentorController extends Controller
     public function show($id)
     {
         $mentor = Mentor::find($id);
+
+        if ($mentor->image == null){
+            $mentor->image = 'https://www.svgrepo.com/show/381886/user-profile-person.svg';
+        }
 
         return view('mentor.detail',[
             'title' => 'Mentor Detail',

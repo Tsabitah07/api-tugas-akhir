@@ -37,8 +37,7 @@ class ConsultationNotification extends Notification
         return (new MailMessage)
                     ->subject($this->detail['subject'])
                     ->greeting($this->detail['receiver'])
-                    ->line($this->detail['message'])
-                    ->line($this->detail['sender']);
+                    ->line($this->detail['message']);
     }
 
     /**

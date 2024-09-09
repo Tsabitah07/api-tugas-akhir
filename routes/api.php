@@ -150,6 +150,7 @@ Route::group(['prefix' => 'data'], function() {
 
     Route::get('/grade-list', [DisplayDataController::class, 'gradeList']);
     Route::get('/status-counseling-list', [DisplayDataController::class, 'statusCounseling']);
+    Route::get('/session-list', [DisplayDataController::class, 'session']);
 });
 
 Route::group(['prefix' => 'selfcare'], function() {
