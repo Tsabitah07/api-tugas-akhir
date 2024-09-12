@@ -68,7 +68,7 @@
             <div style="display: flex; flex-direction: row; justify-content: space-between; width: 63vw;">
                 <div style="display: flex; flex-direction: row; justify-content: space-between; align-items: center; background: white; border-radius: 7px; width: 20vw; height: 7vw; padding-left: 15px; padding-right: 20px">
                     <div>
-                        <h4 style="text-align: center; color: #1a1a1a">Jumlah Mentor</h4>
+                        <h4 style="text-align: center; color: #1a1a1a">Jumlah Konselor</h4>
                         <p style="padding: 0; margin: 0"><a href="/admin/mentor" style="text-decoration: underline; color: #1a1a1a; font-weight: bold">See Detail</a></p>
                     </div>
                     <h3 style="text-align: center; font-size: xxx-large; color: #1a1a1a">{{$mentor_sum}}</h3>

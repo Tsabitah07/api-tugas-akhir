@@ -58,8 +58,8 @@ class Counseling extends Model
 
     public function isExpired()
     {
-        $currentDateTime = Carbon::now()->addHour();
-        $counselingDateTime = Carbon::parse($this->counseling_date->format('Y-m-d') . ' ' . $this->Session->end_time);
+        $currentDateTime = Carbon::now();
+        $counselingDateTime = Carbon::parse($this->counseling_date->format('Y-m-d') . ' ' . $this->Session->end_time)->addHour();
 
         return $currentDateTime->greaterThan($counselingDateTime);
     }

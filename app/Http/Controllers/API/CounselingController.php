@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Counseling\CheckAvailabilityRequest;
 use App\Http\Requests\Counseling\CounselingRequest;
 use App\Http\Requests\Counseling\EditCounselingRequest;
 use App\Mail\CounselingNotification;
@@ -119,6 +120,128 @@ class CounselingController extends Controller
             'message' => 'Data Counseling berhasil ditambahkan',
             'data' => $counselings,
             'inbox' => $inbox
+        ]);
+    }
+
+    public function checkAvailability()
+    {
+        $mentor = Mentor::find(auth()->user()->id);
+
+        if (!$mentor) {
+            return response()->json([
+                'message' => 'Mentor not found'
+            ]);
+        }
+
+        $today = Carbon::tomorrow();
+        $twoWeeksLater = Carbon::tomorrow()->addWeeks(2);
+
+        $existingCounselings = Counseling::where('grade_id', $mentor->grade_id)
+            ->whereBetween('counseling_date', [$today, $twoWeeksLater])
+            ->get();
+
+        $availability = [];
+
+        $currentDate = $today->copy();
+        while ($currentDate->lte($twoWeeksLater)) {
+            $sessions = [
+                1 => true,
+                2 => true,
+                3 => true,
+                4 => true,
+                5 => true,
+                6 => true
+            ];
+
+            $counselingsOnDate = $existingCounselings->filter(function ($counseling) use ($currentDate) {
+                return $counseling->counseling_date->format('Y-m-d') == $currentDate->format('Y-m-d');
+            });
+
+            foreach ($counselingsOnDate as $counseling) {
+                if (isset($sessions[$counseling->session_id])) {
+                    $sessions[$counseling->session_id] = false;
+                }
+            }
+
+            $availability[] = [
+                'counseling_date' => $currentDate->format('Y-m-d'),
+                'session' => [
+                    'session 1' => $sessions[1],
+                    'session 2' => $sessions[2],
+                    'session 3' => $sessions[3],
+                    'session 4' => $sessions[4],
+                    'session 5' => $sessions[5],
+                    'session 6' => $sessions[6],
+                ]
+            ];
+
+            $currentDate->addDay();
+        }
+
+        return response()->json([
+            'grade_id' => $mentor->grade_id,
+            'availability' => $availability
+        ]);
+    }
+
+    public function checkAvailabilityStudent()
+    {
+        $student = Student::find(auth()->user()->id);
+
+        if (!$student) {
+            return response()->json([
+                'message' => 'Student not found'
+            ]);
+        }
+
+        $today = Carbon::tomorrow();
+        $twoWeeksLater = Carbon::tomorrow()->addWeeks(2);
+
+        $existingCounselings = Counseling::where('grade_id', $student->grade_id)
+            ->whereBetween('counseling_date', [$today, $twoWeeksLater])
+            ->get();
+
+        $availability = [];
+
+        $currentDate = $today->copy();
+        while ($currentDate->lte($twoWeeksLater)) {
+            $sessions = [
+                1 => true,
+                2 => true,
+                3 => true,
+                4 => true,
+                5 => true,
+                6 => true
+            ];
+
+            $counselingsOnDate = $existingCounselings->filter(function ($counseling) use ($currentDate) {
+                return $counseling->counseling_date->format('Y-m-d') == $currentDate->format('Y-m-d');
+            });
+
+            foreach ($counselingsOnDate as $counseling) {
+                if (isset($sessions[$counseling->session_id])) {
+                    $sessions[$counseling->session_id] = false;
+                }
+            }
+
+            $availability[] = [
+                'counseling_date' => $currentDate->format('Y-m-d'),
+                'session' => [
+                    'session 1' => $sessions[1],
+                    'session 2' => $sessions[2],
+                    'session 3' => $sessions[3],
+                    'session 4' => $sessions[4],
+                    'session 5' => $sessions[5],
+                    'session 6' => $sessions[6],
+                ]
+            ];
+
+            $currentDate->addDay();
+        }
+
+        return response()->json([
+            'grade_id' => $student->grade_id,
+            'availability' => $availability
         ]);
     }
 

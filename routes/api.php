@@ -102,6 +102,8 @@ Route::group(['prefix' => 'counseling'], function() {
 
     Route::group(['middleware' => 'auth:sanctum'], function() {
         Route::post('/store', [CounselingController::class, 'store']);
+        Route::get('/check', [CounselingController::class, 'checkAvailability']);
+        Route::get('/student/check', [CounselingController::class, 'checkAvailabilityStudent']);
 
         Route::get('/history', [CounselingStatusController::class, 'history']);
         Route::get('/history-mentor', [CounselingStatusController::class, 'historyMentor']);

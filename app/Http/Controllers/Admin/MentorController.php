@@ -38,7 +38,7 @@ class MentorController extends Controller
         }
 
         return view('mentor.detail',[
-            'title' => 'Mentor Detail',
+            'title' => 'Konselor Detail',
             'mentor' => $mentor
         ]);
     }
@@ -48,7 +48,7 @@ class MentorController extends Controller
         $grade = Grade::all();
 
         return view('mentor.add',[
-            'title' => 'Create Mentor',
+            'title' => 'Create Konselor',
             'grades' => $grade
         ]);
     }
@@ -82,7 +82,7 @@ class MentorController extends Controller
         $grade = Grade::all();
 
         return view('mentor.edit',[
-            'title' => 'Edit Mentor',
+            'title' => 'Edit Konselor',
             'mentor' => $mentor,
             'grades' => $grade
         ]);
@@ -124,7 +124,7 @@ class MentorController extends Controller
         $mentors = Mentor::where('name', 'like', '%'.$search.'%')->get();
 
         return view('mentor',[
-            'title' => 'Mentor',
+            'title' => 'Konselor',
             'mentors' => $mentors
         ]);
     }

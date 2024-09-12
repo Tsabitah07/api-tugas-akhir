@@ -70,7 +70,7 @@
                     <label for="image">Image:</label>
                     <input type="file" name="image" id="image" class="form-control">
                 </div>
-                <button type="submit" class="btn btn-primary" style="margin-top: 15px; margin-bottom: 20px">Tambah mentor data</button>
+                <button type="submit" class="btn btn-primary" style="margin-top: 15px; margin-bottom: 20px">Tambah konselor data</button>
             </form>
         </div>
     </div>
