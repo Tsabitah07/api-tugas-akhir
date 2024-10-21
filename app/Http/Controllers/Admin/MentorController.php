@@ -65,6 +65,8 @@ class MentorController extends Controller
             if ($request->grade_id == 1) {
                 $data['password'] = Hash::make('mentor123');
             }
+        } else {
+            $data['password'] = Hash::make($request->password);
         }
 
         if ($request->hasFile('image')) {
